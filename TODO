@@ -1,9 +1,9 @@
 Initial
-- Add email OR oath support
-- Add help to settings
-- Add tagging support
-- Create documentation
+- password recovery (email) or oath support
+- help to settings page
+- documentation
 
 Future?
-- Asset hosting
-- Template management
+- tagging support
+- design management
+- asset hosting
