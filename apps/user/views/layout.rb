@@ -19,6 +19,10 @@ class UserApp
         site['domain']
       end
       
+      def site_location
+        site['location']
+      end
+      
       ##
       # Dynamic Methods
       #
