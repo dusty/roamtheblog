@@ -1,0 +1,53 @@
+<article class="post">
+  <header>
+    <h1>
+      {{page_header}}
+      <span class="tiny">({{^new_page}}<a href="/{{page_slug}}" target="_new">Preview</a> | {{/new_page}}<a href="/admin/pages" >Cancel</a>)</span>
+    </h1>
+    
+  </header>
+  <section class="content">
+    
+    <form action="{{page_action}}" method="post" name="login">
+    <input type="hidden" name="_method" value="{{page_method}}" />
+      
+      <fieldset>
+        <p>
+          <label for="title">Title</label>
+          <span class="error">{{page_title_error}}</span>
+          <br/>
+          <input id="title" name="page[title]" placeholder="Page Title" 
+                  class="text" value="{{page_title}}" />
+        </p>
+
+        <p>
+          <label for="title">Body</label>
+          &nbsp;
+          <span class="small">
+          (<a href="http://redcloth.org/hobix.com/textile/quick.html"
+              target="_new">Cheatsheet</a>
+          | <a href="http://redcloth.org/textile" 
+             target="_new">Documentation</a>)
+          </span>
+          <span class="error">{{page_body_error}}</span>
+          <br/>
+          <textarea id="body" name="page[body]" 
+                    placeholder="This is the main content of the page."
+                    class="large-area">{{{page_body}}}</textarea>     
+        </p>
+
+        <p>
+          <input name="submit" value="Submit" type="submit" class="submit" />
+          | <a href="/admin/pages">Cancel</a>
+          {{^new_page}}
+          | <a href="/admin/pages/{{page_slug}}" class="delete_prompt"
+               rel="Are you sure you want to delete this page?">Delete</a>
+          {{/new_page}}
+        </p>
+      </fieldset>
+      
+    </form>
+
+  </section>
+</article>
+

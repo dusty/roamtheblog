@@ -1,0 +1,147 @@
+<article class="post">
+  <header>
+    <h1>
+      {{page_header}}
+      <span class="tiny">(<a href="/admin/designs" >Cancel</a>)</span>
+    </h1>
+    
+  </header>
+  <section class="content">
+    
+    <form action="{{page_action}}" method="post" name="design">
+    <input type="hidden" name="_method" value="{{page_method}}" />
+      
+      <fieldset>
+        <p>
+          <label for="name">Name</label>
+          <span class="error">{{design_name_error}}</span>
+          <br/>
+          <input id="name" name="design[name]" placeholder="My Design Name" 
+                  class="text" value="{{design_name}}" />
+        </p>
+        
+        <p>
+          <label for="description">Description</label>
+          <span class="error">{{design_description_error}}</span>
+          <br/>
+          <input id="description" name="design[description]" 
+                 placeholder="This is a wonderful design that I love." 
+                 class="text" value="{{design_description}}" 
+                 style="width: 600px;" />
+        </p>
+
+        <p>
+          <label for="layout">Layout</label>
+          <span class="small">(HELP)</span>
+          <span class="error">{{design_layout_error}}</span>
+          <br/>
+          <textarea id="layout" name="design[layout]" 
+                    placeholder="This is the main layout of the site."
+                    class="large-area">{{{design_layout}}}</textarea>     
+        </p>
+        
+        <p>
+          <label for="blog">Blog</label>
+          <span class="small">(HELP)</span>
+          <span class="error">{{design_blog_error}}</span>
+          <br/>
+          <textarea id="blog" name="design[blog]" 
+                    placeholder="This is the blog listing page."
+                    class="large-area">{{{design_blog}}}</textarea>     
+        </p>
+        
+        <p>
+          <label for="page">Page</label>
+          <span class="small">(HELP)</span>
+          <span class="error">{{design_page_error}}</span>
+          <br/>
+          <textarea id="page" name="design[page]" 
+                    placeholder="This is the Page template."
+                    class="large-area">{{{design_page}}}</textarea>     
+        </p>
+        
+        <p>
+          <label for="post">Post</label>
+          <span class="small">(HELP)</span>
+          <span class="error">{{design_post_error}}</span>
+          <br/>
+          <textarea id="post" name="design[post]" 
+                    placeholder="This is the Post template."
+                    class="large-area">{{{design_post}}}</textarea>     
+        </p>
+        
+        <p>
+          <label for="home">Home</label>
+          <span class="small">(HELP)</span>
+          <span class="error">{{design_home_error}}</span>
+          <br/>
+          <textarea id="home" name="design[home]" 
+                    placeholder="This is the Home template."
+                    class="large-area">{{{design_home}}}</textarea>     
+        </p>
+        
+        <p>
+          <label for="feed">Feed</label>
+          <span class="small">(HELP)</span>
+          <span class="error">{{design_feed_error}}</span>
+          <br/>
+          <textarea id="feed" name="design[feed]" 
+                    placeholder="This is the RSS Feed."
+                    class="large-area">{{{design_feed}}}</textarea>     
+        </p>
+        
+        <p>
+          <label for="missing">Missing</label>
+          <span class="small">(HELP)</span>
+          <span class="error">{{design_missing_error}}</span>
+          <br/>
+          <textarea id="missing" name="design[missing]" 
+                    placeholder="This is the Not Found / Missing template."
+                    class="large-area">{{{design_missing}}}</textarea>     
+        </p>
+        
+        <p>
+          <label for="error">Error</label>
+          <span class="small">(HELP)</span>
+          <span class="error">{{design_error_error}}</span>
+          <br/>
+          <textarea id="error" name="design[error]" 
+                    placeholder="This is the Error template."
+                    class="large-area">{{{design_error}}}</textarea>     
+        </p>
+
+        <p>
+          <label for="style">CSS Stylesheet</label>
+          <span class="small">(HELP)</span>
+          <span class="error">{{design_style_error}}</span>
+          <br/>
+          <textarea id="style" name="design[style]" 
+                    placeholder="This is the CSS Stylesheet template."
+                    class="large-area">{{{design_style}}}</textarea>     
+        </p>
+        
+        <p>
+          <label for="script">Javascript</label>
+          <span class="small">(HELP)</span>
+          <span class="error">{{design_script_error}}</span>
+          <br/>
+          <textarea id="script" name="design[script]" 
+                    placeholder="This is the Javascript template."
+                    class="large-area">{{{design_script}}}</textarea>     
+        </p>
+        
+        <p>
+          <input name="submit" value="Submit" type="submit" class="submit" />
+          | <a href="/admin/designs">Cancel</a>
+          {{^new_design}}
+          | <a href="/admin/designs/{{design_id}}" class="delete_prompt"
+               rel="Delete this design?">Delete</a>
+          {{/new_design}}
+        </p>
+      </fieldset>
+      
+    </form>
+
+  </section>
+</article>
+

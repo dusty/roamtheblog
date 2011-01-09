@@ -1,0 +1,57 @@
+<article class="post">
+  <header>
+    <h1>
+      {{page_header}}
+      <span class="tiny">(<a href="/admin/users" >Cancel</a>)</span>
+    </h1>
+    
+  </header>
+  <section class="content">
+    
+    <form action="{{page_action}}" method="post" name="design">
+    <input type="hidden" name="_method" value="{{page_method}}" />
+      
+      <fieldset>
+        <p>
+          <label for="login">Login</label>
+          <span class="error">{{user_login_error}}</span>
+          <br/>
+          <input id="login" name="user[login]" placeholder="username" 
+                  class="text" value="{{user_login}}" />
+        </p>
+        <p>
+          <label for="name">Name</label>
+          <span class="error">{{user_name_error}}</span>
+          <br/>
+          <input id="name" name="user[name]" placeholder="First Last" 
+                  class="text" value="{{user_name}}" />
+        </p>
+        <p>
+          <label for="password">Password</label>
+          <span class="error">{{user_password_error}}</span>
+          <br/>
+          <input id="password" name="password" 
+                 placeholder="password" class="text" value="" />
+        </p>
+        <p>
+          <label for="password_confirmation">Password Confirmation</label>
+          <span class="error">{{user_password_confirmation_error}}</span>
+          <br/>
+          <input id="password_confirmation" name="password_confirmation"
+                 placeholder="password" class="text" value="" />
+        </p>
+        
+        <p>
+          <input name="submit" value="Submit" type="submit" class="submit" />
+          | <a href="/admin/users">Cancel</a>
+          {{^new_user}}
+          | <a href="/admin/users/{{user_id}}" class="delete_prompt"
+               rel="Delete this user?">Delete</a>
+          {{/new_user}}
+        </p>
+      </fieldset>
+
+    </form>
+
+  </section>
+</article>

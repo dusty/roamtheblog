@@ -1,0 +1,18 @@
+<article class="post">
+  <header>
+    <h1>
+      Pages <span class="tiny">(<a href="/admin/pages/new">New</a>)</span>
+    </h1>
+  </header>
+  <section class="content">
+    <table>
+      <tr>
+        <th>Last Update</th>
+        <th>Title (edit)</th>
+        <th>URL (preview)</th>
+      </tr>
+      {{#pages}}{{> _page}}{{/pages}}
+    </table>
+  </section>
+</article>
+

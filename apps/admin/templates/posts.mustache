@@ -1,0 +1,22 @@
+<article class="post">
+  <header>
+    <h1>
+      Posts
+      <span class="tiny">(<a href="/admin/posts/new">New</a>)</span>
+    </h1>
+  </header>
+  <section class="content">
+    <table>
+      <tr>
+        <th>Date</th>
+        <th>Status</th>
+        <th>Title (edit)</th>
+        <th>URL (preview)</th>
+      </tr>
+      {{#nodate_posts}}{{> _post}}{{/nodate_posts}}
+      {{#future_posts}}{{> _post}}{{/future_posts}}
+      {{#active_posts}}{{> _post}}{{/active_posts}}
+    </table>
+  </section>
+</article>
+

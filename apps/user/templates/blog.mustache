@@ -1,0 +1,14 @@
+<h1>All Posts</h1>
+
+<section class="recent">
+  
+  <table>
+    {{#posts}}
+    <tr>
+      <td class="time"><time>{{post_date}}</time></td>
+      <td><a href="{{post_path}}">{{post_title}}</a></td>
+    </tr>
+    {{/posts}}
+  </table>
+
+</section>

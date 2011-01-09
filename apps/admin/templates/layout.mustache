@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="/admin.css" />
+    <title>{{site_title}}</title>
+    <script src="/jquery.js"></script>
+    <script src="/admin.js"></script>
+    <!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <header>
+      <nav>
+        {{#current_user}}
+        <a href="/admin/pages">Pages</a>
+        <a href="/admin/posts">Posts</a>
+        <a href="/admin/settings">Settings</a>
+        <a href="/admin/designs">Designs</a>
+        <a href="/admin/users">Users</a>
+        |
+        <a href="/admin/session" class="delete">Logout</a>
+        {{/current_user}}
+      </nav>
+      <h1><a href="/" target="_new">{{site_domain}}</a></h1>
+    </header>
+    <aside id="message">
+      {{#message_warning}}
+        <p class="warning">{{message_warning}}</p>
+      {{/message_warning}}
+      {{#message_notice}}
+        <p class="notice">{{message_notice}}</p>
+      {{/message_notice}}
+    </aside>
+    <section>
+      {{{yield}}}
+    </section>
+    <footer>
+      <section class="right">
+        <p>&copy; {{site_domain}}</p>
+      </section>
+    </footer>
+  </body>
+</html>

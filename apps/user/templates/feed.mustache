@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<feed xmlns="http://www.w3.org/2005/Atom"> 
+  <title>{{site_title}}</title> 
+  <id>http://{{site_domain}}</id> 
+  <updated>{{site_updated}}</updated> 
+  <author><name>{{site_domain}}</name></author>
+  {{#posts}}
+  <entry> 
+    <title>{{post_title}}</title> 
+    <link rel="alternate" href="{{post_path}}"/> 
+    <id>{{post_path}}</id> 
+    <published>{{post_published}}</published> 
+    <updated>{{post_updated}}</updated> 
+    <author><name>{{post_author}}</name></author> 
+    <summary type="html">{{post_summary}}</summary> 
+    <content type="html">{{post_html}}</content> 
+  </entry>
+  {{/posts}}
+</feed>
