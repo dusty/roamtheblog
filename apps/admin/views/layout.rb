@@ -4,6 +4,10 @@ class AdminApp
       
       include ViewHelpers
 
+      def timestamp
+        Time.now.to_i.to_s
+      end
+      
       def message_notice
         @flash['notice'] if @flash
       end
