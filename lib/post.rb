@@ -57,7 +57,7 @@ class Post < Mongomatic::Base
   end
   
   def excerpt
-    self['body'].split(' ')[0..25].join(' ') + " ..."
+    HTML_Truncator.truncate(html, 15)
   end
   
   def active?

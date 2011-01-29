@@ -5,6 +5,7 @@ require "bundler/setup"
 # Include required gems
 %w{ 
   mongomatic rack-flash sinatra/base RedCloth mustache/sinatra chronic tzinfo
+  html_truncator
 }.each {|req| require req }
 
 # Init mongo connection

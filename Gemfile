@@ -9,3 +9,4 @@ gem 'activesupport', '>3.0'
 gem 'tzinfo'
 gem 'i18n'
 gem "aaronh-chronic", "0.3.9"
+gem "html_truncator"
