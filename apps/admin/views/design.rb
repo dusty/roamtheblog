@@ -1,5 +1,3 @@
-# encoding: UTF-8
-
 class AdminApp
   module Views
     class Design < Layout

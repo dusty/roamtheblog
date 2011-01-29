@@ -1,5 +1,3 @@
-# encoding: UTF-8
-
 class UserApp < BaseApp
   
   not_found do

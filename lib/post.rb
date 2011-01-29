@@ -53,11 +53,11 @@ class Post < Mongomatic::Base
   end
   
   def html
-    RedCloth.new(self['body']).to_html
+    RedCloth.new(self['body'].force_encoding('ISO-8859-1')).to_html
   end
   
   def excerpt
-    self['body'].split(' ')[0..25].join(' ') + " ..."
+    self['body'].force_encoding('ISO-8859-1').split(' ')[0..25].join(' ') + " ..."
   end
   
   def active?
