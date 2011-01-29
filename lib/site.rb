@@ -36,6 +36,7 @@ class Site < Mongomatic::Base
     self['timezone'] ||= 'UTC'
     self['cache']    ||= 300
     self['settings'] ||= {}
+    self['settings']['primary_color'] = '#295187'
   end
   
   def normalize_attributes
