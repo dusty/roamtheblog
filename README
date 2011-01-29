@@ -1,11 +1,40 @@
-Blog/CMS Software that runs http://roamthepla.net.
+** TDOCUMENTATION IS IN PROGRESS **
+
+Simple Blog/CMS Software that runs http://roamthepla.net.
 
 Features
- * ruby
- * sinatra
- * mustache
- * disqus
- * mongodb
- * heroku
+  * ruby
+  * sinatra
+  * mustache
+  * mongodb
+  * heroku
+ 
+Default template setup for use with:
+  * disqus
+  * google analytics
+  * feedburner
+  * facebook
+  * youtube
+  * twitter
 
-Docs
+Requirements
+  Roamtheblog saves its data to a MongoDB database.  If you don't want to run
+  your own, I recommend using Mongo Machine (mongomachine.com).
+  
+  You will need access to a server that can run ruby code.  If you don't
+  want to run your own, I recommend using Heroku (heroku.com).
+  
+Installation
+  - create mongomachine account
+  - create github account
+  - create heroku account
+  - git clone
+  - set variables
+  - deploy to heroku
+  - login to admin
+  - change username/password
+  
+Usage
+  - Templates
+  - Etc...
+  
