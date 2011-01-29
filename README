@@ -24,17 +24,60 @@ Requirements
   You will need access to a server that can run ruby code.  If you don't
   want to run your own, I recommend using Heroku (heroku.com).
   
+Optimizations
+  Roamtheblog is optimized to run on Heroku by setting a Cache-Control header
+  to 300 seconds by default.  You can adjust that number as you wish in the
+  Settings panel.
+  
+  Heroku or any other host that runs a cache such as Varnish in front of your
+  app, will honor this number and cache pages for this long. This means your
+  app is only hit once every 5 minutes for each page.  The rest of the
+  requests are served by the cache server.  
+  
+  This will speed up the site and help to keep your Heroku account free by
+  limiting the number of requests that your app needs to serve.
+
 Installation
   - create mongomachine account
   - create github account
   - create heroku account
-  - git clone
-  - set variables
+  - git clone the app
+  - setup required variables
   - deploy to heroku
-  - login to admin
+  - login to admin panel
   - change username/password
   
-Usage
-  - Templates
-  - Etc...
+Templates
+  You can create a template for displaying the html of your pages.  By default
+  a copy of the template used on roamthepla.net is included.  You can copy
+  this template and make changes to it, or create your own.  Whenever you like
+  you can switch between templates in the admin panel.
   
+Settings
+  You can create any settings you want in the admin settings section and
+  use them in your templates.
+  
+  For example, if you create a setting named
+  'flickr' with the value of 'myflickr', then you can use {{setting_flickr}}
+  in any of your templates and it will be replaced with 'myflickr'
+  
+Default Template
+  There are several settings built in to the default template.  Just create
+  them in the Settings panel and add the value you want to active it.
+  
+  Required
+  * primary_color - Sets the main text color of the page
+  
+  Optional
+  * logo - Provide a link to a logo to include in the header of the page.
+  
+  Enhancements
+  * feedburner - Use your feedburner id to enable feedburner RSS feeds.
+  * analytics - Track page visits with your google analytics id.
+  * disqus - Use disqus for comments with your disqus id.
+  
+  Links (on bottom of pages)
+  * facebook - Link to your facebook site/page
+  * twitter - Link to your twitter page
+  * youtube - Link to your youtube account
+  * flickr - Link to your flickr account
