@@ -34,7 +34,7 @@ class Page < Mongomatic::Base
 
   # Convert body to html
   def html
-    RedCloth.new(self['body']).to_html
+    RedCloth.new(self['body'].force_encoding('ISO-8859-1')).to_html
   end
   
   protected
