@@ -2,8 +2,8 @@ class UserApp
   module Views
     class Error < Layout
       
-      def initialize(site)
-        @site = site
+      def title
+        "Error"
       end
       
     end

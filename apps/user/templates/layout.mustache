@@ -3,10 +3,17 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="/style.css" />
+    {{#setting_feedburner}}
     <link rel="alternate" type="application/rss+xml" 
-          title="{{site_title}} RSS feed"
+          title="{{site_title}} RSS Feed"
           href="http://feeds.feedburner.com/{{setting_feedburner}}" />
-    <title>{{site_title}}</title>
+    {{/setting_feedburner}}
+    {{^setting_feedburner}}
+    <link rel="alternate" type="application/rss+xml" 
+          title="{{site_title}} RSS Feed"
+          href="http://{{site_domain}}/{{index.xml}}" />
+    {{/setting_feedburner}}
+    <title>{{page_title}}</title>
     <!--[if IE]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->

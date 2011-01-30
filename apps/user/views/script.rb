@@ -1,10 +1,6 @@
 class UserApp
   module Views
-    class Script < Mustache
-
-      def initialize(site)
-        @site = site
-      end
+    class Script < Layout
       
     end
   end

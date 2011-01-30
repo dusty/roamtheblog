@@ -2,15 +2,11 @@ class UserApp
   module Views
     class Page < Layout
   
-      def initialize(site, page)
-        @site, @page = site, page
-      end
-  
-      def page_title
+      def title
         @page['title']
       end
   
-      def page_html
+      def html
         @page.html
       end
       
