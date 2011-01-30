@@ -6,7 +6,7 @@ class UserApp
         @site, @posts, @post = site, posts, post
       end
       
-      def title
+      def site_title
         "#{site['title']} - #{@post['title']}"
       end
 

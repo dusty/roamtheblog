@@ -1,4 +1,4 @@
-** TDOCUMENTATION IS IN PROGRESS **
+** DOCUMENTATION IS IN PROGRESS **
 
 Simple Blog/CMS Software that runs http://roamthepla.net.
 
@@ -6,6 +6,7 @@ Features
   * ruby
   * sinatra
   * mustache
+  * redcloth
   * mongodb
  
 Clean default template setup for use with:
@@ -29,12 +30,12 @@ Optimizations
   Settings panel.
   
   Heroku or any other host that runs a cache such as Varnish in front of your
-  app, will honor this number and cache pages for this long. This means your
+  app, will honor this setting and cache pages for this long. This means your
   app is only hit once every 5 minutes for each page.  The rest of the
   requests are served by the cache server.  
   
-  This will speed up the site and help to keep your Heroku account free by
-  limiting the number of requests that your app needs to serve.
+  This will speed up the site and help to keep your Heroku account from
+  being overwhelmed by limiting the number of requests that your app serves.
 
 Installation (needs further explanation)
   - create mongomachine account
@@ -163,6 +164,10 @@ Variables
 
       
 Default Template
+  The default template is a clean and clutter-free template used to power
+  roamthepla.net.  Feel free to use it, or copy it and modify it as you
+  wish.
+  
   There are several settings built in to the default template.  Just create
   them in the Settings panel and add the value you want to active it.
   
