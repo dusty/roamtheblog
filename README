@@ -7,9 +7,8 @@ Features
   * sinatra
   * mustache
   * mongodb
-  * heroku
  
-Default template setup for use with:
+Clean default template setup for use with:
   * disqus
   * google analytics
   * feedburner
@@ -37,7 +36,7 @@ Optimizations
   This will speed up the site and help to keep your Heroku account free by
   limiting the number of requests that your app needs to serve.
 
-Installation
+Installation (needs further explanation)
   - create mongomachine account
   - create github account
   - create heroku account
@@ -46,27 +45,129 @@ Installation
   - deploy to heroku
   - login to admin panel
   - change username/password
-  
+
+Settings
+  You can create any settings you want in the admin settings section and
+  use them in your templates.
+
+  For example, if you create a setting named 'flickr' with the value of
+  'myflickr', then you can use {{setting_flickr}} in any of your templates 
+  and it will be replaced with the value of 'myflickr'
+    
 Templates
   You can create a template for displaying the html of your pages.  By default
   a copy of the template used on roamthepla.net is included.  You can copy
   this template and make changes to it, or create your own.  Whenever you like
   you can switch between templates in the admin panel.
   
-Settings
-  You can create any settings you want in the admin settings section and
-  use them in your templates.
+  Each template uses the markup language called Mustache for rendering your
+  html.  Mustache allows you to write html using variables and arrays to
+  control the content.
   
-  For example, if you create a setting named
-  'flickr' with the value of 'myflickr', then you can use {{setting_flickr}}
-  in any of your templates and it will be replaced with 'myflickr'
+  For more information, please refer to the Mustache documentation at:
+  http://mustache.github.com/mustache.5.html
+
+Pages
+  The template requires pages of certain names used to render different types
+  of content.  Below is a list of pages found in a template, the URL used
+  to access that page if known, and a brief description.
   
+  Layout
+    - The main layout of the site.  Includes the header, footer, menus
+
+  Error
+    - The content that is presented when there is an error
+    
+  Missing
+    - The content provided when a page is not found
+    
+  Blog (/blog)
+    - Lists all the posts on this blog
+    
+  Feed (/index.xml)
+    - Provides XML output of the page for RSS feeds
+    
+  Home (/)
+    - The main page of the site
+  
+  Page (/about)
+    - Static pages that are not a blog post, such as an About page
+    
+  Post (/blog/20110101-my-blog-post)
+    - Blog post pages
+    
+  Script (/application.js)
+    - Any custom javascript code
+    
+  Style (/style.css)
+    - CSS Stylesheet (with access to variables, such as primary_color!)
+  
+Variables
+  Each page is able to use certain mustache variables in the templates.
+  Please refer to the Mustache documentation for more explanation on how
+  to use the variables.
+  
+  For more information, please refer to the Mustache documentation at:
+  http://mustache.github.com/mustache.5.html
+  
+  Feed (RSS Feed)
+    - site_domain: domain of the site
+    - site_title: title of the site
+    - site_updated: last update of any article
+    - posts: an array of posts that each contain:
+      - post_title: title of the post
+      - post_path: full URL to the post
+      - post_published: publish date of the post
+      - post_updated: last date this post was updated
+      - post_author: author of the post
+      - post_summary: summary of the post
+      - post_html: full html of the post
+          
+  Site-Wide (Except Feed):
+    - setting_X: any setting added in the Settings panel, prefixed _setting
+    - site_title: title of site
+    - site_location: location of the site, provides a google map link
+    - site_domain: domain of the site (eg: mydomain.com)
+      
+  Home (Main page of the site):
+    - post_title: title of the post
+    - post_path: relative URL to the post
+    - post_author: author of this post
+    - post_date: date of the post
+    - posts: an array of posts, ordered by date, that each contain
+      - post_title: title of the post
+      - post_date: date of the post
+      - post_path: relative URL to the post
+                
+  Blog (List of All Articles):
+    - site_title: title of the site (eg: "My Site - Blog")
+    - posts: an array of posts, ordered by date, that each contain
+       - post_title: title of the post
+       - post_date: date of the post
+       - post_path: relative URL to the post
+        
+  Page (Static Page):
+    - site_title: title of the site (eg: "My Site - This Page")
+    - page_title: title of the Page
+    - page_html: full HTML of the page
+      
+  Post (Blog Post):
+    - site_title: title of the site (eg: "My Site - This Blog Post")
+    - post_slug: slug of the post (eg: 20110103-mypost)
+    - post_url: URL to the post (eg: http://mydomain.com/blog/20110101-test)
+    - post_title: title of the post
+    - post_path: relative URL to the post
+    - post_author: author of the post
+    - post_html: full HTML of the page
+    - post_date: date of the post
+
+      
 Default Template
   There are several settings built in to the default template.  Just create
   them in the Settings panel and add the value you want to active it.
   
   Required
-  * primary_color - Sets the main text color of the page
+  * primary_color - Sets the main text color of the page, used in Style.
   
   Optional
   * logo - Provide a link to a logo to include in the header of the page.
