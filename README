@@ -141,19 +141,16 @@ Variables
       - post_path: relative URL to the post
                 
   Blog (List of All Articles):
-    - site_title: title of the site (eg: "My Site - Blog")
     - posts: an array of posts, ordered by date, that each contain
        - post_title: title of the post
        - post_date: date of the post
        - post_path: relative URL to the post
         
   Page (Static Page):
-    - site_title: title of the site (eg: "My Site - This Page")
     - page_title: title of the Page
     - page_html: full HTML of the page
       
   Post (Blog Post):
-    - site_title: title of the site (eg: "My Site - This Blog Post")
     - post_slug: slug of the post (eg: 20110103-mypost)
     - post_url: URL to the post (eg: http://mydomain.com/blog/20110101-test)
     - post_title: title of the post

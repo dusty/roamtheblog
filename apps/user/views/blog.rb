@@ -5,10 +5,6 @@ class UserApp
       def initialize(site,posts)
         @site, @posts = site, posts
       end
-      
-      def site_title
-        "#{site['title']} - Blog"
-      end
   
       def posts
         @posts.map do |post| 

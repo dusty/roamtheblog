@@ -5,10 +5,6 @@ class UserApp
       def initialize(site, page)
         @site, @page = site, page
       end
-      
-      def site_title
-        "#{site['title']} - #{@page['title']}"
-      end
   
       def page_title
         @page['title']
