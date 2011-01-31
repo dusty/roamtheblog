@@ -3,19 +3,19 @@
 Simple Blog/CMS Software that runs http://roamthepla.net.
 
 Features
-  * ruby
-  * sinatra
-  * mustache
-  * redcloth
-  * mongodb
+  * Ruby
+  * Sinatra
+  * Mustache
+  * RedCloth
+  * MongoDB
  
 Clean default template setup for use with:
-  * disqus
-  * google analytics
-  * feedburner
-  * facebook
-  * youtube
-  * twitter
+  * Disqus
+  * Google Analytics
+  * Feedburner
+  * Facebook
+  * YouTube
+  * Twitter
 
 Requirements
   Roamtheblog saves its data to a MongoDB database.  If you don't want to run
@@ -37,15 +37,135 @@ Optimizations
   This will speed up the site and help to keep your Heroku account from
   being overwhelmed by limiting the number of requests that your app serves.
 
-Installation (needs further explanation)
-  - create mongomachine account
-  - create github account
-  - create heroku account
-  - git clone the app
-  - setup required variables
-  - deploy to heroku
-  - login to admin panel
-  - change username/password
+Installation (in progress...)
+
+  Local Server
+    Below are some basic instructions for running the app on your local
+    machine.  This app is a Sinatra/Rack application, so you should be able 
+    to run it with your app server of choice (thin, unicorn, passenger,
+    webrick, mongrel, etc.)
+    
+    If you want more information on running a Sinatra applications, check 
+    out the documentation at:
+      http://www.sinatrarb.com/    
+  
+    Clone repo
+      If you have git installed, and then you can clone the software to your
+      local machine.
+        # git clone git@github.com:dusty/roamtheblog.git
+
+      If you don't have git installed, you can download the zip file at
+      the following url (click on the Downloads button):
+        https://github.com/dusty/roamtheblog
+  
+    Setup Rubygems
+      This application uses bundler to install the required dependencies.
+      The --path part is optional.
+        # cd /the/path/to/the/software
+        # gem install bundler
+        # bundle install --path tmp/
+        
+      You will need the Rack gem installed into your system gems to start
+      the application.  You can just install rack if you aren't familiar
+      with running rack app servers.
+        # gem install rack
+    
+    Start MongoDB
+      If you are running OSX you can install MongoDB easily with homebrew.
+      Check out homebrew at:
+        https://github.com/mxcl/homebrew
+      
+      Once installed, you can install mongodb with the following command:
+        # brew install mongodb
+      
+      Otherwise, you can download and find instructions on running MongoDB at:
+        http://mongodb.org/
+      
+      You can typically start up mongodb by executing the mongod file.
+        # /path/to/mongod
+    
+    Setup MongoDB
+      By default, roamtheblog uses the default of localhost port 27017 and 
+      a database named roamtheblog.  If this is good for you, then no changes
+      are needed.  
+
+      If you want to make changes, you may set the following environmental
+      variables to override whichever settings you need to.
+
+      MONGO_HOST: hostname or IP address of the server
+      MONGO_PORT: port to connect to
+      MONGO_DB:   database name
+      MONGO_USER: username to login with
+      MONGO_PASS: password to login with
+
+    Start Server
+      If you need to change any of the MongoDB variables, put those at the
+      beginning of your startup command
+        # MONGO_DB=myblogdatabase rackup
+      
+      The app is now listening on localhost port 9922 by default with webrick.
+      If you are using a different app server, look at the output to find
+      what port it is listening on.
+    
+      You can then visit the application at (replace 9292, with your port):
+        http://localhost:9292
+      
+  
+  Heroku/Mongomachine
+    Below are some basic instructions for running the app on Heroku.  Please
+    read the documentation on Heroku's website for more detailed information.
+    
+    You can find Heroku's documentation at:
+      http://docs.heroku.com/
+  
+    Setup mongomachine
+      Go to http://mongomachine.com and sign up for an account.  After you've
+      signed up, create a new database and set the database name, username,
+      and password.  After the database has been setup you can find the
+      connection information on the Overview page.
+    
+    Setup heroku
+      Go to http://heroku.com and click on the Sign Up button.  After you've
+      signed up you will be able to deploy a free app to heroku using the
+      email and password you signed up with.
+      
+      First you will need to install the heroku command-line application to
+      your computer.  The easiest way is with rubygems.
+      
+        # gem install heroku
+    
+    Clone repo
+      You will need to have git installed, and then you can clone the
+      roamtheblog software to your local machine.
+      
+      You can install git on OSX with homebrew
+        # brew install git
+      
+      For other systems you can find git at:
+        http://git-scm.com/
+      
+      Once git is installed, clone the repository to your local machine
+        # git clone git@github.com:dusty/roamtheblog.git
+    
+    Create heroku app 
+      Once in the directory of the app, you will need to deploy the app
+      to heroku.  Choose a name for your app and create it with the following
+      command (replace xxxx with your desired app name).
+        # heroku create xxxx bamboo-mri-1.9.2
+
+    Set heroku variables 
+      You will need to setup the connection information you obtained from
+      mongomachine (or any MongoDB provider) and tell Heroku about it with
+      the following command (replace xxxx with your settings).
+        # heroku config:add \
+          MONGO_HOST=xxxx MONGO_PORT=xxxx MONGO_DB=xxxx \
+          MONGO_USER=xxxx MONGO_PASS=xxxx
+            
+    Deploy to heroku
+      Now you can deploy your application to Heroku.  This will setup your
+      app at yourappname.heroku.com.  Login to heroku and look for the
+      custom domain add-on if you'd like to have your own domain.
+        # git push heroku master
 
 Admin Panel
   Go to http://yoursitedomain.com/admin to manage your site.  By default
@@ -86,7 +206,7 @@ Admin Panel
     control the content.
 
     For more information, please refer to the Mustache documentation at:
-    http://mustache.github.com/mustache.5.html
+      http://mustache.github.com/mustache.5.html
       
   Users
     Add and manage users that can login and create content on the site.
@@ -133,7 +253,7 @@ Variables
   to use variables.
   
   You can find the Mustache documentation with more details at:
-  http://mustache.github.com/mustache.5.html
+    http://mustache.github.com/mustache.5.html
           
   Site-Wide:
     setting_X: variables added in the Settings section, prefixed by setting_
