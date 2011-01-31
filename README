@@ -44,15 +44,11 @@ Installation (in progress...)
     machine.  This app is a Sinatra/Rack application, so you should be able 
     to run it with your app server of choice (thin, unicorn, passenger,
     webrick, mongrel, etc.)
-    
-    If you want more information on running a Sinatra applications, check 
-    out the documentation at:
-      http://www.sinatrarb.com/    
   
     Clone repo
       If you have git installed, and then you can clone the software to your
       local machine.
-        # git clone git@github.com:dusty/roamtheblog.git
+        # git clone https://github.com/dusty/roamtheblog.git
 
       If you don't have git installed, you can download the zip file at
       the following url (click on the Downloads button):
@@ -145,7 +141,7 @@ Installation (in progress...)
         http://git-scm.com/
       
       Once git is installed, clone the repository to your local machine
-        # git clone git@github.com:dusty/roamtheblog.git
+        # git clone https://github.com/dusty/roamtheblog.git
     
     Create heroku app 
       Once in the directory of the app, you will need to deploy the app
