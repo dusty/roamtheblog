@@ -348,3 +348,11 @@ footer img {
   vertical-align: bottom;
   border: 0;
 }
+
+section.content ul {
+  margin-left: 10px;
+}
+
+section.content ul ul {
+  margin-left: 20px;
+}

@@ -54,6 +54,10 @@ class AdminApp < BaseApp
     redirect "/admin/posts"
   end
   
+  get '/templates' do
+    mustache :templates
+  end
+  
   get '/settings' do
     mustache :settings
   end
