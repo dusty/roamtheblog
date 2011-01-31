@@ -336,6 +336,19 @@ footer section.left {
   color #444;
 }
 
+footer section.center {
+  clear: both;
+  text-align: center;
+  color: #888;
+  font-style: italic;
+}
+
+footer section.center a {
+  margin: 0;
+  padding: 0;
+  font-style: italic;
+}
+
 footer a {
   margin: 0 10px;
 }
