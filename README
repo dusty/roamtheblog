@@ -43,7 +43,7 @@ Optimizations
   This will speed up the site and help to keep your Heroku account from
   being overwhelmed by limiting the number of requests that your app serves.
 
-Installation (in progress...)
+Installation
 
   Local Server
     Below are some basic instructions for running the app on your local
