@@ -2,7 +2,7 @@
 
 Simple Blog/CMS Software that runs http://roamthepla.net.
 
-Features
+Built With
   * Ruby
   * Sinatra
   * Mustache
@@ -18,6 +18,11 @@ Clean default template setup for use with:
   * YouTube
   * Twitter
 
+Markup
+  Roamtheblog makes it easy to create a website and/or blog.  By using the
+  Textile markup language you can create HTML code on Roamtheblog, without
+  needing to use or learn HTML.
+  
 Requirements
   Roamtheblog saves its data to a MongoDB database.  If you don't want to run
   your own, I recommend using Mongo Machine (mongomachine.com).
@@ -331,6 +336,12 @@ Default Template
     flickr: link to your flickr account
     
 FAQ
+  Q. How do I format a blog post or page?
+  A. Roamtheblog uses the Textile markup to make it easy to write
+     HTML pages without having to understand or use HTML.  When you click
+     on the New link to create a Page or Post, there are links to instructions
+     on how to use the Textile markup language.
+     
   Q. How can I change the blue font color on the default template?
   A. Find the color you like.  It needs to be in a format that CSS
      understands.  Go to the Settings panel and change the primary_color
@@ -346,25 +357,26 @@ FAQ
      your blog post.  You can choose the size you'd like and just copy/paste
      that code into your post.
      
-     By doing it this way, flickr will host all your pictures.  They are
-     setup to optimize serving images and it will decrease the load on your
-     application.  In addition, you may enjoy some of the community features
-     of flickr, youtube, and picasa.
+     By doing it this way, flickr or whomever, will host all your pictures.
+     These companies are optimized in serving images/videos and it will
+     decrease the load on your application.  In addition, you may enjoy some
+     of the community features of these sharing sites.
      
   Q. How can I add a logo to my site?
   A. You need a direct link to the image.  If you are using the default
-     template you can simply add that URL to a setting named logo in the
+     template you can simply add that URL to a setting named 'logo' in the
      Settings panel.
      
      To find a direct link to an image on Flickr, you will need to 
-     right-click and open the image in a new window/tab.  This will give
-     you a direct URL to the image, instead of a URL to the flickr page.
+     right-click and open the image in a new window/tab.  Then copy/paste
+     the URL in the location bar of your browser.  This will give you a direct 
+     URL to the image, instead of a URL to the flickr page.
      
   Q. Why did you write this?
   A. My wife and I are traveling around and blogging about it for our
      friends and family.  We were frustrated with Wordpress and didn't know
-     of any simple alternatives that were easy to use.  So I wrote this myself
-     while we were traveling.
+     of any simple alternatives that were easy to use for non-geeks.  So I
+     wrote this myself while we were traveling.
      
   Q. Why did you release it to the general public?
   A. Perhaps the users of this need something simple to run their own blog? If 
@@ -376,3 +388,4 @@ FAQ
      
   Q. What if I am not a Geek and don't understand these instructions?
   A. I can host this blog software for you if you'd like.  Send me an email.
+  
