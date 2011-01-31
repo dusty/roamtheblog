@@ -253,7 +253,7 @@ Variables
     http://mustache.github.com/mustache.5.html
           
   Site-Wide:
-    setting_xxxx: variables added in the Settings panel
+    setting_xxxx: variables added in the Settings panel, prefixed by _setting
     site_domain: domain of the site (eg: mydomain.com)
     site_title: title of site
     site_location: location of the site or authors of the site
