@@ -34,6 +34,7 @@ class AdminApp < BaseApp
     @site   = Site.first
     login_required
     Time.zone = site['timezone']
+    Chronic.time_class = Time.zone
   end
   
   helpers do
