@@ -8,6 +8,7 @@ Features
   * Mustache
   * RedCloth
   * MongoDB
+  * Mongomatic
  
 Clean default template setup for use with:
   * Disqus
