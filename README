@@ -332,3 +332,50 @@ Default Template
     twitter: link to your twitter page
     youtube: link to your youtube account
     flickr: link to your flickr account
+    
+FAQ
+  Q. How can I change the blue font color on the default template?
+  A. Find the color you like.  It needs to be in a format that CSS
+     understands.  Go to the Settings panel and change the primary_color
+     value to the new color you want.
+
+  Q. How can I add a picture or video to my page or blog post?
+  A. Roamtheblog is as simple as it can be and does not manage media.  I
+     recommend using a site that specializes in that, such as Flickr, Picasa,
+     and YouTube.  
+     
+     For example, when you've uploaded a picture to Flickr, you can share that
+     picture.  One of the options will give you a link to copy/paste into 
+     your blog post.  You can choose the size you'd like and just copy/paste
+     that code into your post.
+     
+     By doing it this way, flickr will host all your pictures.  They are
+     setup to optimize serving images and it will decrease the load on your
+     application.  In addition, you may enjoy some of the community features
+     of flickr, youtube, and picasa.
+     
+  Q. How can I add a logo to my site?
+  A. You need a direct link to the image.  If you are using the default
+     template you can simply add that URL to a setting named logo in the
+     Settings panel.
+     
+     To find a direct link to an image on Flickr, you will need to 
+     right-click and open the image in a new window/tab.  This will give
+     you a direct URL to the image, instead of a URL to the flickr page.
+     
+  Q. Why did you write this?
+  A. My wife and I are traveling around and blogging about it for our
+     friends and family.  We were frustrated with Wordpress and didn't know
+     of any simple alternatives that were easy to use.  So I wrote this myself
+     while we were traveling.
+     
+  Q. Why did you release it to the general public?
+  A. Perhaps the users of this need something simple to run their own blog? If 
+     that's the case, I wanted to help out a fellow traveller/blogger.
+     
+     Most likely, someone may want to learn about Ruby, Sinatra, 
+     or MongoDB.  If that is the case, then I want to help.  The open-source 
+     community helped me learn when I was new and I want to return the favor.
+     
+  Q. What if I am not a Geek and don't understand these instructions?
+  A. I can host this blog software for you if you'd like.  Send me an email.
