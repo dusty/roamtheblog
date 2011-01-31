@@ -309,10 +309,6 @@ class AdminApp < BaseApp
     end
   end
   
-  get '/assets' do
-    mustache :assets
-  end
-  
   get '/users' do
     @users = User.find
     mustache :users
