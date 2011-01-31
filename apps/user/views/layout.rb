@@ -35,11 +35,24 @@ class UserApp
       end
       
       ##
+      # Link to Google Maps based on the Site Location variable
+      def site_map
+        if site_location
+          loc = URI.escape(site_location)
+          <<-EOD
+<a href="http://maps.google.com/?q=#{loc}" target="_map">#{site_location}</a>
+          EOD
+        end
+      end
+      
+      
+      ##
       # Dynamic Methods
       #
       # Create a site_#{key} method for each key in the Site.settings Hash
       # eg: $site.settings['monkey'] creates the site_monkey method
       def generate_dynamic_methods
+        return unless (@site && @site['settings'])
         @site['settings'].each do |k,v|
           self.class.class_eval do
             define_method(:"setting_#{k}") do

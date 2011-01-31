@@ -11,7 +11,7 @@
     {{^setting_feedburner}}
     <link rel="alternate" type="application/rss+xml" 
           title="{{site_title}} RSS Feed"
-          href="http://{{site_domain}}/{{index.xml}}" />
+          href="http://{{site_domain}}/index.xml" />
     {{/setting_feedburner}}
     <title>{{page_title}}</title>
     <!--[if IE]>
@@ -58,10 +58,7 @@
     </header>
     <aside id="message">
       {{#site_location}}
-      <p>Current Location: 
-        <a href="http://maps.google.com/?q={{site_location}}" 
-           target="_map">{{site_location}}</a>
-      </p>
+      <p>Current Location: {{{site_map}}}</p>
       {{/site_location}}
       {{^site_location}}
       <p>&nbsp;</p>

@@ -137,9 +137,10 @@ Variables
           
   Site-Wide:
     setting_X: variables added in the Settings section, prefixed by setting_
-    site_title: title of site
-    site_location: location of the site, provides a google map link
     site_domain: domain of the site (eg: mydomain.com)
+    site_title: title of site
+    site_location: location of the site or authors of the site
+    site_map: link to a google map view based on the site_location
   
   Style, Script, Error, Missing
     No special variables, however, all site-wide variables are accessible.
