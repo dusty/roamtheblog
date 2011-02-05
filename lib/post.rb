@@ -44,7 +44,7 @@ class Post < Mongomatic::Base
   ##
   # Callbacks
   def before_validate
-    parse_date
+    generate_date
     generate_slug
   end
   
@@ -65,20 +65,20 @@ class Post < Mongomatic::Base
   end
 
   protected
-  
-  def parse_date
-    if self['date'].is_a?(String) && _date = Chronic.parse(self['date'])
-      self['date'] = _date.utc
-    end
+  def parse_date(date)
+    return nil if date.blank?
+    date = Chronic.parse(date) if date.is_a?(String)
+    date ? date.utc : nil
   end
   
+  def generate_date
+    self['date'] = parse_date(self['date']) if self['date'].is_a?(String)
+  end
+
   def generate_slug
     return false if self['title'].empty?
-    prefix = if self['date'].is_a?(Time)
-      self['date'].strftime("%Y%m%d")
-    else
-      Time.now.in_time_zone.strftime("%Y%m%d")
-    end
+    date = self['date'].is_a?(Time) ? self['date'] : Time.now.in_time_zone
+    prefix = date.strftime("%Y%m%d")
     self['slug'] = "#{prefix}-#{self['title'].slugize}"
   end
   

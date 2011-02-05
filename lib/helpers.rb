@@ -26,28 +26,23 @@ module ViewHelpers
     end
 
     def get_short_date(date)
-      return "" if date.blank?
-      date = Chronic.parse(date) if date.is_a?(String)
-      if date.is_a?(Time)
-        date = date.in_time_zone
-        date.strftime("%m/%d/%Y %l:%M %P")
-      else
-        ""
-      end
+      date = parse_date(date)
+      date ? date.strftime("%m/%d/%Y %l:%M %P") : ""
     end
 
     def get_long_date(date)
-      return "" if date.blank?
-      date = Chronic.parse(date) if date.is_a?(String)
-      if date.is_a?(Time)
-        date = date.in_time_zone
-        date.strftime("%B #{date.day.ordinal}, %Y")
-      else
-        ""
-      end
+      date = parse_date(date)
+      date ? date.strftime("%B #{date.day.ordinal}, %Y") : ""
     end
     
     private
+    def parse_date(date)
+      return nil if date.blank?
+      date = Chronic.parse(date) if date.is_a?(String)
+      date ? date.in_time_zone : nil
+    end
+      
+    
     def create_getter(variable,attribute)
       self.class.class_eval do
         define_method("#{variable}_#{attribute}") do
