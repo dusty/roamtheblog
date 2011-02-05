@@ -26,17 +26,25 @@ module ViewHelpers
     end
 
     def get_short_date(date)
-      return "---" if date.blank?
+      return "" if date.blank?
       date = Chronic.parse(date) if date.is_a?(String)
-      date = date.in_time_zone
-      date.strftime("%m/%d/%Y %l:%M %P")
+      if date.is_a?(Time)
+        date = date.in_time_zone
+        date.strftime("%m/%d/%Y %l:%M %P")
+      else
+        ""
+      end
     end
 
     def get_long_date(date)
-      return "---" if date.blank?
+      return "" if date.blank?
       date = Chronic.parse(date) if date.is_a?(String)
-      date = date.in_time_zone
-      date.strftime("%B #{date.day.ordinal}, %Y")
+      if date.is_a?(Time)
+        date = date.in_time_zone
+        date.strftime("%B #{date.day.ordinal}, %Y")
+      else
+        ""
+      end
     end
     
     private
