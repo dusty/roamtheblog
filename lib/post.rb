@@ -67,12 +67,14 @@ class Post < Mongomatic::Base
   protected
   
   def parse_date
-    self['date'] = Chronic.parse(self['date']).utc if self['date'].is_a?(String)
+    if self['date'].is_a?(String) && _date = Chronic.parse(self['date'])
+      self['date'] = _date.utc
+    end
   end
   
   def generate_slug
     return false if self['title'].empty?
-    prefix = if self['date']
+    prefix = if self['date'].is_a?(Time)
       self['date'].strftime("%Y%m%d")
     else
       Time.now.in_time_zone.strftime("%Y%m%d")
