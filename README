@@ -377,13 +377,14 @@ FAQ
      wrote this myself while we were traveling.
      
   Q. Why did you release it to the general public?
-  A. Perhaps the users of this need something simple to run their own blog? If 
-     that's the case, I wanted to help out a fellow traveller/blogger.
+  A. If anyone is looking for a simple blog, then perhaps this will be
+     helpful.
      
-     Most likely, someone may want to learn about Ruby, Sinatra, 
-     or MongoDB.  If that is the case, then I want to help.  The open-source 
-     community helped me learn when I was new and I want to return the favor.
+     However, most likely, this is for someone that wants to learn about 
+     Ruby, Sinatra, or MongoDB. The open-source community helped me learn 
+     when I was new and still does now.  I want to return the favor.
      
   Q. What if I am not a Geek and don't understand these instructions?
-  A. I can host this blog software for you if you'd like.  Send me an email.
+  A. If you really want to try it out, then I can setup this blog software for
+     you if you'd like.  Send me an email.
   
