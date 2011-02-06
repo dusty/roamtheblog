@@ -1,6 +1,6 @@
 Simple Blog/CMS Software that runs http://roamthepla.net.
 
-Built With
+Built With:
   * Ruby
   * Sinatra
   * Mustache
@@ -193,7 +193,7 @@ Admin Panel
     each template.  For example, if you create a setting named 'flickr'
     with the value of 'myflickrid', then you can use {{setting_flickr}}
     in any of your templates and it will be replaced with the value of
-    'myflickr'
+    'myflickrid'
       
   Designs
     You can create a design for displaying the html of your pages.  By
