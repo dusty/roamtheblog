@@ -151,7 +151,7 @@ Installation
       Once in the directory of the app, you will need to deploy the app
       to heroku.  Choose a name for your app and create it with the following
       command (replace xxxx with your desired app name).
-        # heroku create xxxx bamboo-mri-1.9.2
+        # heroku create xxxx --stack bamboo-mri-1.9.2 
 
     Set heroku variables 
       You will need to setup the connection information you obtained from
@@ -376,13 +376,9 @@ FAQ
      of any simple alternatives that were easy to use for non-geeks.  So I
      wrote this myself while we were traveling.
      
-  Q. Why did you release it to the general public?
-  A. If anyone is looking for a simple blog, then perhaps this will be
-     helpful.
-     
-     However, most likely, this is for someone that wants to learn about 
-     Ruby, Sinatra, or MongoDB. The open-source community helped me learn 
-     when I was new and still does now.  I want to return the favor.
+  Q. Why did you release it as open source?
+  A. This is for someone that wants to learn about Ruby, Sinatra, or MongoDB.
+
      
   Q. What if I am not a Geek and don't understand these instructions?
   A. If you really want to try it out, then I can setup this blog software for
