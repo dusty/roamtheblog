@@ -6,6 +6,10 @@ class UserApp
         @post['title']
       end
       
+      def slug
+        @post['slug']
+      end
+      
       def path
         get_post_path(@post)
       end

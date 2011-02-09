@@ -33,11 +33,13 @@
     <script type="text/javascript">
       var disqus_shortname = '{{setting_disqus}}';
       {{^production}}
-        var disqus_developer = true;
+      var disqus_developer = 1;
       {{/production}}
       (function () {
-        var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true;
-        s.src = 'http://disqus.com/forums/{{setting_disqus}}/count.js';
+        var s = document.createElement('script');
+        s.type = 'text/javascript';
+        s.async = true;
+        s.src = 'http://{{setting_disqus}}.disqus.com/count.js';
         (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
       }());
     </script>

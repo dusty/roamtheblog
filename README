@@ -279,6 +279,7 @@ Variables
       html: full html of the post
            
   Home (Main page of the site):
+    slug: slug/permalink of the post (eg: 20110103-mypost)
     title: title of the post
     path: relative URL to the post
     author: author of this post
