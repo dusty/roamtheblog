@@ -7,7 +7,7 @@ class Post < Mongomatic::Base
   # Indexes
   def self.create_indexes
     collection.create_index([[:slug,1],[:date,-1]], :unique => true)
-    collection.create_index([:tags,1])
+    collection.create_index(:tags)
   end
   
   ##
@@ -36,6 +36,10 @@ class Post < Mongomatic::Base
   
   def self.tag(tag)
     find(:date => {'$lte' => Time.now.utc}, :tags => tag).sort([:date, :desc])
+  end
+  
+  def self.tags
+    collection.distinct(:tags)
   end
   
   ##
