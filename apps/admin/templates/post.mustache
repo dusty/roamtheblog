@@ -2,7 +2,7 @@
   <header>
     <h1>
       {{page_header}}
-      <span class="tiny">({{^new_post}}<a href="/blog/{{post_slug}}?{{timestamp}}" target="_new">Preview</a> | {{/new_post}}<a href="/admin/posts" >Cancel</a>)</span>
+      <span class="tiny">({{^new_post}}<a href="/blog/{{post_slug}}?{{timestamp}}" target="{{timestamp}}">Preview</a> | {{/new_post}}<a href="/admin/posts" >Cancel</a>)</span>
     </h1>
   </header>
   <section class="content">
@@ -36,15 +36,23 @@
            <br/>
            <input id="author" name="post[author]" placeholder="The Author" 
                    class="text" value="{{post_author}}" />
+        </p>
+        
+        <p>
+           <label for="author">Tags</label>
+           <span class="error">{{post_tags_error}}</span>
+           <br/>
+           <input id="author" name="post[tags]" placeholder="tag1, tag2" 
+                   class="text" value="{{post_tags}}" />
          </p>
 
         <p>
           <label for="title">Body</label>
           <span class="small">
           (<a href="http://redcloth.org/hobix.com/textile/quick.html"
-              target="_new">Cheatsheet</a> |
+              target="{{timestamp}}">Cheatsheet</a> |
           <a href="http://redcloth.org/textile" 
-             target="_new">Documentation</a>)
+             target="{{timestamp}}">Documentation</a>)
           </span>
           <span class="error">{{post_body_error}}</span>
           <br/>

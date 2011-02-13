@@ -40,7 +40,7 @@ class UserApp
         if site_location
           loc = URI.escape(site_location)
           <<-EOD
-<a href="http://maps.google.com/?q=#{loc}" target="_map">#{site_location}</a>
+<a href="http://maps.google.com/?q=#{loc}" target="{{timestamp}}">#{site_location}</a>
           EOD
         end
       end

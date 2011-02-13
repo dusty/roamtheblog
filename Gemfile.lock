@@ -1,16 +1,16 @@
 GEM
   remote: http://rubygems.org/
   specs:
-    RedCloth (4.2.3)
+    RedCloth (4.2.7)
     aaronh-chronic (0.3.9)
-    activesupport (3.0.3)
-    bson (1.2.0)
-    bson_ext (1.2.0)
+    activesupport (3.0.4)
+    bson (1.2.1)
+    bson_ext (1.2.1)
     html_truncator (0.2.0)
       nokogiri (~> 1.4)
     i18n (0.5.0)
-    mongo (1.2.0)
-      bson (>= 1.2.0)
+    mongo (1.2.1)
+      bson (>= 1.2.1)
     mongomatic (0.7.3)
       activesupport (>= 2.3.5)
       bson (~> 1.1)

@@ -147,6 +147,7 @@ class AdminApp < BaseApp
   post '/posts' do
     begin
       @post = Post.new(params[:post])
+      @post.tags = params[:post][:tags]
       @post.insert!(:raise => true)
       flash[:notice] = "Post created."
       redirect "/admin/posts/#{@post['slug']}"
@@ -165,6 +166,7 @@ class AdminApp < BaseApp
     begin
       not_found unless @post = Post.slug(params[:id])
       @post.doc.update(params[:post])
+      @post.tags = params[:post][:tags]
       @post.update!(:raise => true)
       flash[:notice] = "Post updated."
       redirect "/admin/posts/#{@post['slug']}"

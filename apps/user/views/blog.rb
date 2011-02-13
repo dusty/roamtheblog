@@ -6,6 +6,14 @@ class UserApp
         "Blog Posts"
       end
       
+      def search
+        if @tag.empty?
+          "All Posts"
+        else
+          "Posts tagged #{@tag}"
+        end
+      end
+      
       def posts
         @posts.map do |post| 
           { 

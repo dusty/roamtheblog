@@ -20,7 +20,7 @@ class AdminApp
       
       def initialize
         create_getters_and_errors('post',%w{slug title body})
-        create_error_getter('post',%w{author date})
+        create_error_getter('post',%w{author date tags})
       end
       
       def post_author
@@ -29,6 +29,10 @@ class AdminApp
       
       def post_date
         get_short_date(@post['date'])
+      end
+      
+      def post_tags
+        @post.tags.join(', ')
       end
 
     end

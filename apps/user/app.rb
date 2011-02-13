@@ -85,8 +85,12 @@ class UserApp < BaseApp
   end
 
   get '/blog' do
-    posts = Post.active
-    mustache(:blog, {:posts => posts})
+    posts = if params[:tag]
+      Post.tag(params[:tag]).to_a
+    else
+      Post.active.to_a
+    end
+    mustache(:blog, {:posts => posts, :tag => params[:tag]})
   end
 
   get '/blog/:id' do

@@ -23,7 +23,7 @@
         <a href="/admin/session" class="delete">Logout</a>
         {{/current_user}}
       </nav>
-      <h1><a href="/" target="_new">{{site_domain}}</a></h1>
+      <h1><a href="/" target="{{timestamp}}">{{site_domain}}</a></h1>
     </header>
     <aside id="message">
       {{#message_warning}}
@@ -41,7 +41,7 @@
         <p>&copy; {{site_domain}}</p>
       </section>
       <section class="center">
-        <p>powered by <a href="https://github.com/dusty/roamtheblog" target="_new">roamtheblog</a> software</p>
+        <p>powered by <a href="https://github.com/dusty/roamtheblog" target="{{timestamp}}">roamtheblog</a> software</p>
       </section>
     </footer>
   </body>

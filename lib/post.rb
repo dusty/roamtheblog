@@ -1,12 +1,13 @@
 class Post < Mongomatic::Base
   
   ##
-  # :title, :author, :body, :date, :updated, :slug
+  # :title, :author, :body, :date, :updated, :slug, :tags
 
   ##
   # Indexes
   def self.create_indexes
     collection.create_index([[:slug,1],[:date,-1]], :unique => true)
+    collection.create_index([:tags,1])
   end
   
   ##
@@ -33,6 +34,10 @@ class Post < Mongomatic::Base
     criteria
   end
   
+  def self.tag(tag)
+    find(:date => {'$lte' => Time.now.utc}, :tags => tag).sort([:date, :desc])
+  end
+  
   ##
   # Validations
   def validate
@@ -46,6 +51,18 @@ class Post < Mongomatic::Base
   def before_validate
     generate_date
     generate_slug
+  end
+  
+  ##
+  # Tags
+  def tags
+    self['tags'] ||= []
+  end
+  
+  ##
+  # Add comma seperated list of tags
+  def tags=(list)
+    self['tags'] = list.split(%r{,\s*}).uniq
   end
   
   def before_insert_or_update

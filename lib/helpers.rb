@@ -14,7 +14,7 @@ module ViewHelpers
     def get_location_link(location)
       return nil if location.empty?
       loc = location.gsub(" ", "%20")
-      "<a href=\"http://maps.google.com?q=#{loc}\" target=\"_new\">#{location}</a>"
+      "<a href=\"http://maps.google.com?q=#{loc}\" target=\"{{timestamp}}\">#{location}</a>"
     end
 
     def get_post_path(post)

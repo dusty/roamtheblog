@@ -1,8 +1,11 @@
-<h1>All Posts</h1>
+<h1>{{search}}</h1>
 
 <section class="recent">
   
   <table>
+    {{^posts}}
+    <tr><td>No matches for {{search}}</td></tr>
+    {{/posts}}
     {{#posts}}
     <tr>
       <td class="time"><time>{{date}}</time></td>
