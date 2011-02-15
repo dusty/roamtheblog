@@ -42,26 +42,20 @@ class User
     user.password, user.password_confirmation = 'admin', 'admin'
     user.save!
   end
- 
-  ##
-  # Delete
-  def delete(user)
-    raise(StandardError, "Cannot delete yourself") if user == self
-    raise(StandardError, "Cannot delete only user") if User.count < 2
-    destroy!
-  end
   
+  ##
+  # Authenticate user
   def self.authenticate(login, password)
     return false if login.empty?
     return false unless user = User.where(:login => login).first
     Encrypt.compare(password,user.salt,user.passwd) ? user : false
   end
   
+  protected
   def password_required?
     passwd.empty? || !password.empty?
   end
   
-  protected
   def encrypt_password
     unless password.empty?
       self.salt = Encrypt.random_hash

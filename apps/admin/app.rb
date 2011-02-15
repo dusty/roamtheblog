@@ -1,11 +1,4 @@
 ##
-# Notes
-#
-# Would prefer rescuing StandardError, but Mongomatic subclasses its
-# errors from Exception.  Rescuing Exception to make it easier.
-##
-
-##
 # AdminApp
 class AdminApp < BaseApp
   
@@ -33,7 +26,7 @@ class AdminApp < BaseApp
     @flash  = flash
     @site   = Site.first
     login_required
-    Time.zone = site['timezone']
+    Time.zone = site.timezone
     Chronic.time_class = Time.zone
   end
   
@@ -43,7 +36,7 @@ class AdminApp < BaseApp
       redirect '/admin/session'
     end
     def current_user
-      @current_user ||= User.find_one(:_id => session[:user]) if session[:user]
+      @current_user ||= User.id(session[:user]) if session[:user]
     end
     def site
       @site ||= Site.first
@@ -64,11 +57,10 @@ class AdminApp < BaseApp
   
   put '/settings' do
     begin
-      site.doc.update(params[:site])
-      site.update!(:raise => true)
+      site.update_attributes!(params[:site])
       flash.now[:notice] = "Settings saved."
       mustache :settings
-    rescue Exception => e
+    rescue StandardError => e
       flash.now[:warning] = "Error saving settings."
       mustache :settings
     end
@@ -79,11 +71,11 @@ class AdminApp < BaseApp
       name = params[:setting][:name].methodize if params[:setting]
       value = params[:setting][:value] if params[:setting]
       raise(StandardError, "Name cannot be empty.") if name.empty?
-      site.doc['settings'].update({name => value})
-      site.update!(:raise => true)
+      site.settings.update({name => value})
+      site.save!
       flash.now[:notice] = "Setting added."
       mustache :settings
-    rescue Exception => e
+    rescue StandardError => e
       flash.now[:warning] = "Error saving settings."
       mustache :settings      
     end
@@ -91,11 +83,11 @@ class AdminApp < BaseApp
   
   delete '/settings/:id' do
     begin
-      site.doc['settings'].delete(params[:id])
-      site.update!(:raise => true)
+      site.settings.delete(params[:id])
+      site.save!
       flash[:notice] = "Setting removed."
       redirect '/admin/settings'
-    rescue Exception => e
+    rescue StandardError => e
       flash[:warning] = "Error deleting setting."
       redirect '/admin/settings'
     end
@@ -113,16 +105,15 @@ class AdminApp < BaseApp
   post '/session' do
     begin
       if user = User.authenticate(params[:login], params[:password])
-        session[:user] = user['_id']
-        user['last_login'] = Time.now.utc
-        user.update!(:raise => true)
+        session[:user] = user.id
+        user.update_attributes!(:last_login => Time.now.utc)
         flash[:notice] = "Login Successful."
         redirect '/admin'
       else
         flash.now[:warning] = "Login Failed, please try again."
         mustache :login
       end
-    rescue Exception => e
+    rescue StandardError => e
       redirect '/admin'
     end
   end
@@ -147,11 +138,11 @@ class AdminApp < BaseApp
   post '/posts' do
     begin
       @post = Post.new(params[:post])
-      @post.tags = params[:post][:tags]
-      @post.insert!(:raise => true)
+      # @post.tags = params[:post][:tags]
+      @post.save!
       flash[:notice] = "Post created."
-      redirect "/admin/posts/#{@post['slug']}"
-    rescue Exception => e
+      redirect "/admin/posts/#{@post.slug}"
+    rescue StandardError => e
       flash.now[:warning] = "Error creating post."
       mustache :post
     end
@@ -165,12 +156,12 @@ class AdminApp < BaseApp
   put '/posts/:id' do
     begin
       not_found unless @post = Post.slug(params[:id])
-      @post.doc.update(params[:post])
-      @post.tags = params[:post][:tags]
-      @post.update!(:raise => true)
+      #@post.tags = params[:post][:tags]
+      @post.update_attributes(params[:post])
+      @post.save!
       flash[:notice] = "Post updated."
-      redirect "/admin/posts/#{@post['slug']}"
-    rescue Exception => e
+      redirect "/admin/posts/#{@post.slug}"
+    rescue StandardError => e
       flash.now[:warning] = "Error updating post."
       mustache :post
     end
@@ -179,10 +170,10 @@ class AdminApp < BaseApp
   delete '/posts/:id' do
     begin
       not_found unless @post = Post.slug(params[:id])
-      @post.remove!(:raise => true)
+      @post.destroy!
       flash[:notice] = "Post deleted."
       redirect '/admin/posts'
-    rescue Exception => e
+    rescue StandardError => e
       flash[:warning] = "Error deleting post."
       redirect '/admin/posts'
     end
@@ -196,10 +187,10 @@ class AdminApp < BaseApp
   post '/pages' do
     begin
       @page = Page.new(params[:page])
-      @page.insert!(:raise => true)
+      @page.save!
       flash[:notice] = "Page created."
-      redirect "/admin/pages/#{@page['slug']}"
-    rescue Exception => e
+      redirect "/admin/pages/#{@page.slug}"
+    rescue StandardError => e
       flash.now[:warning] = "Error creating page."
       mustache :page
     end
@@ -218,11 +209,10 @@ class AdminApp < BaseApp
   put '/pages/:id' do
     begin
       not_found unless @page = Page.slug(params[:id])
-      @page.doc.update(params[:page])
-      @page.update!(:raise => true)
+      @page.update_attributes!(params[:page])
       flash[:notice] = "Page updated."
       redirect "/admin/pages/#{@page['slug']}"
-    rescue Exception => e
+    rescue StandardError => e
       flash.now[:warning] = "Error updating page."
       mustache :page
     end
@@ -231,27 +221,27 @@ class AdminApp < BaseApp
   delete '/pages/:id' do
     begin
       not_found unless @page = Page.slug(params[:id])
-      @page.remove!(:raise => true)
+      @page.destroy!
       flash[:notice] = "Page deleted."
       redirect '/admin/pages'
-    rescue Exception => e
+    rescue StandardError => e
       flash[:warning] = "Error deleting page."
       redirect '/admin/pages'      
     end
   end
   
   get '/designs' do
-    @designs = Design.find
+    @designs = Design.all
     mustache :designs
   end
   
   post '/designs' do
     begin
       @design = Design.new(params[:design])
-      @design.insert!(:raise => true)
+      @design.save!
       flash[:notice] = "Design created."
-      redirect "/admin/designs/#{@design['_id']}"
-    rescue Exception => e
+      redirect "/admin/designs/#{@design.id}"
+    rescue StandardError => e
       flash.now[:warning] = "Error creating design."
       mustache :design
     end
@@ -280,7 +270,7 @@ class AdminApp < BaseApp
       site.design = design
       flash[:notice] = "Design marked active."
       redirect "/admin/designs"
-    rescue Exception => e
+    rescue StandardError => e
       flash[:warning] = "Error activating design."
       redirect "/admin/designs"
     end
@@ -289,11 +279,10 @@ class AdminApp < BaseApp
   put '/designs/:id' do
     begin
       not_found unless @design = Design.id(params[:id])
-      @design.doc.update(params[:design])
-      @design.update!(:raise => true)
+      @design.update_attributes!(params[:design])
       flash[:notice] = "Design updated."
-      redirect "/admin/designs/#{@design['_id']}"
-    rescue Exception => e
+      redirect "/admin/designs/#{@design.id}"
+    rescue StandardError => e
       flash.now[:warning] = "Error updating design."
       mustache :design
     end
@@ -302,10 +291,10 @@ class AdminApp < BaseApp
   delete '/designs/:id' do
     begin
       not_found unless design = Design.id(params[:id])
-      design.delete
+      design.destroy!
       flash[:notice] = "Design removed."
       redirect "/admin/designs"
-    rescue Exception => e
+    rescue StandardError => e
       flash[:warning] = "Error removing design."
       redirect "/admin/designs"
     end
@@ -321,10 +310,10 @@ class AdminApp < BaseApp
       @user = User.new(params[:user])
       @user.password = params[:password]
       @user.password_confirmation = params[:password_confirmation]
-      @user.insert!(:raise => true)
+      @user.save!
       flash[:notice] = "User created."
-      redirect "/admin/users/#{@user['_id']}"
-    rescue Exception => e
+      redirect "/admin/users/#{@user.id}"
+    rescue StandardError => e
       flash.now[:warning] = "Error creating user."
       mustache :user
     end
@@ -343,13 +332,12 @@ class AdminApp < BaseApp
   put '/users/:id' do
     begin
       not_found unless @user = User.id(params[:id])
-      @user.doc.update(params[:user])
       @user.password = params[:password]
       @user.password_confirmation = params[:password_confirmation]
-      @user.update!(:raise => true)
+      @user.update_attributes!(params[:user])
       flash[:notice] = "User updated."
-      redirect "/admin/users/#{@user['_id']}"
-    rescue Exception => e
+      redirect "/admin/users/#{@user.id}"
+    rescue StandardError => e
       flash.now[:warning] = "Error updating user."
       mustache :user
     end
@@ -358,10 +346,12 @@ class AdminApp < BaseApp
   delete '/users/:id' do
     begin
       not_found unless @user = User.id(params[:id])
-      @user.delete(current_user)
+      raise(StandardError, "Cannot delete yourself") if @user == current_user
+      raise(StandardError, "Cannot delete only user") if User.count < 2
+      @user.destroy!
       flash["notice"] = "User removed."
       redirect "/admin/users"
-    rescue Exception => e
+    rescue StandardError => e
       flash.now[:warning] = "Error deleting user."
       mustache :user
     end
