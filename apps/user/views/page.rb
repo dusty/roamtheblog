@@ -3,7 +3,7 @@ class UserApp
     class Page < Layout
   
       def title
-        @page['title']
+        @page.title
       end
   
       def html

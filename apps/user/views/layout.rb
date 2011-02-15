@@ -23,15 +23,15 @@ class UserApp
       #
       # These variables are usable site_wide
       def site_title
-        @site['title']
+        @site.title
       end
 
       def site_domain
-        @site['domain']
+        @site.domain
       end
       
       def site_location
-        @site['location']
+        @site.location
       end
       
       ##
@@ -52,11 +52,11 @@ class UserApp
       # Create a site_#{key} method for each key in the Site.settings Hash
       # eg: $site.settings['monkey'] creates the site_monkey method
       def generate_dynamic_methods
-        return unless (@site && @site['settings'])
-        @site['settings'].each do |k,v|
+        return unless (@site && @site.settings)
+        @site.settings.each do |k,v|
           self.class.class_eval do
             define_method(:"setting_#{k}") do
-              @site['settings'][k]
+              @site.settings[k]
             end
           end
         end

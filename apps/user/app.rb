@@ -63,7 +63,7 @@ class UserApp < BaseApp
   
   get '/index.xml' do
     content_type :xml
-    updated = Post.recent(1).first.updated_at.iso8601
+    updated = Post.recent.first.updated_at.iso8601
     posts   = Post.active
     mustache(:feed, {:updated => updated, :posts => posts}, false)
   end
@@ -85,11 +85,7 @@ class UserApp < BaseApp
   end
 
   get '/blog' do
-    posts = if params[:tag]
-      Post.tag(params[:tag]).to_a
-    else
-      Post.active.to_a
-    end
+    posts = params[:tag] ? Post.tag(params[:tag]).to_a : Post.active.to_a
     mustache(:blog, {:posts => posts, :tag => params[:tag]})
   end
 

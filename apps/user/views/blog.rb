@@ -17,8 +17,8 @@ class UserApp
       def posts
         @posts.map do |post| 
           { 
-            :title => post['title'],
-            :date => get_long_date(post['date']),
+            :title => post.title,
+            :date => get_long_date(post.publish_at),
             :path => get_post_path(post)
           }
         end

@@ -3,11 +3,11 @@ class UserApp
     class Home < Layout
 
       def title
-        @post['title']
+        @post.title
       end
       
       def slug
-        @post['slug']
+        @post.slug
       end
       
       def path
@@ -15,7 +15,7 @@ class UserApp
       end
 
       def author
-        @post['author']
+        @post.author
       end
 
       def html
@@ -23,14 +23,14 @@ class UserApp
       end
   
       def date
-        get_long_date(@post['date'])
+        get_long_date(@post.published_at)
       end
 
       def posts
         @posts.map do |post| 
           { 
-            :title => post['title'],
-            :date => get_long_date(post['date']),
+            :title => post.title,
+            :date => get_long_date(post.published_at),
             :path => get_post_path(post)
           }
         end

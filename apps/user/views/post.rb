@@ -3,7 +3,7 @@ class UserApp
     class Post < Layout
 
       def slug
-        @post['slug']
+        @post.slug
       end
 
       def url
@@ -11,7 +11,7 @@ class UserApp
       end
 
       def title
-        @post['title']
+        @post.title
       end
 
       def path
@@ -19,7 +19,7 @@ class UserApp
       end
 
       def author
-        @post['author']
+        @post.author
       end
 
       def html
@@ -27,7 +27,7 @@ class UserApp
       end
 
       def date
-        get_long_date(@post['date'])
+        get_long_date(@post.published_at)
       end
       
     end
