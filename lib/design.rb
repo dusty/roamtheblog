@@ -18,6 +18,10 @@ class Design
   field :missing
   
   ##
+  # Associations
+  referenced_in :site
+
+  ##
   # Finder
   def self.id(id)
     criteria.id(id)
@@ -43,7 +47,7 @@ class Design
   ##
   # Default design
   def self.create_default
-    return false unless empty?
+    return false unless criteria.empty?
     design = new
     design.name = 'RoamTheBlog'
     design.description = 'Clean design inspired by roamthepla.net'
@@ -51,29 +55,19 @@ class Design
       attribute = File.basename(template, File.extname(template))
       design.send("#{attribute}=", File.read(template))
     end
-    design.save && Site.first.design = design
+    design.save! && design
   end
   
   ##
-  # Activate a design if needed
-  def self.activate_design
-    Site.first.design ||= Design.first
+  # Activate the design
+  def activate
+    Site.first.activate_design(self)
   end
   
   ##
   # Is the design active
   def active?
     Site.first.design == self
-  end
-  
-  ##
-  # Delete the design
-  # Recreate default if needed
-  # Mark a design as active if needed
-  def remove
-    destroy!
-    Design.create_default
-    Design.activate_design
   end
   
 end

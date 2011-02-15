@@ -21,7 +21,7 @@ class User
   # Validations
   validates_presence_of :login, :name
   validates_presence_of :password, :if => :password_required?
-  validates_length_of :password, :if => :password_required?
+  validates_length_of :password, :minimum => 5, :if => :password_required?
   validates_confirmation_of :password, :if => :password_required?
   
   ##
@@ -37,10 +37,10 @@ class User
   ##
   # Create default user
   def self.create_default
-    return false unless empty?
+    return false unless criteria.empty?
     user = new(:login => 'admin', :name => 'admin')
     user.password, user.password_confirmation = 'admin', 'admin'
-    user.save!
+    user.save! && user
   end
   
   ##

@@ -19,7 +19,7 @@ class UserApp < BaseApp
     end
     
     def design
-      site.design
+      site.active_design
     end
     
     def cache

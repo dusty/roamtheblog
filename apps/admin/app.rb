@@ -267,7 +267,7 @@ class AdminApp < BaseApp
   post '/designs/:id' do
     begin
       not_found unless design = Design.id(params[:id])
-      site.design = design
+      design.activate
       flash[:notice] = "Design marked active."
       redirect "/admin/designs"
     rescue StandardError => e

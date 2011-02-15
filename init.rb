@@ -18,6 +18,7 @@ Mongoid.configure do |config|
     username = ENV['MONGO_USER']
     password = ENV['MONGO_PASS']
   end
+  config.master = Mongo::Connection.new.db(name)
 end
 
 # Require custom libraries
