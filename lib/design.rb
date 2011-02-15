@@ -1,15 +1,26 @@
-class Design < Mongomatic::Base
-
+class Design
+  include Mongoid::Document
+  include Mongoid::Timestamps
+  
   ##
-  # :name, :description
-  # :layout, :blog, :feed, :home, :page, :post
-  # :style, script, :error, :missing
+  # Attributes
+  field :name
+  field :description
+  field :layout
+  field :blog
+  field :feed
+  field :home
+  field :page
+  field :post
+  field :style
+  field :script
+  field :error
+  field :missing
   
   ##
   # Finder
   def self.id(id)
-    id = BSON::ObjectId(id) unless id.is_a?(BSON::ObjectId)
-    find_one(id)
+    criteria.id(id)
   end
   
   ##
@@ -26,37 +37,21 @@ class Design < Mongomatic::Base
   
   ##
   # Validations
-  def validate
-    %w{
-      name layout blog feed home page post error missing style
-    }.each {|field| require_field(field)}
-  end
-  
-  ##
-  # Callbacks
-  def before_insert_or_update
-    setup_defaults
-  end
-  
-  ##
-  # Setup defaults
-  def setup_defaults  
-    self['script'] = "" if self['script'].nil?
-    self['description'] = "" if self['description'].nil?
-  end
+  validates_presence_of :name, :layout, :blog, :feed, :home, :page, :post
+  validates_presence_of :error, :missing, :style, :script
   
   ##
   # Default design
   def self.create_default
     return false unless empty?
     design = new
-    design['name'] = 'RoamTheBlog'
-    design['description'] = 'Clean design inspired by roamthepla.net'
+    design.name = 'RoamTheBlog'
+    design.description = 'Clean design inspired by roamthepla.net'
     Dir["apps/user/templates/*.mustache"].each do |template|
       attribute = File.basename(template, File.extname(template))
-      design[attribute] = File.read(template)
+      design.send("#{attribute}=", File.read(template))
     end
-    design.insert && Site.first.design = design
+    design.save && Site.first.design = design
   end
   
   ##
@@ -68,22 +63,17 @@ class Design < Mongomatic::Base
   ##
   # Is the design active
   def active?
+    Site.first.design == self
   end
   
   ##
   # Delete the design
   # Recreate default if needed
   # Mark a design as active if needed
-  def delete
-    remove!(:raise => true)
+  def remove
+    self.destroy
     Design.create_default
     Design.activate_design
-  end
-  
-  protected
-  # Make sure a field isn't blank
-  def require_field(field)
-    self.errors.add(field,"required") if self[field].empty?
   end
   
 end

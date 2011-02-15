@@ -1,46 +1,40 @@
-class Page < Mongomatic::Base
-
+class Page
+  include Mongoid::Document
+  include Mongoid::Timestamps
+  
   ##
-  # :title, :body, :slug
+  # Attributes
+  field :title
+  field :body
+  field :slug
   
   ##
   # Indexes
-  def self.create_indexes
-    collection.create_index('slug', :unique => true)
-  end
+  index :slug, :unique => true
+  
+  ##
+  # Validations
+  validates_presence_of :title, :body
   
   ##
   # Finders
   def self.slug(slug)
-    find_one(:slug => slug)
-  end
-  
-  ##
-  # Validations
-  def validate
-    self.errors.add("title","required") if self['title'].empty?
-    self.errors.add("body","required")  if self['body'].empty?      
+    where(:slug => slug).first
   end
   
   ##
   # Callbacks
-  def before_validate
-    generate_slug
-  end
-  
-  def before_insert_or_update
-    self['updated'] = Time.now.utc
-  end
+  before_validation :generate_slug
 
   # Convert body to html
   def html
-    RedCloth.new(self['body']).to_html
+    RedCloth.new(self.body).to_html
   end
   
   protected
   # Generate a URL friendly slug
   def generate_slug
-    (self['slug'] = self['title'].slugize) if self['slug'].empty?
+    (self.slug = self.title.slugize) if self.slug.empty?
   end
   
 end

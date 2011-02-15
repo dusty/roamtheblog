@@ -3,10 +3,7 @@ gem 'sinatra'
 gem 'rack-flash'
 gem 'RedCloth'
 gem 'mustache'
-gem 'mongomatic'
 gem 'bson_ext'
-gem 'activesupport', '>3.0'
-gem 'tzinfo'
-gem 'i18n'
-gem "aaronh-chronic", "0.3.9"
+gem 'mongoid', '2.0.0.rc.7'
 gem "html_truncator"
+gem "aaronh-chronic", "0.3.9"

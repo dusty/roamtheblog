@@ -1,41 +1,50 @@
-class Post < Mongomatic::Base
-  
-  ##
-  # :title, :author, :body, :date, :updated, :slug, :tags
+class Post
+  include Mongoid::Document
+  include Mongoid::Timestamps
 
   ##
+  # Attributes
+  field :slug
+  field :publish_at, :type => Time
+  field :tags, :type => Array, :default => []
+  
+  ##
   # Indexes
-  def self.create_indexes
-    collection.create_index([[:slug,1],[:date,-1]], :unique => true)
-    collection.create_index(:tags)
-  end
+  index([[:slug,Mongo::ASCENDING],[:publish_at,Mongo::ASCENDING]],:unique => true)
+  index :tags
+  
+  ##
+  # Validations
+  validates_presence_of :title, :author, :body
+  
+  ##
+  # Callbacks
+  before_validation :generate_date, :generate_slug
   
   ##
   # Finders
+  def self.recent
+    order_by(:publish_at.desc)
+  end
+  
   def self.slug(slug)
-    find_one(:slug => slug)
+    where(:slug => slug).first
   end
 
+  def self.tag(tag)
+    recent.where(:tags => tag)
+  end
+  
   def self.nodate
-    find(:date => nil).sort([:updated, :desc])
+    recent.where(:date => nil)
   end
   
   def self.active
-    find(:date => {'$lte' => Time.now.utc}).sort([:date, :desc])
+    recent.where(:date.lte => Time.now.utc)
   end
   
   def self.future
-    find(:date => {'$gt' => Time.now.utc}).sort([:date, :desc])
-  end
-  
-  def self.recent(limit=nil)
-    criteria = active.sort([:updated, :desc])
-    criteria.limit(limit) if limit
-    criteria
-  end
-  
-  def self.tag(tag)
-    find(:date => {'$lte' => Time.now.utc}, :tags => tag).sort([:date, :desc])
+    recent.where(:date.gt => Time.now.utc)
   end
   
   def self.tags
@@ -43,38 +52,13 @@ class Post < Mongomatic::Base
   end
   
   ##
-  # Validations
-  def validate
-    self.errors.add("title","required")  if self['title'].empty?
-    self.errors.add("author","required") if self['author'].empty?
-    self.errors.add("body","required")   if self['body'].empty?
-  end
-
-  ##
-  # Callbacks
-  def before_validate
-    generate_date
-    generate_slug
-  end
-  
-  ##
-  # Tags
-  def tags
-    self['tags'] ||= []
-  end
-  
-  ##
   # Add comma seperated list of tags
   def tags=(list)
-    self['tags'] = list.split(%r{,\s*}).uniq
-  end
-  
-  def before_insert_or_update
-    self['updated'] = Time.now.utc
+    self.tags = list.is_a?(String) ? list.split(%r{,\s*}).uniq : list
   end
   
   def html
-    RedCloth.new(self['body']).to_html
+    RedCloth.new(self.body).to_html
   end
   
   def excerpt
@@ -82,7 +66,7 @@ class Post < Mongomatic::Base
   end
   
   def active?
-    self['date'] ? (Time.now.utc >= self['date']) : false
+    self.publish_at ? (Time.now.utc >= self.publish_at) : false
   end
 
   protected
@@ -93,14 +77,14 @@ class Post < Mongomatic::Base
   end
   
   def generate_date
-    self['date'] = parse_date(self['date']) if self['date'].is_a?(String)
+    self.date = parse_date(self.date) if self.date.is_a?(String)
   end
 
   def generate_slug
-    return false if self['title'].empty?
-    date = self['date'].is_a?(Time) ? self['date'] : Time.now.in_time_zone
+    return false if self.title.empty?
+    date = self.date.is_a?(Time) ? self.date : Time.now.in_time_zone
     prefix = date.strftime("%Y%m%d")
-    self['slug'] = "#{prefix}-#{self['title'].slugize}"
+    self.slug = "#{prefix}-#{self.title.slugize}"
   end
   
 end

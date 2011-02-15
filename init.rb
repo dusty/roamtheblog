@@ -4,28 +4,29 @@ require "bundler/setup"
 
 # Include required gems
 %w{ 
-  mongomatic rack-flash sinatra/base RedCloth mustache/sinatra chronic tzinfo
+  mongoid rack-flash sinatra/base RedCloth mustache/sinatra chronic tzinfo
   html_truncator
 }.each {|req| require req }
 
-# Init mongo connection
-Mongomatic.db = Mongo::Connection.new(
-  ENV['MONGO_HOST'] || 'localhost',
-  ENV['MONGO_PORT'] || 27017
-).db(ENV['MONGO_DB'] || 'roamtheblog')
-
-# Authenticate if needed
-if (ENV['MONGO_USER'] && ENV['MONGO_PASS'])
-  Mongomatic.db.authenticate(ENV['MONGO_USER'], ENV['MONGO_PASS'])
+# Connect Mongoid to the DB
+Mongoid.configure do |config|
+  name = ENV['MONGO_DB'] || 'roamtheblog'
+  host = ENV['MONGO_HOST'] || 'localhost'
+  port = ENV['MONGO_PORT'] || 27017
+  # Authenticate if needed
+  if (ENV['MONGO_USER'] && ENV['MONGO_PASS'])
+    username = ENV['MONGO_USER']
+    password = ENV['MONGO_PASS']
+  end
 end
 
 # Require custom libraries
 Dir["lib/**/*.rb"].sort.each {|req| require req}
 
 # Create defaults
-User.create_default
-Site.create_default 
-Design.create_default
+# User.create_default
+# Site.create_default 
+# Design.create_default
 
 # Require apps
 Dir["apps/**/*.rb"].sort.each {|req| require req}

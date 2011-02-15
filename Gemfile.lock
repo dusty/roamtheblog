@@ -3,18 +3,24 @@ GEM
   specs:
     RedCloth (4.2.7)
     aaronh-chronic (0.3.9)
+    activemodel (3.0.4)
+      activesupport (= 3.0.4)
+      builder (~> 2.1.2)
+      i18n (~> 0.4)
     activesupport (3.0.4)
     bson (1.2.1)
     bson_ext (1.2.1)
+    builder (2.1.2)
     html_truncator (0.2.0)
       nokogiri (~> 1.4)
     i18n (0.5.0)
     mongo (1.2.1)
       bson (>= 1.2.1)
-    mongomatic (0.7.3)
-      activesupport (>= 2.3.5)
-      bson (~> 1.1)
-      mongo (~> 1.1)
+    mongoid (2.0.0.rc.7)
+      activemodel (~> 3.0)
+      mongo (~> 1.2)
+      tzinfo (~> 0.3.22)
+      will_paginate (~> 3.0.pre)
     mustache (0.12.0)
     nokogiri (1.4.4)
     rack (1.2.1)
@@ -25,6 +31,7 @@ GEM
       tilt (~> 1.2)
     tilt (1.2.2)
     tzinfo (0.3.24)
+    will_paginate (3.0.pre2)
 
 PLATFORMS
   ruby
@@ -32,12 +39,9 @@ PLATFORMS
 DEPENDENCIES
   RedCloth
   aaronh-chronic (= 0.3.9)
-  activesupport (> 3.0)
   bson_ext
   html_truncator
-  i18n
-  mongomatic
+  mongoid (= 2.0.0.rc.7)
   mustache
   rack-flash
   sinatra
-  tzinfo
