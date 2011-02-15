@@ -24,7 +24,7 @@ class AdminApp
       end
       
       def user_id
-        @user['_id'] 
+        @user.id
       end
       
     end

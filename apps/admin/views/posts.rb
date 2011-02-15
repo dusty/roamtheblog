@@ -17,9 +17,9 @@ class AdminApp
       def map_posts(_posts)
         _posts.map do |post|
           {
-            :post_date => get_short_date(post['date']),
-            :post_slug => post['slug'],
-            :post_title => post['title'],
+            :post_date => get_short_date(post.published_at),
+            :post_slug => post.slug,
+            :post_title => post.title,
             :post_status => post.active? ? "Published" : "Pending"
           }
         end

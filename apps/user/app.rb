@@ -23,8 +23,8 @@ class UserApp < BaseApp
     end
     
     def cache
-      if site['cache'].to_i > 0
-        response.headers['Cache-Control'] = "public, max-age=#{site['cache']}"
+      if site.cache && site.cache > 0
+        response.headers['Cache-Control'] = "public, max-age=#{site.cache}"
       end
     end
     
@@ -40,9 +40,9 @@ class UserApp < BaseApp
     def mustache(template, args={}, layout=true)
       args = args.update(:site => site)
       layout_class = UserApp::Views::Layout
-      layout_class.template = design[:layout]
+      layout_class.template = design.layout
       view_class = UserApp::Views.const_get(template.to_s.classify)
-      view_class.template = design[template]
+      view_class.template = design.send(template)
       view_initialized = view_class.new(args)
       view_rendered = view_initialized.render
       if layout
@@ -58,12 +58,12 @@ class UserApp < BaseApp
   end
       
   before do
-    UserApp::Views::Layout.template = design[:layout]
+    UserApp::Views::Layout.template = design.layout
   end
   
   get '/index.xml' do
     content_type :xml
-    updated = Post.recent(1).first['updated'].iso8601
+    updated = Post.recent(1).first.updated_at.iso8601
     posts   = Post.active
     mustache(:feed, {:updated => updated, :posts => posts}, false)
   end

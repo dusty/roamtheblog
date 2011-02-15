@@ -15,6 +15,11 @@ class Site
   # Relationships
   references_one :design
   
+  ##
+  def design
+    super ||= Design.create_default
+  end
+  
   def self.create_default
     return false unless empty?
     _new = new

@@ -7,7 +7,7 @@ class AdminApp
           {
             :design_name => get_design_name(design),
             :design_status => get_design_status(design),
-            :design_description => design['description'],
+            :design_description => design.description,
             :design_copy => get_design_copy(design)
           }
         end
@@ -16,16 +16,16 @@ class AdminApp
       private
       def get_design_name(design)
         <<-EOD
-<a href="/admin/designs/#{design['_id']}">#{design['name']}</a>
+<a href="/admin/designs/#{design.id}">#{design.name}</a>
         EOD
       end
       
       def get_design_status(design)
-        if site['design'] == design['_id']
+        if site.design == design
           "<strong>Active</strong>"
         else
           <<-EOD
-<a href="/admin/designs/#{design['_id']}" class="post_prompt"
+<a href="/admin/designs/#{design.id}" class="post_prompt"
    rel="Make this design active?">Set Active</a>   
           EOD
         end
@@ -33,8 +33,8 @@ class AdminApp
       
       def get_design_copy(design)
         <<-EOD
-<a href="/admin/designs/new?copy=#{design['_id']}" class="get_prompt"
-   rel="Copy the #{design['name']} design?">Copy</a>
+<a href="/admin/designs/new?copy=#{design.id}" class="get_prompt"
+   rel="Copy the #{design.name} design?">Copy</a>
         EOD
       end
       

@@ -19,7 +19,7 @@ class AdminApp
       end
       
       def design_id
-        @design['_id']
+        @design.id
       end
       
       def initialize

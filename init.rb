@@ -24,9 +24,8 @@ end
 Dir["lib/**/*.rb"].sort.each {|req| require req}
 
 # Create defaults
-# User.create_default
-# Site.create_default 
-# Design.create_default
+User.create_default
+Site.create_default 
 
 # Require apps
 Dir["apps/**/*.rb"].sort.each {|req| require req}

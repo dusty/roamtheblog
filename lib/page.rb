@@ -28,13 +28,13 @@ class Page
 
   # Convert body to html
   def html
-    RedCloth.new(self.body).to_html
+    RedCloth.new(body).to_html
   end
   
   protected
   # Generate a URL friendly slug
   def generate_slug
-    (self.slug = self.title.slugize) if self.slug.empty?
+    (self.slug = title.slugize) if slug.empty?
   end
   
 end

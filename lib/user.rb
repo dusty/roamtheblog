@@ -48,7 +48,7 @@ class User
   def delete(user)
     raise(StandardError, "Cannot delete yourself") if user == self
     raise(StandardError, "Cannot delete only user") if User.count < 2
-    self.destroy!
+    destroy!
   end
   
   def self.authenticate(login, password)
@@ -58,14 +58,14 @@ class User
   end
   
   def password_required?
-    self.passwd.empty? || !self.password.empty?
+    passwd.empty? || !password.empty?
   end
   
   protected
   def encrypt_password
     unless password.empty?
       self.salt = Encrypt.random_hash
-      self.passwd = Encrypt.encrypt(password,self.salt)
+      self.passwd = Encrypt.encrypt(password,salt)
       self.password = nil
     end
   end

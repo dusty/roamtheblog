@@ -25,30 +25,30 @@ class AdminApp
       end
             
       def site_title
-        site['title']
+        site.title
       end
 
       def site_domain
-        site['domain']
+        site.domain
       end
   
       def site_location
-        site['location']
+        site.location
       end
       
       def site_cache
-        site['cache']
+        site.cache
       end
       
       def site_timezone
-        site['timezone']
+        site.timezone
       end
 
       def timezones
         us = ActiveSupport::TimeZone.us_zones
-        nonus = (ActiveSupport::TimeZone.all - ActiveSupport::TimeZone.us_zones)
+        nus = (ActiveSupport::TimeZone.all - ActiveSupport::TimeZone.us_zones)
         selected = ""
-        (us + nonus).map do |zone|
+        (us + nus).map do |zone|
           if (site_timezone == zone.name) && selected.empty?
             selected = "selected=selected"
           else
@@ -59,7 +59,7 @@ class AdminApp
       end
       
       def site_settings
-        site['settings'].map { |k,v| {:name => k, :value => v} }
+        site.settings.map { |k,v| {:name => k, :value => v} }
       end
       
       def initialize
@@ -74,10 +74,10 @@ class AdminApp
       # Create a site_#{key} method for each key in the Site.settings Hash
       # eg: $site.settings['monkey'] creates the site_monkey method
       def dynamic_settings
-        site['settings'].each do |k,v|
+        site.settings.each do |k,v|
           self.class.class_eval do
             define_method(:"setting_#{k}") do
-              site['settings'][k]
+              site.settings[k]
             end
           end
         end

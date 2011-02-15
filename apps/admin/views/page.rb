@@ -7,7 +7,7 @@ class AdminApp
       end
       
       def page_action
-        @page.new? ? "/admin/pages" : "/admin/pages/#{@page['slug']}"
+        @page.new? ? "/admin/pages" : "/admin/pages/#{@page.slug}"
       end
       
       def page_method
@@ -15,7 +15,7 @@ class AdminApp
       end
 
       def page_header
-        @page.new? ? "New Page" : @page['title']
+        @page.new? ? "New Page" : @page.title
       end
       
       def initialize

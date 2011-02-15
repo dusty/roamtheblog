@@ -5,12 +5,12 @@ class Post
   ##
   # Attributes
   field :slug
-  field :publish_at, :type => Time
+  field :published_at, :type => Time
   field :tags, :type => Array, :default => []
   
   ##
   # Indexes
-  index([[:slug,Mongo::ASCENDING],[:publish_at,Mongo::ASCENDING]],:unique => true)
+  index([[:slug,Mongo::ASCENDING],[:published_at,Mongo::ASCENDING]],:unique => true)
   index :tags
   
   ##
@@ -24,7 +24,11 @@ class Post
   ##
   # Finders
   def self.recent
-    order_by(:publish_at.desc)
+    order_by(:published_at.desc)
+  end
+  
+  def self.recent_update
+    recent.first.updated_at
   end
   
   def self.slug(slug)
@@ -57,8 +61,15 @@ class Post
     self.tags = list.is_a?(String) ? list.split(%r{,\s*}).uniq : list
   end
   
+  ##
+  # Parse a string for published_at
+  def published_at=(publish)
+    date = publish.is_a?(String) ? Chronic.parse(publish) : publish
+    write_attribute(:published_at, date)
+  end
+  
   def html
-    RedCloth.new(self.body).to_html
+    RedCloth.new(body).to_html
   end
   
   def excerpt
@@ -66,25 +77,15 @@ class Post
   end
   
   def active?
-    self.publish_at ? (Time.now.utc >= self.publish_at) : false
+    published_at ? (Time.now.utc >= published_at) : false
   end
 
   protected
-  def parse_date(date)
-    return nil if date.blank?
-    date = Chronic.parse(date) if date.is_a?(String)
-    date ? date.utc : nil
-  end
-  
-  def generate_date
-    self.date = parse_date(self.date) if self.date.is_a?(String)
-  end
-
   def generate_slug
-    return false if self.title.empty?
-    date = self.date.is_a?(Time) ? self.date : Time.now.in_time_zone
-    prefix = date.strftime("%Y%m%d")
-    self.slug = "#{prefix}-#{self.title.slugize}"
+    return false if title.empty?
+    date = published_at.is_a?(Time) ? published_at : Time.now.in_time_zone
+    prefix = published_at.strftime("%Y%m%d")
+    self.slug = "#{prefix}-#{title.slugize}"
   end
   
 end

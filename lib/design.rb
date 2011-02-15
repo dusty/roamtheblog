@@ -71,7 +71,7 @@ class Design
   # Recreate default if needed
   # Mark a design as active if needed
   def remove
-    self.destroy
+    destroy!
     Design.create_default
     Design.activate_design
   end

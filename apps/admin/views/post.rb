@@ -24,11 +24,11 @@ class AdminApp
       end
       
       def post_author
-        @post['author'] ||= @current_user['name']
+        @post.author ||= @current_user.name
       end
       
       def post_date
-        get_short_date(@post['date'])
+        get_short_date(@post.published_at)
       end
       
       def post_tags

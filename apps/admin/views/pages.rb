@@ -5,9 +5,9 @@ class AdminApp
       def pages
         @pages.map do |page|
           {
-            :page_updated => get_short_date(page['updated']),
-            :page_slug => page['slug'],
-            :page_title => page['title']
+            :page_updated => get_short_date(page.updated_at),
+            :page_slug => page.slug,
+            :page_title => page.title
           }
         end
       end
