@@ -30,8 +30,12 @@ class User
   
   ##
   # Finder
-  def self.id(id)
+  def self.by_id(id)
     criteria.id(id)
+  end
+  
+  def self.by_login(login)
+    where(:login => login).first
   end
   
   ##
@@ -47,7 +51,7 @@ class User
   # Authenticate user
   def self.authenticate(login, password)
     return false if login.empty?
-    return false unless user = User.where(:login => login).first
+    return false unless user = User.by_login(login)
     Encrypt.compare(password,user.salt,user.passwd) ? user : false
   end
   

@@ -85,18 +85,18 @@ class UserApp < BaseApp
   end
 
   get '/blog' do
-    posts = params[:tag] ? Post.tag(params[:tag]).to_a : Post.active.to_a
+    posts = params[:tag] ? Post.by_tag(params[:tag]).to_a : Post.active.to_a
     mustache(:blog, {:posts => posts, :tag => params[:tag]})
   end
 
   get '/blog/:id' do
-    not_found unless post = Post.slug(params[:id])
+    not_found unless post = Post.by_slug(params[:id])
     args = {:post => post}
     mustache(:post, args)
   end
 
   get '/:id' do
-    not_found unless page = Page.slug(params[:id])
+    not_found unless page = Page.by_slug(params[:id])
     mustache(:page, {:page => page})
   end
 

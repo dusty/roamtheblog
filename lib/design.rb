@@ -23,13 +23,13 @@ class Design
 
   ##
   # Finder
-  def self.id(id)
+  def self.by_id(id)
     criteria.id(id)
   end
   
   ##
   # Duplicate a design
-  def self.copy(id)
+  def self.duplicate(id)
     return false unless original = id(id)
     copy = new(original.doc)
     copy.doc.delete('_id')

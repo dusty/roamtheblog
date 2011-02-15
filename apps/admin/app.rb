@@ -36,7 +36,7 @@ class AdminApp < BaseApp
       redirect '/admin/session'
     end
     def current_user
-      @current_user ||= User.id(session[:user]) if session[:user]
+      @current_user ||= User.by_id(session[:user]) if session[:user]
     end
     def site
       @site ||= Site.first
@@ -137,9 +137,7 @@ class AdminApp < BaseApp
   
   post '/posts' do
     begin
-      @post = Post.new(params[:post])
-      # @post.tags = params[:post][:tags]
-      @post.save!
+      @post = Post.create!(params[:post])
       flash[:notice] = "Post created."
       redirect "/admin/posts/#{@post.slug}"
     rescue StandardError => e
@@ -149,16 +147,14 @@ class AdminApp < BaseApp
   end
   
   get '/posts/:id' do
-    not_found unless @post = Post.slug(params[:id])
+    not_found unless @post = Post.by_slug(params[:id])
     mustache :post
   end
   
   put '/posts/:id' do
     begin
-      not_found unless @post = Post.slug(params[:id])
-      #@post.tags = params[:post][:tags]
-      @post.update_attributes(params[:post])
-      @post.save!
+      not_found unless @post = Post.by_slug(params[:id])
+      @post.update_attributes!(params[:post])
       flash[:notice] = "Post updated."
       redirect "/admin/posts/#{@post.slug}"
     rescue StandardError => e
@@ -169,8 +165,8 @@ class AdminApp < BaseApp
   
   delete '/posts/:id' do
     begin
-      not_found unless @post = Post.slug(params[:id])
-      @post.destroy!
+      not_found unless @post = Post.by_slug(params[:id])
+      @post.destroy
       flash[:notice] = "Post deleted."
       redirect '/admin/posts'
     rescue StandardError => e
@@ -186,8 +182,7 @@ class AdminApp < BaseApp
   
   post '/pages' do
     begin
-      @page = Page.new(params[:page])
-      @page.save!
+      @page = Page.create!(params[:page])
       flash[:notice] = "Page created."
       redirect "/admin/pages/#{@page.slug}"
     rescue StandardError => e
@@ -202,13 +197,13 @@ class AdminApp < BaseApp
   end
   
   get '/pages/:id' do
-    not_found unless @page = Page.slug(params[:id])
+    not_found unless @page = Page.by_slug(params[:id])
     mustache :page
   end
   
   put '/pages/:id' do
     begin
-      not_found unless @page = Page.slug(params[:id])
+      not_found unless @page = Page.by_slug(params[:id])
       @page.update_attributes!(params[:page])
       flash[:notice] = "Page updated."
       redirect "/admin/pages/#{@page['slug']}"
@@ -220,8 +215,8 @@ class AdminApp < BaseApp
 
   delete '/pages/:id' do
     begin
-      not_found unless @page = Page.slug(params[:id])
-      @page.destroy!
+      not_found unless @page = Page.by_slug(params[:id])
+      @page.destroy
       flash[:notice] = "Page deleted."
       redirect '/admin/pages'
     rescue StandardError => e
@@ -237,8 +232,7 @@ class AdminApp < BaseApp
   
   post '/designs' do
     begin
-      @design = Design.new(params[:design])
-      @design.save!
+      @design = Design.create!(params[:design])
       flash[:notice] = "Design created."
       redirect "/admin/designs/#{@design.id}"
     rescue StandardError => e
@@ -249,7 +243,7 @@ class AdminApp < BaseApp
   
   get '/designs/new' do
     if params[:copy]
-      unless @design = Design.copy(params[:copy])
+      unless @design = Design.duplicate(params[:copy])
         flash[:warning] = "Unable to copy design"
         redirect "/admin/designs"
       end
@@ -260,13 +254,13 @@ class AdminApp < BaseApp
   end
   
   get '/designs/:id' do
-    not_found unless @design = Design.id(params[:id])
+    not_found unless @design = Design.by_id(params[:id])
     mustache :design
   end
   
   post '/designs/:id' do
     begin
-      not_found unless design = Design.id(params[:id])
+      not_found unless design = Design.by_id(params[:id])
       design.activate
       flash[:notice] = "Design marked active."
       redirect "/admin/designs"
@@ -278,7 +272,7 @@ class AdminApp < BaseApp
   
   put '/designs/:id' do
     begin
-      not_found unless @design = Design.id(params[:id])
+      not_found unless @design = Design.by_id(params[:id])
       @design.update_attributes!(params[:design])
       flash[:notice] = "Design updated."
       redirect "/admin/designs/#{@design.id}"
@@ -290,8 +284,8 @@ class AdminApp < BaseApp
   
   delete '/designs/:id' do
     begin
-      not_found unless design = Design.id(params[:id])
-      design.destroy!
+      not_found unless design = Design.by_id(params[:id])
+      design.destroy
       flash[:notice] = "Design removed."
       redirect "/admin/designs"
     rescue StandardError => e
@@ -307,10 +301,7 @@ class AdminApp < BaseApp
   
   post '/users' do
     begin
-      @user = User.new(params[:user])
-      @user.password = params[:password]
-      @user.password_confirmation = params[:password_confirmation]
-      @user.save!
+      @user = User.create!(params[:user])
       flash[:notice] = "User created."
       redirect "/admin/users/#{@user.id}"
     rescue StandardError => e
@@ -325,13 +316,13 @@ class AdminApp < BaseApp
   end
   
   get '/users/:id' do
-    not_found unless @user = User.id(params[:id])
+    not_found unless @user = User.by_id(params[:id])
     mustache :user
   end
   
   put '/users/:id' do
     begin
-      not_found unless @user = User.id(params[:id])
+      not_found unless @user = User.by_id(params[:id])
       @user.password = params[:password]
       @user.password_confirmation = params[:password_confirmation]
       @user.update_attributes!(params[:user])
@@ -345,10 +336,10 @@ class AdminApp < BaseApp
   
   delete '/users/:id' do
     begin
-      not_found unless @user = User.id(params[:id])
+      not_found unless @user = User.by_id(params[:id])
       raise(StandardError, "Cannot delete yourself") if @user == current_user
       raise(StandardError, "Cannot delete only user") if User.count < 2
-      @user.destroy!
+      @user.destroy
       flash["notice"] = "User removed."
       redirect "/admin/users"
     rescue StandardError => e

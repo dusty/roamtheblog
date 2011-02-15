@@ -3,7 +3,7 @@ class UserApp
     class Home < Layout
 
       def title
-        @post.title
+        @post.title if @post
       end
       
       def slug
@@ -24,6 +24,10 @@ class UserApp
   
       def date
         get_long_date(@post.published_at)
+      end
+      
+      def post
+        @post
       end
 
       def posts

@@ -18,7 +18,7 @@ class Page
   
   ##
   # Finders
-  def self.slug(slug)
+  def self.by_slug(slug)
     where(:slug => slug).first
   end
   

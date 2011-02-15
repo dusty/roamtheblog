@@ -4,6 +4,9 @@ class Post
 
   ##
   # Attributes
+  field :title
+  field :body
+  field :author
   field :slug
   field :published_at, :type => Time
   field :tags, :type => Array, :default => []
@@ -19,7 +22,7 @@ class Post
   
   ##
   # Callbacks
-  before_validation :generate_date, :generate_slug
+  before_validation :generate_slug
   
   ##
   # Finders
@@ -31,11 +34,11 @@ class Post
     recent.first.updated_at
   end
   
-  def self.slug(slug)
+  def self.by_slug(slug)
     where(:slug => slug).first
   end
 
-  def self.tag(tag)
+  def self.by_tag(tag)
     recent.where(:tags => tag)
   end
   
@@ -58,7 +61,8 @@ class Post
   ##
   # Add comma seperated list of tags
   def tags=(list)
-    self.tags = list.is_a?(String) ? list.split(%r{,\s*}).uniq : list
+    list = list.split(%r{,\s*}).uniq if list.is_a?(String)
+    write_attribute(:tags, list)
   end
   
   ##
@@ -82,9 +86,9 @@ class Post
 
   protected
   def generate_slug
-    return false if title.empty?
+    return nil if title.empty?
     date = published_at.is_a?(Time) ? published_at : Time.now.in_time_zone
-    prefix = published_at.strftime("%Y%m%d")
+    prefix = date.strftime("%Y%m%d")
     self.slug = "#{prefix}-#{title.slugize}"
   end
   
