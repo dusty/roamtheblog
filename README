@@ -6,7 +6,7 @@ Built With:
   * Mustache
   * RedCloth
   * MongoDB
-  * Mongomatic
+  * MongoODM
  
 Clean default template setup for use with:
   * Disqus
