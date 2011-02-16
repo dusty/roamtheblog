@@ -63,6 +63,10 @@ class Design
     find_one(:_id => BSON::ObjectId(id.to_s))
   end
   
+  def self.sort_updated
+    find({}, {:sort => [:updated_at, :desc]})
+  end
+  
   ##
   # Activate the design
   def activate

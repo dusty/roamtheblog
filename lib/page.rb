@@ -25,6 +25,10 @@ class Page
   def self.by_slug(slug)
     find_one(:slug => slug)
   end
+  
+  def self.sort_updated
+    find({}, {:sort => [:updated_at, :desc]})
+  end
 
   # Convert body to html
   def html

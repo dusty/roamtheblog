@@ -39,6 +39,10 @@ class User
     find_one(:login => login)
   end
   
+  def self.sort_logins
+    find({}, {:sort => [:login_at, :desc]})
+  end
+  
   ##
   # Create default user
   def self.create_default

@@ -122,9 +122,9 @@ class AdminApp < BaseApp
   end
 
   get '/posts' do
-    @nodate  = Post.nodate
-    @future  = Post.future
-    @active  = Post.active
+    @nodate  = Post.nodate.to_a
+    @future  = Post.future.to_a
+    @active  = Post.active.to_a
     mustache :posts
   end
   
@@ -172,7 +172,7 @@ class AdminApp < BaseApp
   end
   
   get '/pages' do
-    @pages = Page.find
+    @pages = Page.sort_updated.to_a
     mustache :pages
   end
   
@@ -201,7 +201,7 @@ class AdminApp < BaseApp
     not_found unless @page = Page.by_slug(params[:id])
     if @page.update_attributes(params[:page])
       flash[:notice] = "Page updated."
-      redirect "/admin/pages/#{@page['slug']}"
+      redirect "/admin/pages/#{@page.slug}"
     else
       flash.now[:warning] = "Error updating page."
       mustache :page
@@ -220,7 +220,7 @@ class AdminApp < BaseApp
   end
   
   get '/designs' do
-    @designs = Design.find
+    @designs = Design.sort_updated.to_a
     mustache :designs
   end
   
@@ -286,7 +286,7 @@ class AdminApp < BaseApp
   end
   
   get '/users' do
-    @users = User.find
+    @users = User.sort_logins.to_a
     mustache :users
   end
   

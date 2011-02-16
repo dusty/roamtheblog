@@ -8,16 +8,18 @@
   <section class="content">
     <table>
       <tr>
-        <th>Status</th>
         <th>Name</th>
         <th>Description</th>
+        <th>Last Update</th>
+        <th>Actions</th>
         <th>&nbsp;</th>
       </tr>
       {{#designs}}
       <tr>
-        <td>{{{design_status}}}</td>
         <td>{{{design_name}}}</td>
         <td>{{design_description}}</td>
+        <td>{{design_updated}}</td>
+        <td>{{{design_status}}}</td>
         <td>{{{design_copy}}}</td>
       </tr>
       {{/designs}}

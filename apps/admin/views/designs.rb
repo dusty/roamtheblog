@@ -8,7 +8,8 @@ class AdminApp
             :design_name => get_design_name(design),
             :design_status => get_design_status(design),
             :design_description => design.description,
-            :design_copy => get_design_copy(design)
+            :design_copy => get_design_copy(design),
+            :design_updated => get_short_date(design.updated_at)
           }
         end
       end
