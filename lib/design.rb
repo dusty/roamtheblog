@@ -20,18 +20,21 @@ class Design
   ##
   # Finder
   def self.by_id(id)
-    find_one(:_id => BSON::ObjectId(id))
+    find_one(:_id => BSON::ObjectId(id.to_s))
   end
   
   ##
   # Duplicate a design
   def self.duplicate(id)
-    return false unless original = id(id)
-    copy = new(original.doc)
-    copy.doc.delete('_id')
+    return false unless original = by_id(id)
+    attributes = original.attributes
+    attributes.delete('_id')
+    attributes.delete('created_at')
+    attributes.delete('updated_at')
+    copy = new(attributes)
     tag = "#{Time.now.to_i}"
-    copy["name"] = "#{original['name']}-#{tag}"
-    copy["description"] = "#{tag}: #{original['description']}"
+    copy.name = "#{original.name}-#{tag}"
+    copy.description = "#{tag}: #{original.description}"
     copy
   end
   
@@ -55,9 +58,15 @@ class Design
   end
   
   ##
+  # Finders
+  def self.by_id(id)
+    find_one(:_id => BSON::ObjectId(id.to_s))
+  end
+  
+  ##
   # Activate the design
   def activate
-    Site.default.activate_design(self)
+    Site.default.design = self
   end
   
   ##

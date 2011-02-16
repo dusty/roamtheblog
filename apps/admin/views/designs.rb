@@ -21,7 +21,7 @@ class AdminApp
       end
       
       def get_design_status(design)
-        if site.active_design == design
+        if site.design == design
           "<strong>Active</strong>"
         else
           <<-EOD

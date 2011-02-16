@@ -32,7 +32,7 @@ class User
   ##
   # Finder
   def self.by_id(id)
-    find_one(:_id => BSON::ObjectId(id))
+    find_one(:_id => BSON::ObjectId(id.to_s))
   end
   
   def self.by_login(login)

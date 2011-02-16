@@ -19,7 +19,7 @@ class UserApp < BaseApp
     end
     
     def design
-      site.active_design
+      @design ||= site.design
     end
     
     def cache
@@ -85,7 +85,7 @@ class UserApp < BaseApp
   end
 
   get '/blog' do
-    posts = params[:tag] ? Post.by_tag(params[:tag]).to_a : Post.active.to_a
+    posts = params[:tag] ? Post.active.by_tag(params[:tag]).to_a : Post.active.to_a
     mustache(:blog, {:posts => posts, :tag => params[:tag]})
   end
 

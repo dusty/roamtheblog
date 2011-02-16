@@ -23,23 +23,20 @@ class Site
     find_one
   end
   
+  ##
+  # Return the associated design if it exists
+  # If not assign the next design or create a default
   def design
-    Design.find_one(:_id => design_id)
+    unless design_id && _design = Design.by_id(design_id)
+      _design = Design.find_one || Design.create_default
+      self.design = _design if _design
+    end
+    _design
   end
   
   def design=(design)
-    self.design_id = design.id
+    self.design_id = design.id.to_s
+    save
   end
-  
-  def activate_design(design)
-    self.design = design
-    self.save
-  end
-  
-  def active_design
-    self.design ||= (Design.find_one || Design.create_default)
-  end
-  
-
 
 end
