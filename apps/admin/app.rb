@@ -137,7 +137,9 @@ class AdminApp < BaseApp
   
   post '/posts' do
     begin
-      @post = Post.create!(params[:post])
+      @post = Post.new(params[:post])
+      @post.published_at = params[:post][:published_at]
+      @post.save!
       flash[:notice] = "Post created."
       redirect "/admin/posts/#{@post.slug}"
     rescue StandardError => e
@@ -154,6 +156,7 @@ class AdminApp < BaseApp
   put '/posts/:id' do
     begin
       not_found unless @post = Post.by_slug(params[:id])
+      @post.published_at = params[:post][:published_at]
       @post.update_attributes!(params[:post])
       flash[:notice] = "Post updated."
       redirect "/admin/posts/#{@post.slug}"
@@ -176,13 +179,14 @@ class AdminApp < BaseApp
   end
   
   get '/pages' do
-    @pages = Page.find
+    @pages = Page.all
     mustache :pages
   end
   
   post '/pages' do
     begin
-      @page = Page.create!(params[:page])
+      @page = Page.new(params[:page])
+      @page.save!
       flash[:notice] = "Page created."
       redirect "/admin/pages/#{@page.slug}"
     rescue StandardError => e
@@ -232,7 +236,8 @@ class AdminApp < BaseApp
   
   post '/designs' do
     begin
-      @design = Design.create!(params[:design])
+      @design = Design.new(params[:design])
+      @design.save!
       flash[:notice] = "Design created."
       redirect "/admin/designs/#{@design.id}"
     rescue StandardError => e
@@ -301,7 +306,8 @@ class AdminApp < BaseApp
   
   post '/users' do
     begin
-      @user = User.create!(params[:user])
+      @user = User.new(params[:user])
+      @user.save!
       flash[:notice] = "User created."
       redirect "/admin/users/#{@user.id}"
     rescue StandardError => e

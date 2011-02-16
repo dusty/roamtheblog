@@ -54,7 +54,7 @@ module ViewHelpers
     def create_error_getter(variable,attribute)
       self.class.class_eval do
         define_method("#{variable}_#{attribute}_error") do
-          instance_variable_get("@#{variable}").errors['attribute'].first
+          instance_variable_get("@#{variable}").errors[attribute].first
         end
       end
     end

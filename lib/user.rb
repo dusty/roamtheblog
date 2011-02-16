@@ -31,7 +31,7 @@ class User
   ##
   # Finder
   def self.by_id(id)
-    criteria.id(id)
+    criteria.id(id).first
   end
   
   def self.by_login(login)

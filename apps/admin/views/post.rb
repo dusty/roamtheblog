@@ -24,6 +24,7 @@ class AdminApp
       end
       
       def post_author
+        puts @current_user.name
         @post.author ||= @current_user.name
       end
       

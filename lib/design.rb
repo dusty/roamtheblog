@@ -24,7 +24,7 @@ class Design
   ##
   # Finder
   def self.by_id(id)
-    criteria.id(id)
+    criteria.id(id).first
   end
   
   ##
