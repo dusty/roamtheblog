@@ -6,6 +6,10 @@ class UserApp
         "RSS Feed"
       end
       
+      def site_updated
+        @updated.iso8601 rescue nil
+      end
+      
       def posts
         @posts.map do |post|
           {
