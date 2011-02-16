@@ -3,7 +3,7 @@ gem 'sinatra'
 gem 'rack-flash'
 gem 'RedCloth'
 gem 'mustache'
-gem 'bson_ext'
-gem 'mongoid', '2.0.0.rc.7'
+gem 'bson_ext', '1.2.2'
+gem 'mongo_odm', :git => 'https://github.com/CodeMonkeySteve/mongo_odm.git'
 gem "html_truncator"
 gem "aaronh-chronic", "0.3.9"

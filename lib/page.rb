@@ -1,6 +1,6 @@
 class Page
-  include Mongoid::Document
-  include Mongoid::Timestamps
+  include MongoODM::Document
+  include MongoODM::Document::Timestamps
   
   ##
   # Attributes
@@ -10,21 +10,21 @@ class Page
   
   ##
   # Indexes
-  index :slug, :unique => true
+  create_index :slug, :unique => true
   
   ##
   # Validations
   validates_presence_of :title, :body
   
   ##
-  # Finders
-  def self.by_slug(slug)
-    where(:slug => slug).first
-  end
+  # Callbacks
+  before_save :generate_slug
   
   ##
-  # Callbacks
-  before_validation :generate_slug
+  # Finders
+  def self.by_slug(slug)
+    find_one(:slug => slug)
+  end
 
   # Convert body to html
   def html

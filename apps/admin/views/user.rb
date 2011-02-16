@@ -15,7 +15,7 @@ class AdminApp
       end
 
       def new_user
-        @user.new?
+        @user.new_record?
       end
       
       def initialize

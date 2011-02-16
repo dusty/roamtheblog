@@ -3,19 +3,19 @@ class AdminApp
     class Page < Layout
       
       def new_page
-        @page.new?
+        @page.new_record?
       end
       
       def page_action
-        @page.new? ? "/admin/pages" : "/admin/pages/#{@page.slug}"
+        @page.new_record? ? "/admin/pages" : "/admin/pages/#{@page.slug}"
       end
       
       def page_method
-        @page.new? ? "post" : "put"
+        @page.new_record? ? "post" : "put"
       end
 
       def page_header
-        @page.new? ? "New Page" : @page.title
+        @page.new_record? ? "New Page" : @page.title
       end
       
       def initialize

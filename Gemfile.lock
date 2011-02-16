@@ -1,3 +1,19 @@
+GIT
+  remote: https://github.com/CodeMonkeySteve/mongo_odm.git
+  revision: ca81e6382e92f7e540de39d9fdfe61cfe3fee39a
+  specs:
+    mongo_odm (0.2.5)
+      activemodel (~> 3.0.3)
+      activemodel (~> 3.0.3)
+      activesupport (~> 3.0.3)
+      activesupport (~> 3.0.3)
+      bson_ext (~> 1.2.0)
+      bson_ext (~> 1.2.0)
+      mongo (~> 1.2.0)
+      mongo (~> 1.2.0)
+      tzinfo (~> 0.3.24)
+      tzinfo (~> 0.3.24)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -8,19 +24,14 @@ GEM
       builder (~> 2.1.2)
       i18n (~> 0.4)
     activesupport (3.0.4)
-    bson (1.2.1)
-    bson_ext (1.2.1)
+    bson (1.2.2)
+    bson_ext (1.2.2)
     builder (2.1.2)
     html_truncator (0.2.0)
       nokogiri (~> 1.4)
     i18n (0.5.0)
-    mongo (1.2.1)
-      bson (>= 1.2.1)
-    mongoid (2.0.0.rc.7)
-      activemodel (~> 3.0)
-      mongo (~> 1.2)
-      tzinfo (~> 0.3.22)
-      will_paginate (~> 3.0.pre)
+    mongo (1.2.2)
+      bson (>= 1.2.2)
     mustache (0.12.0)
     nokogiri (1.4.4)
     rack (1.2.1)
@@ -31,7 +42,6 @@ GEM
       tilt (~> 1.2)
     tilt (1.2.2)
     tzinfo (0.3.24)
-    will_paginate (3.0.pre2)
 
 PLATFORMS
   ruby
@@ -39,9 +49,9 @@ PLATFORMS
 DEPENDENCIES
   RedCloth
   aaronh-chronic (= 0.3.9)
-  bson_ext
+  bson_ext (= 1.2.2)
   html_truncator
-  mongoid (= 2.0.0.rc.7)
+  mongo_odm!
   mustache
   rack-flash
   sinatra

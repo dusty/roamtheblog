@@ -1,6 +1,6 @@
 class Design
-  include Mongoid::Document
-  include Mongoid::Timestamps
+  include MongoODM::Document
+  include MongoODM::Document::Timestamps
   
   ##
   # Attributes
@@ -16,15 +16,11 @@ class Design
   field :script
   field :error
   field :missing
-  
-  ##
-  # Associations
-  referenced_in :site
 
   ##
   # Finder
   def self.by_id(id)
-    criteria.id(id).first
+    find_one(:_id => BSON::ObjectId(id))
   end
   
   ##
@@ -47,7 +43,7 @@ class Design
   ##
   # Default design
   def self.create_default
-    return false unless criteria.empty?
+    return false unless count == 0
     design = new
     design.name = 'RoamTheBlog'
     design.description = 'Clean design inspired by roamthepla.net'
@@ -55,19 +51,19 @@ class Design
       attribute = File.basename(template, File.extname(template))
       design.send("#{attribute}=", File.read(template))
     end
-    design.save! && design
+    design.save && design
   end
   
   ##
   # Activate the design
   def activate
-    Site.first.activate_design(self)
+    Site.default.activate_design(self)
   end
   
   ##
   # Is the design active
   def active?
-    Site.first.design == self
+    Site.default.design == self
   end
   
 end

@@ -7,7 +7,7 @@ class AdminApp
           {
             :user_login => get_user_login(user),
             :user_name => user.name,
-            :user_last_login => get_short_date(user.last_login)
+            :user_last_login => get_short_date(user.login_at)
           }
         end
       end

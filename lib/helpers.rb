@@ -46,7 +46,7 @@ module ViewHelpers
     def create_getter(variable,attribute)
       self.class.class_eval do
         define_method("#{variable}_#{attribute}") do
-          instance_variable_get("@#{variable}")[attribute]
+          instance_variable_get("@#{variable}").send(attribute)
         end
       end
     end

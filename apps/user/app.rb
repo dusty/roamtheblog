@@ -15,7 +15,7 @@ class UserApp < BaseApp
   helpers do
     
     def site
-      @site ||= Site.first
+      @site ||= Site.default
     end
     
     def design
@@ -63,7 +63,7 @@ class UserApp < BaseApp
   
   get '/index.xml' do
     content_type :xml
-    updated = Post.recent.first.updated_at.iso8601
+    updated = Post.recent_update
     posts   = Post.active
     mustache(:feed, {:updated => updated, :posts => posts}, false)
   end
@@ -79,7 +79,7 @@ class UserApp < BaseApp
   end
 
   get '/' do
-    posts = Post.active.limit(5).to_a
+    posts = Post.recent(5).to_a
     post  = posts.first
     mustache(:home, {:posts => posts, :post => post})
   end

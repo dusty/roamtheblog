@@ -3,7 +3,7 @@ class AdminApp
     class Post < Layout
       
       def new_post
-        @post.new?
+        @post.new_record?
       end
       
       def page_action
@@ -20,7 +20,7 @@ class AdminApp
       
       def initialize
         create_getters_and_errors('post',%w{slug title body})
-        create_error_getter('post',%w{author date tags})
+        create_error_getter('post',%w{author published_at tags})
       end
       
       def post_author

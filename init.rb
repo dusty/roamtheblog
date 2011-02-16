@@ -4,21 +4,23 @@ require "bundler/setup"
 
 # Include required gems
 %w{ 
-  mongoid rack-flash sinatra/base RedCloth mustache/sinatra chronic tzinfo
+  mongo_odm rack-flash sinatra/base RedCloth mustache/sinatra chronic tzinfo
   html_truncator
 }.each {|req| require req }
 
-# Connect Mongoid to the DB
-Mongoid.configure do |config|
-  name = ENV['MONGO_DB'] || 'roamtheblog'
-  host = ENV['MONGO_HOST'] || 'localhost'
-  port = ENV['MONGO_PORT'] || 27017
-  # Authenticate if needed
-  if (ENV['MONGO_USER'] && ENV['MONGO_PASS'])
-    username = ENV['MONGO_USER']
-    password = ENV['MONGO_PASS']
-  end
-  config.master = Mongo::Connection.new.db(name)
+# Init mongo connection
+MongoODM.config = {
+  :host => ENV['MONGO_HOST'] || 'localhost', 
+  :port => ENV['MONGO_PORT'] || 27017, 
+  :database => ENV['MONGO_DB'] || 'roamtheblog'
+}
+
+# Authenticate if needed
+if (ENV['MONGO_USER'] && ENV['MONGO_PASS'])
+  MongoODM.config.update({
+   :username =>  ENV['MONGO_USER'],
+   :password => ENV['MONGO_PASS']
+  })
 end
 
 # Require custom libraries

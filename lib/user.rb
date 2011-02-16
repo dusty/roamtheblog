@@ -1,6 +1,6 @@
 class User
-  include Mongoid::Document
-  include Mongoid::Timestamps
+  include MongoODM::Document
+  include MongoODM::Document::Timestamps
 
   ##
   # Attributes
@@ -8,6 +8,7 @@ class User
   field :login
   field :passwd
   field :salt
+  field :login_at, Time
 
   ##
   # Virtual Attributes
@@ -15,7 +16,7 @@ class User
   
   ##
   # Indexes
-  index :login, :unique => true
+  create_index :login, :unique => true
   
   ##
   # Validations
@@ -31,20 +32,20 @@ class User
   ##
   # Finder
   def self.by_id(id)
-    criteria.id(id).first
+    find_one(:_id => BSON::ObjectId(id))
   end
   
   def self.by_login(login)
-    where(:login => login).first
+    find_one(:login => login)
   end
   
   ##
   # Create default user
   def self.create_default
-    return false unless criteria.empty?
+    return false unless count == 0
     user = new(:login => 'admin', :name => 'admin')
     user.password, user.password_confirmation = 'admin', 'admin'
-    user.save! && user
+    user.save && user
   end
   
   ##
@@ -53,6 +54,13 @@ class User
     return false if login.empty?
     return false unless user = User.by_login(login)
     Encrypt.compare(password,user.salt,user.passwd) ? user : false
+  end
+  
+  ##
+  # Set last login time
+  def record_login
+    self.login_at = Time.now.utc
+    save
   end
   
   protected

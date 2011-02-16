@@ -11,7 +11,7 @@ class UserApp
           {
             :title => post.title,
             :path => get_post_url(site_domain,post),
-            :published => post.publish_at.iso8601,
+            :published => post.published_at.iso8601,
             :updated => post.updated_at.iso8601,
             :author => post.author,
             :summary => post.excerpt,

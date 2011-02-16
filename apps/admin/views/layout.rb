@@ -21,7 +21,7 @@ class AdminApp
       end
        
       def site
-        @site || Site.first
+        @site || Site.default
       end
             
       def site_title

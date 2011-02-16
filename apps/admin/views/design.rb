@@ -15,7 +15,7 @@ class AdminApp
       end
       
       def new_design
-        @design.new?
+        @design.new_record?
       end
       
       def design_id

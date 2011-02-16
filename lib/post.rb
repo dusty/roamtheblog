@@ -1,6 +1,6 @@
 class Post
-  include Mongoid::Document
-  include Mongoid::Timestamps
+  include MongoODM::Document
+  include MongoODM::Document::Timestamps
 
   ##
   # Attributes
@@ -8,13 +8,14 @@ class Post
   field :body
   field :author
   field :slug
-  field :published_at, :type => Time
-  field :tags, :type => Array, :default => []
+  field :published_at, Time
+  field :tags, Array, :default => []
   
   ##
   # Indexes
-  index([[:slug,Mongo::ASCENDING],[:published_at,Mongo::ASCENDING]],:unique => true)
-  index :tags
+  create_index [[:slug,Mongo::ASCENDING],[:published_at,Mongo::ASCENDING]],
+    :unique => true
+  create_index :tags
   
   ##
   # Validations
@@ -22,36 +23,44 @@ class Post
   
   ##
   # Callbacks
-  before_validation :generate_slug
+  before_save :generate_slug
   
   ##
   # Finders
-  def self.recent
-    order_by(:published_at.desc)
-  end
-  
-  def self.recent_update
-    recent.first.updated_at
-  end
-  
   def self.by_slug(slug)
-    where(:slug => slug).first
+    find_one(:slug => slug)
   end
 
   def self.by_tag(tag)
-    recent.where(:tags => tag)
+    find(:tags => tag)
+  end
+  
+  def self.sort_published
+    find({}, {:sort => [:published_at, :desc]})
+  end
+  
+  def self.sort_updated
+    find({}, {:sort => [:updated_at, :desc]})
+  end
+  
+  def self.recent_update
+    sort_updated.find_one.updated_at rescue nil
+  end
+  
+  def self.recent(limit=nil)
+    limit ? active.sort_published.limit(limit) : active.sort_published
   end
   
   def self.nodate
-    recent.where(:date => nil)
+    find(:published_at => nil).sort_updated
   end
   
   def self.active
-    recent.where(:date.lte => Time.now.utc)
+    find(:published_at => {'$lte' => Time.now.utc}).sort_published
   end
   
   def self.future
-    recent.where(:date.gt => Time.now.utc)
+    find(:published_at => {'$gt' => Time.now.utc}).sort_published
   end
   
   def self.tags
@@ -68,8 +77,8 @@ class Post
   ##
   # Parse a string for published_at
   def published_at=(publish)
-    date = publish.is_a?(String) ? Chronic.parse(publish) : publish
-    write_attribute(:published_at, date)
+    publish = Chronic.parse(publish) if publish.is_a?(String)
+    write_attribute(:published_at, publish.utc) if publish.is_a?(Time)
   end
   
   def html
