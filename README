@@ -23,7 +23,8 @@ Markup
   
 Requirements
   Roamtheblog saves its data to a MongoDB database.  If you don't want to run
-  your own, I recommend using Mongo Machine (mongomachine.com).
+  your own, I recommend using Mongo HQ (mongohq.com) or Mongo Machine
+  (mongomachine.com).
   
   You will need access to a server that can run ruby code.  If you don't
   want to run your own, I recommend using Heroku (heroku.com).
