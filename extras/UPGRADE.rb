@@ -1,3 +1,10 @@
+##
+# Migration script from Mongomatic to MongoODM
+# 
+# For the migration only, comment out MongoODM::Document::Timestamps 
+# and add created_at and updated_at as fields to that model.
+#
+# Switch back after completion.
 Design.remove
 MongoODM.database['Design'].find.each do |design|
   design.delete('_id')

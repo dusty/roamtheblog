@@ -1,6 +1,6 @@
 class Post
   include MongoODM::Document
-  #include MongoODM::Document::Timestamps
+  include MongoODM::Document::Timestamps
 
   ##
   # Attributes
@@ -9,8 +9,6 @@ class Post
   field :author
   field :slug
   field :published_at, Time
-  field :created_at, Time
-  field :updated_at, Time
   field :tags, Array, :default => []
   
   ##
