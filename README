@@ -285,13 +285,13 @@ Variables
     path: relative URL to the post
     author: author of this post
     date: date of the post
-    posts: an array of posts, ordered by date, that each contain
+    posts: an array of recent posts ordered by date
       title: title of the post
       date: date of the post
       path: relative URL to the post
                 
   Blog (List of All Articles):
-    posts: an array of posts, ordered by date, that each contain
+    posts: an array of all posts ordered by date
        title: title of the post
        date: date of the post
        path: relative URL to the post
@@ -308,6 +308,14 @@ Variables
     author: author of the post
     html: full HTML of the page
     date: date of the post
+    younger: an array of recent younger posts ordered by date
+      title: title of the post
+      date: date of the post
+      path: relative URL to the post
+    older: an array of recent older posts ordered by date
+      title: title of the post
+      date: date of the post
+      path: relative URL to the post
 
       
 Default Template
