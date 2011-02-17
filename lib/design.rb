@@ -16,12 +16,6 @@ class Design
   field :script
   field :error
   field :missing
-
-  ##
-  # Finder
-  def self.by_id(id)
-    find_one(:_id => BSON::ObjectId(id.to_s))
-  end
   
   ##
   # Duplicate a design

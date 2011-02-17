@@ -1,6 +1,6 @@
 GIT
   remote: git@github.com:dusty/mongo_odm.git
-  revision: b0368203cb8e2e5651d97ea9f5133463c60d0007
+  revision: a16a1da416e1eb37ef3b265d326e62ea5d6c2e50
   specs:
     mongo_odm (0.2.5)
       activemodel (~> 3.0.3)

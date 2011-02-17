@@ -377,7 +377,7 @@ FAQ
      the data stored in the database.
        # cd /the/path/to/your/app
        # heroku console
-       # u = User.where(:login => 'yourlogin').first
+       # u = User.find_one(:login => 'yourlogin')
        # u.password = 'yournewpass'
        # u.password_confirmation = 'yournewpass'
        # u.save
