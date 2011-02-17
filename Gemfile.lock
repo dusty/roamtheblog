@@ -1,5 +1,5 @@
 GIT
-  remote: git@github.com:dusty/mongo_odm.git
+  remote: https://github.com/dusty/mongo_odm.git
   revision: a16a1da416e1eb37ef3b265d326e62ea5d6c2e50
   specs:
     mongo_odm (0.2.5)
