@@ -79,7 +79,7 @@ class UserApp < BaseApp
   end
 
   get '/' do
-    posts = Post.recent(6).to_a
+    posts = Post.recent(5).to_a
     post  = posts.first
     posts.delete(post)
     mustache(:home, {:posts => posts, :post => post})
