@@ -16,23 +16,53 @@ class Post < Mongomatic::Base
     find_one(:slug => slug)
   end
 
-  def self.nodate
-    find(:date => nil).sort([:updated, :desc])
+  # def self.nodate
+  #   find(:date => nil).sort([:updated, :desc])
+  # end
+  # 
+  # def self.active
+  #   find(:date => {'$lte' => Time.now.utc}).sort([:date, :desc])
+  # end
+  # 
+  # def self.future
+  #   find(:date => {'$gt' => Time.now.utc}).sort([:date, :desc])
+  # end
+  
+  ####
+  def self.sort_published
+    find({}, {:sort => [:date, :desc]})
   end
   
-  def self.active
-    find(:date => {'$lte' => Time.now.utc}).sort([:date, :desc])
+  def self.sort_updated
+    find({}, {:sort => [:updated, :desc]})
   end
   
-  def self.future
-    find(:date => {'$gt' => Time.now.utc}).sort([:date, :desc])
+  def self.recent_update
+    sort_updated.find_one.updated rescue nil
   end
   
   def self.recent(limit=nil)
-    criteria = active.sort([:updated, :desc])
-    criteria.limit(limit) if limit
-    criteria
+    limit ? active.sort_published.limit(limit) : active.sort_published
   end
+  
+  def self.nodate
+    find(:date => nil).sort_updated
+  end
+  
+  def self.active
+    find(:date => {'$lte' => Time.now.utc}).sort_published
+  end
+  
+  def self.future
+    find(:date => {'$gt' => Time.now.utc}).sort_published
+  end
+  ####
+  
+  # def self.recent(limit=nil)
+  #   criteria = active.sort([:updated, :desc])
+  #   criteria.limit(limit) if limit
+  #   criteria
+  # end
   
   def self.tag(tag)
     find(:date => {'$lte' => Time.now.utc}, :tags => tag).sort([:date, :desc])
