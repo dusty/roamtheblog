@@ -79,8 +79,9 @@ class UserApp < BaseApp
   end
 
   get '/' do
-    posts = Post.recent(5).to_a
+    posts = Post.recent(6).to_a
     post  = posts.first
+    posts.delete(post)
     mustache(:home, {:posts => posts, :post => post})
   end
 
@@ -91,8 +92,8 @@ class UserApp < BaseApp
 
   get '/blog/:id' do
     not_found unless post = Post.by_slug(params[:id])
-    args = {:post => post}
-    mustache(:post, args)
+    posts = Post.near(post,2)
+    mustache(:post, {:post => post, :posts => posts})
   end
 
   get '/:id' do

@@ -30,6 +30,34 @@
   
 </article>
 
+<section class="recent">
+  
+  <header>
+    <h1><a href="/blog">See All Posts >></a></h1>
+    <h2>Recent Posts</h2>
+  </header>
+  
+  <table>
+    {{#younger}}
+    <tr>
+      <td class="time"><time>{{date}}</time></td>
+      <td><a href="{{path}}">{{title}}</a></td>
+    </tr>
+    {{/younger}}
+    <tr>
+      <td class="time"><time>{{date}}</time></td>
+      <td>{{title}}</td>
+    </tr>
+    {{#older}}
+    <tr>
+      <td class="time"><time>{{date}}</time></td>
+      <td><a href="{{path}}">{{title}}</a></td>
+    </tr>
+    {{/older}}
+  </table>
+
+</section>
+
 {{#setting_disqus}}
 <script type="text/javascript">
   var disqus_identifier = '{{slug}}';

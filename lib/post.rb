@@ -51,6 +51,10 @@ class Post
     limit ? active.sort_published.limit(limit) : active.sort_published
   end
   
+  def self.without(post)
+    find(:_id => {'$ne' => post.id})
+  end
+  
   def self.nodate
     find(:published_at => nil).sort_updated
   end
@@ -58,9 +62,56 @@ class Post
   def self.active
     find(:published_at => {'$lte' => Time.now.utc}).sort_published
   end
-  
+
   def self.future
     find(:published_at => {'$gt' => Time.now.utc}).sort_published
+  end
+  
+  ##
+  # Posts that are active and younger than a certain time
+  def self.younger(time)
+    time = time.utc
+    now  = Time.now.utc
+    find({:published_at => {'$gt' => time, '$lt' => now}}, 
+      {:sort => [:published_at, :asc]})
+  end
+  
+  ##
+  # Posts that are active and older than a certain time
+  def self.older(time)
+    now  = Time.now.utc
+    time = time.utc
+    max_age = (time > now) ? now : time
+    find(
+      {:published_at => {'$lt' => max_age}}, 
+      {:sort => [:published_at, :desc]})
+  end
+  
+  ##
+  # Find posts near a post.  
+  # Return a Hash with :younger and :older keys.
+  #
+  # Will return the limit on both sides of the post.  However, if one
+  # side is lower than the other (perhaps the first/last post), then
+  # the other side is adjusted.
+  #
+  # Start with limit*2 on the queries in case we need to fill the entire
+  # other side.
+  #
+  # Post.near(somepost,3)
+  # {:younger => [post1, post2], :older => [post3, post4, post5, post6]}
+  def self.near(post,limit=2)
+    return [] unless post.published_at
+    
+    young = without(post).younger(post.published_at).limit(limit*2).to_a
+    older = without(post).older(post.published_at).limit(limit*2).to_a
+    
+    older_diff = (older.length < limit) ? (limit - older.length) : 0
+    young_diff = (young.length < limit) ? (limit - young.length) : 0
+    older_len  = limit + young_diff - 1
+    young_len  = limit + older_diff - 1
+
+    { :younger => young[0..young_len].reverse, :older => older[0..older_len] }
   end
   
   def self.tags

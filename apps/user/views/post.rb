@@ -30,6 +30,30 @@ class UserApp
         get_long_date(@post.published_at)
       end
       
+      def posts
+        @posts
+      end
+      
+      def younger
+        @posts[:younger].map do |post|
+          { 
+            :title => post.title,
+            :date => get_long_date(post.published_at),
+            :path => get_post_path(post)
+          }
+        end
+      end
+      
+      def older
+        @posts[:older].map do |post|
+          { 
+            :title => post.title,
+            :date => get_long_date(post.published_at),
+            :path => get_post_path(post)
+          }
+        end
+      end
+      
     end
   end
 end
