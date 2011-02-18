@@ -101,7 +101,7 @@ class Post
   # Post.near(somepost,3)
   # {:younger => [post1, post2], :older => [post3, post4, post5, post6]}
   def self.near(post,limit=2)
-    return {} unless post.published_at
+    return {:younger => [], :older => []} unless post.published_at
     
     young = without(post).younger(post.published_at).limit(limit*2).to_a
     older = without(post).older(post.published_at).limit(limit*2).to_a
@@ -111,7 +111,7 @@ class Post
     older_len  = limit + young_diff - 1
     young_len  = limit + older_diff - 1
 
-    { :younger => young[0..young_len].reverse, :older => older[0..older_len] }
+    {:younger => young[0..young_len].reverse, :older => older[0..older_len]}
   end
   
   def self.tags
