@@ -74,7 +74,7 @@
         <p>
           {{#setting_feedburner}}
           <a href="http://feeds.feedburner.com/{{setting_feedburner}}" 
-             rel="alternate" type="application/rss+xml" target="{{timestamp}}">
+             rel="alternate" type="application/rss+xml" target="_feed">
             <img src="/images/rss.png" alt="rss" />
             RSS
           </a>
@@ -82,7 +82,7 @@
           
           {{#setting_feedburner}}
           <a href="http://feedburner.google.com/fb/a/mailverify?uri={{setting_feedburner}}&amp;loc=en_US" 
-            target="{{timestamp}}">
+            target="_email">
             <img src="/images/email.png" alt="email" />
             Email
           </a>
@@ -90,14 +90,15 @@
 
           {{#setting_facebook}}
           <a href="http://www.facebook.com/pages/{{setting_facebook}}" 
-            target="{{timestamp}}">
+            target="_facebook">
             <img src="/images/facebook.png" alt="facebook">
             Facebook
           </a>
           {{/setting_facebook}}
 
           {{#setting_twitter}}
-          <a href="http://twitter.com/{{setting_twitter}}" target="{{timestamp}}">
+          <a href="http://twitter.com/{{setting_twitter}}" 
+             target="_twitter">
             <img src="/images/twitter.png" alt="twitter">
             Twitter
           </a>
@@ -105,7 +106,7 @@
           
           {{#setting_youtube}}
           <a href="http://www.youtube.com/user/{{setting_youtube}}"
-             target="{{timestamp}}">
+             target="_youtube">
              <img src="/images/youtube.png" alt="youtube">
              YouTube
           </a>
@@ -113,7 +114,7 @@
 
           {{#setting_flickr}}
           <a href="http://www.flickr.com/photos/{{setting_flickr}}"
-             target="{{timestamp}}">
+             target="_flickr">
              <img src="/images/flickr.png" alt="flickr">
              Flickr
           </a>

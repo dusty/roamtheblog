@@ -2,7 +2,7 @@
   <header>
     <h1>
       {{page_header}}
-      <span class="tiny">({{^new_post}}<a href="/blog/{{post_slug}}?{{timestamp}}" target="{{timestamp}}">Preview</a> | {{/new_post}}<a href="/admin/posts" >Cancel</a>)</span>
+      <span class="tiny">({{^new_post}}<a href="/blog/{{post_slug}}?{{timestamp}}" target="_preview">Preview</a> | {{/new_post}}<a href="/admin/posts" >Cancel</a>)</span>
     </h1>
   </header>
   <section class="content">
@@ -50,9 +50,9 @@
           <label for="title">Body</label>
           <span class="small">
           (<a href="http://redcloth.org/hobix.com/textile/quick.html"
-              target="{{timestamp}}">Cheatsheet</a> |
+              target="_help">Cheatsheet</a> |
           <a href="http://redcloth.org/textile" 
-             target="{{timestamp}}">Documentation</a>)
+             target="_help">Documentation</a>)
           </span>
           <span class="error">{{post_body_error}}</span>
           <br/>
