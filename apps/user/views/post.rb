@@ -30,6 +30,19 @@ class UserApp
         get_long_date(@post.published_at)
       end
       
+      def has_tags?
+        !@post.tags.empty?
+      end
+      
+      def tag_list
+        @post.tags.map do |tag|
+          {
+            :tag => tag,
+            :path => get_tag_path(tag)
+          }
+        end
+      end
+      
       def posts
         @posts
       end

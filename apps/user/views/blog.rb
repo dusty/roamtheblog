@@ -14,6 +14,10 @@ class UserApp
         end
       end
       
+      def filtered?
+        !@tag.empty?
+      end
+      
       def posts
         @posts.map do |post| 
           { 

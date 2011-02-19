@@ -20,6 +20,10 @@ module ViewHelpers
     def get_post_path(post)
       "/blog/#{post.slug}"
     end
+    
+    def get_tag_path(tag)
+      "/blog?tag=#{tag}"
+    end
 
     def get_post_url(domain,post)
       "http://#{domain}#{get_post_path(post)}"

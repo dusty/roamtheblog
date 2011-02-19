@@ -262,6 +262,10 @@ Variables
     site_title: title of site
     site_location: location of the site or authors of the site
     site_map: link to a google map view based on the site_location
+    site_has_tags?: boolean indicating if there are any tags
+    site_tags: array of all tags
+      tag: name of the tag (ruby)
+      path: path to a list of all posts with that tag
   
   Style, Script, Error, Missing
     No special variables, however, all site-wide variables are accessible.
@@ -285,12 +289,17 @@ Variables
     path: relative URL to the post
     author: author of this post
     date: date of the post
+    has_tags?: boolean indicating if the post has tags
+    tag_list: an array of tags associated with this post
+      tag: name of tag
+      path: path to a list of all posts with this tag
     posts: an array of recent posts ordered by date
       title: title of the post
       date: date of the post
       path: relative URL to the post
                 
   Blog (List of All Articles):
+    filtered?: boolean indicating if the search is filtered
     posts: an array of all posts ordered by date
        title: title of the post
        date: date of the post
@@ -308,6 +317,10 @@ Variables
     author: author of the post
     html: full HTML of the page
     date: date of the post
+    has_tags?: boolean indicating if the post has tags
+    tag_list: an array of tags associated with this post
+      tag: name of tag
+      path: path to a list of all posts with this tag
     younger: an array of recent younger posts ordered by date
       title: title of the post
       date: date of the post

@@ -3,13 +3,17 @@
     <h1><a href="{{path}}">{{title}}</a></h1>
     <h2>
       <time>{{date}}</time>
-      &middot;
+      &middot; 
       by {{author}}
       {{#setting_disqus}}
       &middot;
       <a href="{{path}}#disqus_thread"
          data-disqus-identifier="{{slug}}">Comments</a>
       {{/setting_disqus}}
+      {{#has_tags?}}
+        &middot; 
+        tags ( {{#tag_list}}<a href="{{path}}">{{tag}}</a>&nbsp;{{/tag_list}})
+      {{/has_tags?}}
     </h2>
   </header>
   

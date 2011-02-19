@@ -18,6 +18,10 @@ class UserApp < BaseApp
       @site ||= Site.default
     end
     
+    def tags
+      @tags ||= Post.tags
+    end
+    
     def design
       @design ||= site.design
     end
@@ -38,7 +42,7 @@ class UserApp < BaseApp
     #   mustache(:page, :page => page)
     #   UserApp::Views::Page.new(:site => site, :page => page).render
     def mustache(template, args={}, layout=true)
-      args = args.update(:site => site)
+      args = args.update(:site => site, :site_tags => tags)
       layout_class = UserApp::Views::Layout
       layout_class.template = design.layout
       view_class = UserApp::Views.const_get(template.to_s.classify)

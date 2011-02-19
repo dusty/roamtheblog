@@ -18,12 +18,16 @@
     <h2>
       <time>{{date}}</time>
       &middot;
-      by {{author}}
+      By {{author}}
       {{#setting_disqus}}
       &middot;
       <a href="{{path}}#disqus_thread"
          data-disqus-identifier="{{slug}}">Comments</a>
       {{/setting_disqus}}
+      {{#has_tags?}}
+        &middot; 
+        tags ( {{#tag_list}}<a href="{{path}}">{{tag}}</a>&nbsp;{{/tag_list}})
+      {{/has_tags?}}
     </h2>
   </header>
   

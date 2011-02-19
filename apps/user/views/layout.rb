@@ -34,6 +34,19 @@ class UserApp
         @site.location
       end
       
+      def site_has_tags?
+        !@site_tags.empty?
+      end
+      
+      def site_tags
+        @site_tags.map do |tag|
+          {
+            :tag => tag,
+            :path => get_tag_path(tag)
+          }
+        end
+      end
+      
       ##
       # Link to Google Maps based on the Site Location variable
       def site_map
@@ -44,7 +57,6 @@ class UserApp
           EOD
         end
       end
-      
       
       ##
       # Dynamic Methods
