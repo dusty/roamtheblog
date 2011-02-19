@@ -115,7 +115,7 @@ class Post
   end
   
   def self.tags
-    collection.distinct(:tags)
+    collection.distinct(:tags, {:published_at => {'$lte' => Time.now.utc}})
   end
   
   ##
