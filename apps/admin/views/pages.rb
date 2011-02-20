@@ -1,7 +1,7 @@
 class AdminApp
   module Views
     class Pages < Layout
-      
+
       def pages
         @pages.map do |page|
           {
@@ -11,7 +11,7 @@ class AdminApp
           }
         end
       end
-      
+
     end
   end
 end

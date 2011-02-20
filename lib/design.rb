@@ -1,7 +1,7 @@
 class Design
   include MongoODM::Document
   include MongoODM::Document::Timestamps
-  
+
   ##
   # Attributes
   field :name
@@ -16,7 +16,7 @@ class Design
   field :script
   field :error
   field :missing
-  
+
   ##
   # Duplicate a design
   def self.duplicate(id)
@@ -31,12 +31,12 @@ class Design
     copy.description = "#{tag}: #{original.description}"
     copy
   end
-  
+
   ##
   # Validations
   validates_presence_of :name, :layout, :blog, :feed, :home, :page, :post
   validates_presence_of :error, :missing, :style, :script
-  
+
   ##
   # Default design
   def self.create_default
@@ -50,27 +50,27 @@ class Design
     end
     design.save && design
   end
-  
+
   ##
   # Finders
   def self.by_id(id)
     find_one(:_id => BSON::ObjectId(id.to_s))
   end
-  
+
   def self.sort_updated
     find({}, {:sort => [:updated_at, :desc]})
   end
-  
+
   ##
   # Activate the design
   def activate
     Site.default.design = self
   end
-  
+
   ##
   # Is the design active
   def active?
     Site.default.design == self
   end
-  
+
 end

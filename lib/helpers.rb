@@ -4,7 +4,7 @@ module ViewHelpers
     base.send(:include, InstanceMethods)
     base.send(:extend, ClassMethods)
   end
-  
+
   module InstanceMethods
 
     def production
@@ -20,7 +20,7 @@ module ViewHelpers
     def get_post_path(post)
       "/blog/#{post.slug}"
     end
-    
+
     def get_tag_path(tag)
       "/blog?tag=#{tag}"
     end
@@ -38,15 +38,15 @@ module ViewHelpers
       date = parse_date(date)
       date ? date.strftime("%B #{date.day.ordinal}, %Y") : "---"
     end
-    
+
     private
     def parse_date(date)
       return nil if date.blank?
       date = Chronic.parse(date) if date.is_a?(String)
       date ? date.in_time_zone : nil
     end
-      
-    
+
+
     def create_getter(variable,attribute)
       self.class.class_eval do
         define_method("#{variable}_#{attribute}") do
@@ -54,7 +54,7 @@ module ViewHelpers
         end
       end
     end
-    
+
     def create_error_getter(variable,attribute)
       self.class.class_eval do
         define_method("#{variable}_#{attribute}_error") do
@@ -62,24 +62,24 @@ module ViewHelpers
         end
       end
     end
-    
+
     def create_getters(variable,attributes)
       attributes.each {|attribute| create_getter(variable,attribute)}
     end
-    
+
     def create_error_getters(variable,attributes)
       attributes.each {|attribute| create_error_getter(variable,attribute)}
     end
-    
+
     def create_getters_and_errors(variable,attributes)
       create_getters(variable,attributes)
       create_error_getters(variable,attributes)
     end
-    
+
   end
-  
+
   module ClassMethods
   end
-  
+
 end
-  
+

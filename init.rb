@@ -3,15 +3,15 @@ require "rubygems"
 require "bundler/setup"
 
 # Include required gems
-%w{ 
+%w{
   mongo_odm rack-flash sinatra/base RedCloth mustache/sinatra chronic tzinfo
   html_truncator
 }.each {|req| require req }
 
 # Init mongo connection
 config = {
-  :host => ENV['MONGO_HOST'] || 'localhost', 
-  :port => ENV['MONGO_PORT'] || 27017, 
+  :host => ENV['MONGO_HOST'] || 'localhost',
+  :port => ENV['MONGO_PORT'] || 27017,
   :database => ENV['MONGO_DB'] || 'roamtheblog'
 }
 
@@ -30,7 +30,7 @@ Dir["lib/**/*.rb"].sort.each {|req| require req}
 
 # Create defaults
 User.create_default
-Site.create_default 
+Site.create_default
 
 # Require apps
 Dir["apps/**/*.rb"].sort.each {|req| require req}

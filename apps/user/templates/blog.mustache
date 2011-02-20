@@ -7,16 +7,16 @@
 
 {{#site_has_tags?}}
 <section class="tags">
-  <p>Filter posts by tag:
+  <p>Filter posts by tag: |
   {{#site_tags}}
-    <a href="{{path}}">{{tag}}</a>
+    <a href="{{path}}">{{tag}}</a> |
   {{/site_tags}}
   </p>
 </section>
 {{/site_has_tags?}}
 
 <section class="recent">
-  
+
   <table>
     {{^posts}}
     <tr><td>No matches for {{search}}</td></tr>

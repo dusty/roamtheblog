@@ -1,7 +1,7 @@
 class AdminApp
   module Views
     class Users < Layout
-      
+
       def users
         @users.map do |user|
           {
@@ -11,14 +11,14 @@ class AdminApp
           }
         end
       end
-      
+
       private
       def get_user_login(user)
         <<-EOD
 <a href="/admin/users/#{user.id}">#{user.login}</a>
         EOD
       end
-      
+
     end
   end
 end

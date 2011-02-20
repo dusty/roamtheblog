@@ -7,7 +7,7 @@ Built With:
   * RedCloth
   * MongoDB
   * MongoODM
- 
+
 Clean default template setup for use with:
   * Disqus
   * Google Analytics
@@ -20,25 +20,25 @@ Markup
   Roamtheblog makes it easy to create a website and/or blog by using the
   Textile markup language.  With Textile you can create HTML code without
   needing to write HTML (although you can).
-  
+
 Requirements
   Roamtheblog saves its data to a MongoDB database.  If you don't want to run
   your own, I recommend using Mongo HQ (mongohq.com) or Mongo Machine
   (mongomachine.com).
-  
+
   You will need access to a server that can run ruby code.  If you don't
   want to run your own, I recommend using Heroku (heroku.com).
-  
+
 Optimizations
   Roamtheblog is optimized to run on Heroku by setting a Cache-Control header
   to 300 seconds by default.  You can adjust that number as you wish in the
   Settings panel.
-  
+
   Heroku or any other host that runs a cache such as Varnish in front of your
   app, will honor this setting and cache pages for this long. This means your
   app is only hit once every 5 minutes for each page.  The rest of the
-  requests are served by the cache server.  
-  
+  requests are served by the cache server.
+
   This will speed up the site and help to keep your Heroku account from
   being overwhelmed by limiting the number of requests that your app serves.
 
@@ -46,10 +46,10 @@ Installation
 
   Local Server
     Below are some basic instructions for running the app on your local
-    machine.  This app is a Sinatra/Rack application, so you should be able 
+    machine.  This app is a Sinatra/Rack application, so you should be able
     to run it with your app server of choice (thin, unicorn, passenger,
     webrick, mongrel, etc.)
-  
+
     Clone repo
       If you have git installed, and then you can clone the software to your
       local machine.
@@ -58,37 +58,37 @@ Installation
       If you don't have git installed, you can download the zip file at
       the following url (click on the Downloads button):
         https://github.com/dusty/roamtheblog
-  
+
     Setup Rubygems
       This application uses bundler to install the required dependencies.
       The --path part is optional.
         # cd /the/path/to/the/software
         # gem install bundler
         # bundle install --path tmp/
-        
+
       You will need the Rack gem installed into your system gems to start
       the application.  You can just install rack if you aren't familiar
       with running rack app servers.
         # gem install rack
-    
+
     Start MongoDB
       If you are running OSX you can install MongoDB easily with homebrew.
       Check out homebrew at:
         https://github.com/mxcl/homebrew
-      
+
       Once installed, you can install mongodb with the following command:
         # brew install mongodb
-      
+
       Otherwise, you can download and find instructions on running MongoDB at:
         http://mongodb.org/
-      
+
       You can typically start up mongodb by executing the mongod file.
         # /path/to/mongod
-    
+
     Setup MongoDB
-      By default, roamtheblog uses the default of localhost port 27017 and 
+      By default, roamtheblog uses the default of localhost port 27017 and
       a database named roamtheblog.  If this is good for you, then no changes
-      are needed.  
+      are needed.
 
       If you want to make changes, you may set the following environmental
       variables to override whichever settings you need to.
@@ -103,65 +103,65 @@ Installation
       If you need to change any of the MongoDB variables, put those at the
       beginning of your startup command
         # MONGO_DB=myblogdatabase rackup
-      
+
       The app is now listening on localhost port 9922 by default with webrick.
       If you are using a different app server, look at the output to find
       what port it is listening on.
-    
+
       You can then visit the application at (replace 9292, with your port):
         http://localhost:9292
-      
-  
+
+
   Heroku/Mongomachine
     Below are some basic instructions for running the app on Heroku.  Please
     read the documentation on Heroku's website for more detailed information.
-    
+
     You can find Heroku's documentation at:
       http://docs.heroku.com/
-  
+
     Setup mongomachine
       Go to http://mongomachine.com and sign up for an account.  After you've
       signed up, create a new database and set the database name, username,
       and password.  After the database has been setup you can find the
       connection information on the Overview page.
-    
+
     Setup heroku
       Go to http://heroku.com and click on the Sign Up button.  After you've
       signed up you will be able to deploy a free app to heroku using the
       email and password you signed up with.
-      
+
       First you will need to install the heroku command-line application to
       your computer.  The easiest way is with rubygems.
-      
+
         # gem install heroku
-    
+
     Clone repo
       You will need to have git installed, and then you can clone the
       roamtheblog software to your local machine.
-      
+
       You can install git on OSX with homebrew
         # brew install git
-      
+
       For other systems you can find git at:
         http://git-scm.com/
-      
+
       Once git is installed, clone the repository to your local machine
         # git clone https://github.com/dusty/roamtheblog.git
-    
-    Create heroku app 
+
+    Create heroku app
       Once in the directory of the app, you will need to deploy the app
       to heroku.  Choose a name for your app and create it with the following
       command (replace xxxx with your desired app name).
-        # heroku create xxxx --stack bamboo-mri-1.9.2 
+        # heroku create xxxx --stack bamboo-mri-1.9.2
 
-    Set heroku variables 
+    Set heroku variables
       You will need to setup the connection information you obtained from
       mongomachine (or any MongoDB provider) and tell Heroku about it with
       the following command (replace xxxx with your settings).
         # heroku config:add \
           MONGO_HOST=xxxx MONGO_PORT=xxxx MONGO_DB=xxxx \
           MONGO_USER=xxxx MONGO_PASS=xxxx
-            
+
     Deploy to heroku
       Now you can deploy your application to Heroku.  This will setup your
       app at yourappname.heroku.com.  Login to heroku and look for the
@@ -172,30 +172,30 @@ Admin Panel
   Go to http://yoursitedomain.com/admin to manage your site.  By default
   the username and password is 'admin' (without the quotes).  After you login
   for the first time, you should change both settings.
-  
+
   Pages
     Create static pages that are not blog posts such as an About page.
     Pages have a URL based on the title, such as /about.
-    
+
   Posts
     Create blog posts.  You can assign a publish date to automatically
     publish posts at a later date, or leave it blank to keep the post
-    unpublished.  
-    
+    unpublished.
+
     Blog posts have a URL based on the publish date and the title, such
     as /blog/20110101-my-post.
-      
+
   Settings
     Setup system-wide variables such as domain, title, and cache timeout.
     Be sure to set the desired Time Zone for publishing articles in the
     future.
-  
+
     In addition, you can setup custom variables for use within
     each template.  For example, if you create a setting named 'flickr'
     with the value of 'myflickrid', then you can use {{setting_flickr}}
     in any of your templates and it will be replaced with the value of
     'myflickrid'
-      
+
   Designs
     You can create a design for displaying the html of your pages.  By
     default a copy of the design used on roamthepla.net is included.  You
@@ -208,54 +208,54 @@ Admin Panel
 
     For more information, please refer to the Mustache documentation at:
       http://mustache.github.com/mustache.5.html
-      
+
   Users
     Add and manage users that can login and create content on the site.
-  
+
 
 Templates
   Each Design requires templates of certain names used to render different
-  types of pages.  Below is a list of templates found in a design, 
+  types of pages.  Below is a list of templates found in a design,
   the URL used to access that page (if applicable), and a brief description.
-  
+
   Layout
     The main layout of the site, typically the header, footer, and navbar.
 
   Error
     The content that is presented when there is an error
-    
+
   Missing
     The content provided when a page is not found
-    
+
   Blog (/blog)
     Lists all the posts on this blog
-    
+
   Feed (/index.xml)
     Provides XML output of the posts for an RSS feed
-    
+
   Home (/)
     The main page of the site, showing only the most recent post
-  
+
   Page (/about)
     Static pages that are not a blog post, such as an About page
-    
+
   Post (/blog/20110101-my-blog-post)
     Shows a blog post in its entirety
-    
+
   Script (/application.js)
     Any custom javascript code
-    
+
   Style (/style.css)
     The CSS Stylesheet for the site
-  
+
 Variables
   Each template is able to use certain mustache variables to provide content.
   Please refer to the Mustache documentation for more explanation on how
   to use variables.
-  
+
   You can find the Mustache documentation with more details at:
     http://mustache.github.com/mustache.5.html
-          
+
   Site-Wide:
     setting_xxxx: variables added in the Settings panel, prefixed by _setting
     site_domain: domain of the site (eg: mydomain.com)
@@ -266,12 +266,12 @@ Variables
     site_tags: array of all tags
       tag: name of the tag (ruby)
       path: path to a list of all posts with that tag
-  
+
   Style, Script, Error, Missing
     No special variables, however, all site-wide variables are accessible.
     eg: you could set a primary_color variable in settings and
     access that with {{setting_primary_color}} in your stylesheet.
-      
+
   Feed (RSS Feed)
     updated: date of last update to any article
     posts: an array of posts that each contain:
@@ -282,7 +282,7 @@ Variables
       author: author of the post
       summary: summary of the post
       html: full html of the post
-           
+
   Home (Main page of the site):
     slug: slug/permalink of the post (eg: 20110103-mypost)
     title: title of the post
@@ -297,18 +297,18 @@ Variables
       title: title of the post
       date: date of the post
       path: relative URL to the post
-                
+
   Blog (List of All Articles):
     filtered?: boolean indicating if the search is filtered
     posts: an array of all posts ordered by date
        title: title of the post
        date: date of the post
        path: relative URL to the post
-        
+
   Page (Static Page):
     title: title of the Page
     html: full HTML of the page
-      
+
   Post (Blog Post):
     slug: slug/permalink of the post (eg: 20110103-mypost)
     url: full URL to the post
@@ -330,39 +330,39 @@ Variables
       date: date of the post
       path: relative URL to the post
 
-      
+
 Default Template
   The default template is a clean and clutter-free template used to power
   roamthepla.net.  Feel free to use it, or copy it and modify it as you
   wish.
-  
+
   There are several settings built in to the default template.  Just create
   them in the Settings panel and add the value you want to active it.
-  
+
   Required
     primary_color: sets the main text color of the page, used in Style.
-  
+
   Optional
     logo: provide a link to a logo to include in the header of the page.
-  
+
   Enhancements
     feedburner: enable feedburner RSS feeds with your feedburner id.
     analytics: track page visits with your google analytics id.
     disqus: use disqus for comments with your disqus id.
-  
+
   Links (on bottom of pages)
     facebook: link to your facebook site/page
     twitter: link to your twitter page
     youtube: link to your youtube account
     flickr: link to your flickr account
-    
+
 FAQ
   Q. How do I format a blog post or page?
   A. Roamtheblog uses the Textile markup to make it easy to write
      HTML pages without having to understand or use HTML.  When you click
      on the New link to create a Page or Post, there are links to instructions
      on how to use the Textile markup language.
-     
+
   Q. How can I change the blue font color on the default template?
   A. Find the color you like.  It needs to be in a format that CSS
      understands.  Go to the Settings panel and change the primary_color
@@ -371,28 +371,28 @@ FAQ
   Q. How can I add a picture or video to my page or blog post?
   A. Roamtheblog is as simple as it can be and does not manage media.  I
      recommend using a site that specializes in that, such as Flickr, Picasa,
-     and YouTube.  
-     
+     and YouTube.
+
      For example, when you've uploaded a picture to Flickr, you can share that
-     picture.  One of the options will give you a link to copy/paste into 
+     picture.  One of the options will give you a link to copy/paste into
      your blog post.  You can choose the size you'd like and just copy/paste
      that code into your post.
-     
+
      By doing it this way, flickr or whomever, will host all your pictures.
      These companies are optimized in serving images/videos and it will
      decrease the load on your application.  In addition, you may enjoy some
      of the community features of these sharing sites.
-     
+
   Q. How can I add a logo to my site?
   A. You need a direct link to the image.  If you are using the default
      template you can simply add that URL to a setting named 'logo' in the
      Settings panel.
-     
-     To find a direct link to an image on Flickr, you will need to 
+
+     To find a direct link to an image on Flickr, you will need to
      right-click and open the image in a new window/tab.  Then copy/paste
-     the URL in the location bar of your browser.  This will give you a direct 
+     the URL in the location bar of your browser.  This will give you a direct
      URL to the image, instead of a URL to the flickr page.
-  
+
   Q. How do I reset my password?
   A. Ask another admin to do it for you using the admin panel.  If you are
      the only admin and you've forgotten your password, then you can change
@@ -403,16 +403,16 @@ FAQ
        # u.password = 'yournewpass'
        # u.password_confirmation = 'yournewpass'
        # u.save
-  
+
   Q. Why did you write this?
   A. My wife and I are traveling around and blogging about it for our
      friends and family.  We were frustrated with Wordpress and didn't know
      of any simple alternatives that were easy to use for non-geeks (my wife).
      So I wrote this myself while we were traveling.
-     
+
   Q. Why did you release it as open source?
   A. This is for someone that wants to learn about Ruby, Sinatra, or MongoDB.
-     
+
   Q. What if I am not a Geek and don't understand these instructions?
   A. If you really want to try it out, then I can setup this blog software for
      you if you'd like.  Send me an email.

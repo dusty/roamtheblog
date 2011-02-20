@@ -1,37 +1,37 @@
 class UserApp < BaseApp
-  
+
   not_found do
     mustache(:missing, {})
   end
-  
+
   error do
     mustache(:error, {})
   end
-  
+
   after do
     cache
   end
-  
+
   helpers do
-    
+
     def site
       @site ||= Site.default
     end
-    
+
     def tags
       @tags ||= Post.tags
     end
-    
+
     def design
       @design ||= site.design
     end
-    
+
     def cache
       if site.cache && site.cache > 0
         response.headers['Cache-Control'] = "public, max-age=#{site.cache}"
       end
     end
-    
+
     ##
     # Render a mustache template
     #
@@ -58,25 +58,25 @@ class UserApp < BaseApp
         view_rendered
       end
     end
-    
+
   end
-      
+
   before do
     UserApp::Views::Layout.template = design.layout
   end
-  
+
   get '/index.xml' do
     content_type :xml
     updated = Post.recent_update
     posts   = Post.active
     mustache(:feed, {:updated => updated, :posts => posts}, false)
   end
-  
+
   get '/style.css' do
     content_type :css
     mustache(:style, {}, false)
   end
-  
+
   get '/application.js' do
     content_type :js
     mustache(:script, {}, false)

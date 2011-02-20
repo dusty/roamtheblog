@@ -1,7 +1,7 @@
 class Site
   include MongoODM::Document
   include MongoODM::Document::Timestamps
-  
+
   ##
   # Attributes
   field :location
@@ -18,11 +18,11 @@ class Site
     _new.settings['primary_color'] = '#295187'
     _new.save && _new
   end
-  
+
   def self.default
     find_one
   end
-  
+
   ##
   # Return the associated design if it exists
   # If not assign the next design or create a default
@@ -33,7 +33,7 @@ class Site
     end
     _design
   end
-  
+
   def design=(design)
     self.design_id = design.id.to_s
     save

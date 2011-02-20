@@ -1,13 +1,13 @@
 class AdminApp
   module Views
     class Layout < Mustache
-      
+
       include ViewHelpers
 
       def timestamp
         Time.now.to_i.to_s
       end
-      
+
       def message_notice
         @flash['notice'] if @flash
       end
@@ -15,15 +15,15 @@ class AdminApp
       def message_warning
         @flash['warning'] if @flash
       end
-      
+
       def current_user
         @current_user
       end
-       
+
       def site
         @site || Site.default
       end
-            
+
       def site_title
         site.title
       end
@@ -31,15 +31,15 @@ class AdminApp
       def site_domain
         site.domain
       end
-  
+
       def site_location
         site.location
       end
-      
+
       def site_cache
         site.cache
       end
-      
+
       def site_timezone
         site.timezone
       end
@@ -57,11 +57,11 @@ class AdminApp
           {:option => "<option value=\"#{zone.name}\" #{selected}>#{zone}</option>"}
         end
       end
-      
+
       def site_settings
         site.settings.map { |k,v| {:name => k, :value => v} }
       end
-      
+
       def initialize
         super
         dynamic_settings
@@ -82,7 +82,7 @@ class AdminApp
           end
         end
       end
-      
+
     end
   end
 end

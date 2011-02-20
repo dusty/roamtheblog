@@ -5,11 +5,11 @@ class UserApp
       def title
         @post.title if @post
       end
-      
+
       def slug
         @post.slug
       end
-      
+
       def path
         get_post_path(@post)
       end
@@ -21,19 +21,19 @@ class UserApp
       def html
         @post.html
       end
-  
+
       def date
         get_long_date(@post.published_at)
       end
-      
+
       def post
         @post
       end
-      
+
       def has_tags?
         !@post.tags.empty?
       end
-      
+
       def tag_list
         @post.tags.map do |tag|
           {
@@ -44,8 +44,8 @@ class UserApp
       end
 
       def posts
-        @posts.map do |post| 
-          { 
+        @posts.map do |post|
+          {
             :title => post.title,
             :date => get_long_date(post.published_at),
             :path => get_post_path(post)

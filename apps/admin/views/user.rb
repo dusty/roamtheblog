@@ -1,7 +1,7 @@
 class AdminApp
   module Views
     class User < Layout
-      
+
       def page_header
         new_user ? "New User" : user_name
       end
@@ -17,16 +17,16 @@ class AdminApp
       def new_user
         @user.new_record?
       end
-      
+
       def initialize
         create_getters_and_errors('user',%w{name login})
         create_error_getters('user',%w{password password_confirmation})
       end
-      
+
       def user_id
         @user.id
       end
-      
+
     end
   end
 end

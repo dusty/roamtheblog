@@ -3,21 +3,21 @@ class UserApp
     class Layout < Mustache
 
       include ViewHelpers
-      
+
       def initialize(args={})
         args.each {|k,v| instance_variable_set("@#{k.to_s}",v)}
         generate_dynamic_methods
       end
-      
+
       ##
       # Page title
       #
-      # If the @page_title variable is set make the page_title 
+      # If the @page_title variable is set make the page_title
       # "My Blog - My Page", otherwise, just make it "My Blog"
       def page_title
         @page_title ? "#{site_title} - #{@page_title}" : site_title
       end
-      
+
       ##
       # Site variables
       #
@@ -29,15 +29,15 @@ class UserApp
       def site_domain
         @site.domain
       end
-      
+
       def site_location
         @site.location
       end
-      
+
       def site_has_tags?
         !@site_tags.empty?
       end
-      
+
       def site_tags
         @site_tags.map do |tag|
           {
@@ -46,7 +46,7 @@ class UserApp
           }
         end
       end
-      
+
       ##
       # Link to Google Maps based on the Site Location variable
       def site_map
@@ -57,7 +57,7 @@ class UserApp
           EOD
         end
       end
-      
+
       ##
       # Dynamic Methods
       #
@@ -73,7 +73,7 @@ class UserApp
           end
         end
       end
-  
+
     end
   end
 end

@@ -3,7 +3,7 @@
   <header>
     <h1>Nothing Here</h1>
   </header>
-  
+
   <section class="content">
     <p>Tell the author to feed me a post!</p>
   </section>
@@ -25,16 +25,16 @@
          data-disqus-identifier="{{slug}}">Comments</a>
       {{/setting_disqus}}
       {{#has_tags?}}
-        &middot; 
+        &middot;
         tags ( {{#tag_list}}<a href="{{path}}">{{tag}}</a>&nbsp;{{/tag_list}})
       {{/has_tags?}}
     </h2>
   </header>
-  
+
   <section class="content">
     {{{html}}}
     {{#setting_disqus}}
-    <h5><a href="{{path}}#disqus_thread" 
+    <h5><a href="{{path}}#disqus_thread"
            data-disqus-identifier="{{slug}}">Comments</a></h5>
     {{/setting_disqus}}
   </section>
@@ -42,12 +42,12 @@
 </article>
 
 <section class="recent">
-  
+
   <header>
     <h1><a href="/blog">See All Posts >></a></h1>
     <h2>Recent Posts</h2>
   </header>
-  
+
   <table>
     <tr>
       <td class="time"><time>{{date}}</time></td>

@@ -1,19 +1,19 @@
 class AdminApp
   module Views
     class Posts < Layout
-      
+
       def nodate_posts
         map_posts(@nodate)
       end
-      
+
       def future_posts
         map_posts(@future)
       end
-      
+
       def active_posts
         map_posts(@active)
       end
-        
+
       def map_posts(_posts)
         _posts.map do |post|
           {
@@ -24,7 +24,7 @@ class AdminApp
           }
         end
       end
-      
+
     end
   end
 end

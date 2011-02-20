@@ -3,7 +3,7 @@
     <h1><a href="{{path}}">{{title}}</a></h1>
     <h2>
       <time>{{date}}</time>
-      &middot; 
+      &middot;
       by {{author}}
       {{#setting_disqus}}
       &middot;
@@ -11,36 +11,37 @@
          data-disqus-identifier="{{slug}}">Comments</a>
       {{/setting_disqus}}
       {{#has_tags?}}
-        &middot; 
+        &middot;
         tags ( {{#tag_list}}<a href="{{path}}">{{tag}}</a>&nbsp;{{/tag_list}})
       {{/has_tags?}}
     </h2>
   </header>
-  
+
   <section class="content">
     {{{html}}}
   </section>
-  
+
   {{#setting_disqus}}
-  <section class="comments">  
+  <section class="comments">
     <div id="disqus_thread"></div>
     <noscript>
-      Please enable JavaScript to view the 
+      Please enable JavaScript to view the
       <a href="http://disqus.com/?ref_noscript={{setting_disqus}}">comments powered by Disqus.</a>
     </noscript>
-    <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+    <a href="http://disqus.com"
+      class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
   </section>
   {{/setting_disqus}}
-  
+
 </article>
 
 <section class="recent">
-  
+
   <header>
     <h1><a href="/blog">See All Posts >></a></h1>
     <h2>Recent Posts</h2>
   </header>
-  
+
   <table>
     {{#younger}}
     <tr>
@@ -70,7 +71,7 @@
   {{/production}}
   (function() {
     var dsq = document.createElement('script');
-    dsq.type = 'text/javascript'; 
+    dsq.type = 'text/javascript';
     dsq.async = true;
     dsq.src = 'http://{{setting_disqus}}.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);

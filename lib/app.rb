@@ -1,5 +1,5 @@
 class BaseApp < Sinatra::Base
-  
+
   configure do
     set :raise_errors, false
     set :dump_errors, true
@@ -9,5 +9,5 @@ class BaseApp < Sinatra::Base
     set :logging, Proc.new { ENV['RACK_ENV'] == "production" }
     set :public, "public"
   end
-  
+
 end

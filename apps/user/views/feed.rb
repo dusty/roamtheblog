@@ -1,15 +1,15 @@
 class UserApp
   module Views
     class Feed < Layout
-  
+
       def title
         "RSS Feed"
       end
-      
+
       def site_updated
         @updated.iso8601 rescue nil
       end
-      
+
       def posts
         @posts.map do |post|
           {
@@ -23,7 +23,7 @@ class UserApp
           }
         end
       end
-      
+
     end
   end
 end

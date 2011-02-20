@@ -4,33 +4,33 @@
       {{page_header}}
       <span class="tiny">(<a href="/admin/users" >Cancel</a>)</span>
     </h1>
-    
+
   </header>
   <section class="content">
-    
+
     <form action="{{page_action}}" method="post" name="design">
     <input type="hidden" name="_method" value="{{page_method}}" />
-      
+
       <fieldset>
         <p>
           <label for="login">Login</label>
           <span class="error">{{user_login_error}}</span>
           <br/>
-          <input id="login" name="user[login]" placeholder="username" 
+          <input id="login" name="user[login]" placeholder="username"
                   class="text" value="{{user_login}}" />
         </p>
         <p>
           <label for="name">Name</label>
           <span class="error">{{user_name_error}}</span>
           <br/>
-          <input id="name" name="user[name]" placeholder="First Last" 
+          <input id="name" name="user[name]" placeholder="First Last"
                   class="text" value="{{user_name}}" />
         </p>
         <p>
           <label for="password">Password</label>
           <span class="error">{{user_password_error}}</span>
           <br/>
-          <input id="password" name="user[password]" 
+          <input id="password" name="user[password]"
                  placeholder="password" class="text" value="" />
         </p>
         <p>
@@ -40,7 +40,7 @@
           <input id="password_confirmation" name="user[password_confirmation]"
                  placeholder="password" class="text" value="" />
         </p>
-        
+
         <p>
           <input name="submit" value="Submit" type="submit" class="submit" />
           | <a href="/admin/users">Cancel</a>
