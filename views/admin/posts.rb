@@ -10,7 +10,7 @@ class AdminApp
         map_posts(@future)
       end
 
-      def active_posts        
+      def active_posts
         map_posts(@active)
       end
 
