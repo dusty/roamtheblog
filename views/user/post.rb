@@ -38,7 +38,8 @@ class UserApp
         @post.tags.map do |tag|
           {
             :tag => tag,
-            :path => get_tag_path(tag)
+            :path => get_tag_path(tag),
+            :last? => @post.tags.last == tag
           }
         end
       end

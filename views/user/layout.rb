@@ -42,7 +42,8 @@ class UserApp
         @site_tags.map do |tag|
           {
             :tag => tag,
-            :path => get_tag_path(tag)
+            :path => get_tag_path(tag),
+            :last? => @site_tags.last == tag
           }
         end
       end

@@ -7,9 +7,9 @@
 
 {{#site_has_tags?}}
 <section class="tags">
-  <p>Filter posts by tag: |
+  <p>Filter posts by tag:
   {{#site_tags}}
-    <a href="{{path}}">{{tag}}</a> |
+    <a href="{{path}}">{{tag}}</a>{{^last?}},&nbsp;{{/last?}}
   {{/site_tags}}
   </p>
 </section>

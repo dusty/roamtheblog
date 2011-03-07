@@ -28,10 +28,12 @@ MongoODM.config = config
 # Require custom libraries
 Dir["lib/**/*.rb"].sort.each {|req| require req}
 
+# Require sinatra apps
+Dir["apps/**/*.rb"].sort.each {|req| require req}
+
+# Require mustache views
+Dir["views/**/*.rb"].sort.each {|req| require req}
+
 # Create defaults
 User.create_default
 Site.create_default
-
-# Require apps
-Dir["apps/**/*.rb"].sort.each {|req| require req}
-

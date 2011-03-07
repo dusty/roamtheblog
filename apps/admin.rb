@@ -5,8 +5,8 @@ class AdminApp < BaseApp
   register Mustache::Sinatra
 
   set :mustache, {
-     :views     => 'apps/admin/views/',
-     :templates => 'apps/admin/templates/'
+     :views     => 'views/admin/',
+     :templates => 'templates/admin/'
   }
 
   configure do

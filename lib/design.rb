@@ -44,7 +44,7 @@ class Design
     design = new
     design.name = 'RoamTheBlog'
     design.description = 'Clean design inspired by roamthepla.net'
-    Dir["apps/user/templates/*.mustache"].each do |template|
+    Dir["templates/user/*.mustache"].each do |template|
       attribute = File.basename(template, File.extname(template))
       design.send("#{attribute}=", File.read(template))
     end
