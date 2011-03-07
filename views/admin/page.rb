@@ -2,6 +2,10 @@ class AdminApp
   module Views
     class Page < Layout
 
+      def initialize
+        create_getters_and_errors('page',%w{slug title body})
+      end
+
       def new_page
         @page.new_record?
       end
@@ -16,10 +20,6 @@ class AdminApp
 
       def page_header
         @page.new_record? ? "New Page" : @page.title
-      end
-
-      def initialize
-        create_getters_and_errors('page',%w{slug title body})
       end
 
     end
