@@ -39,7 +39,7 @@ class UserApp
           {
             :tag => tag,
             :path => get_tag_path(tag),
-            :first? => @site_tags.first == tag,
+            :first? => @post.tags.first == tag,
             :last? => @post.tags.last == tag
           }
         end
