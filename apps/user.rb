@@ -2,7 +2,7 @@ class UserApp < BaseApp
 
   # Require mustache views
   Dir["views/user/*.rb"].sort.each {|req| require req}
-  
+
   not_found do
     mustache(:missing, {})
   end
@@ -22,7 +22,7 @@ class UserApp < BaseApp
     end
 
     def tags
-      @tags ||= Post.tags
+      @tags ||= Post.tags.to_a
     end
 
     def design
