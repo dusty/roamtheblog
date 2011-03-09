@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 gem 'sinatra'
-gem 'mustache', '0.13.0'
+gem 'mustache'
 gem 'rack-flash'
 gem 'RedCloth'
 gem 'bson_ext'
