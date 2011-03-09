@@ -39,13 +39,16 @@ class UserApp
       end
 
       def site_tags
-        puts "**** #{@site_tags.class}"
         @site_tags.map do |tag|
+          #{
+          #  :tag => tag,
+          #  :path => get_tag_path(tag),
+          #  :first? => @site_tags.first == tag,
+          #  :last? => @site_tags.last == tag
+          #}
           {
             :tag => tag,
-            :path => get_tag_path(tag),
-            :first? => @site_tags.first == tag,
-            :last? => @site_tags.last == tag
+            :path => get_tag_path(tag)
           }
         end
       end
