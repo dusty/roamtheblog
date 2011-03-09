@@ -22,7 +22,7 @@ class UserApp < BaseApp
     end
 
     def tags
-      @tags ||= Post.tags.to_a
+      @tags ||= Post.tags
     end
 
     def design

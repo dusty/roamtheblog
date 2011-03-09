@@ -39,6 +39,7 @@ class UserApp
       end
 
       def site_tags
+        puts "**** #{@site_tags.class}"
         @site_tags.map do |tag|
           {
             :tag => tag,
