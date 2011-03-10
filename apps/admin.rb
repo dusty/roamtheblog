@@ -172,7 +172,7 @@ class AdminApp < BaseApp
   end
 
   get '/pages' do
-    @pages = Page.sort_updated.to_a
+    @_pages = Page.sort_updated.to_a
     mustache :pages
   end
 
@@ -220,7 +220,7 @@ class AdminApp < BaseApp
   end
 
   get '/designs' do
-    @designs = Design.sort_updated.to_a
+    @_designs = Design.sort_updated.to_a
     mustache :designs
   end
 
@@ -286,7 +286,7 @@ class AdminApp < BaseApp
   end
 
   get '/users' do
-    @users = User.sort_logins.to_a
+    @_users = User.sort_logins.to_a
     mustache :users
   end
 

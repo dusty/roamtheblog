@@ -3,7 +3,7 @@ class AdminApp
     class Pages < Layout
 
       def pages
-        @pages.map do |page|
+        @_pages.map do |page|
           {
             :page_updated => get_short_date(page.updated_at),
             :page_slug => page.slug,

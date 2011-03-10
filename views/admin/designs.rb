@@ -3,7 +3,7 @@ class AdminApp
     class Designs < Layout
 
       def designs
-        @designs.map do |design|
+        @_designs.map do |design|
           {
             :design_name => get_design_name(design),
             :design_status => get_design_status(design),

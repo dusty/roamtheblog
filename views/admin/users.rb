@@ -3,7 +3,7 @@ class AdminApp
     class Users < Layout
 
       def users
-        @users.map do |user|
+        @_users.map do |user|
           {
             :user_login => get_user_login(user),
             :user_name => user.name,
