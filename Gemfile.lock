@@ -1,3 +1,19 @@
+GIT
+  remote: https://github.com/dusty/mongo_odm.git
+  revision: fb5a68c9f4a57b6a77277b586900f5f94ffeb261
+  specs:
+    mongo_odm (0.2.8)
+      activemodel (~> 3.0.4)
+      activemodel (~> 3.0.4)
+      activesupport (~> 3.0.4)
+      activesupport (~> 3.0.4)
+      bson_ext (~> 1.2.2)
+      bson_ext (~> 1.2.2)
+      mongo (~> 1.2.2)
+      mongo (~> 1.2.2)
+      tzinfo (~> 0.3.24)
+      tzinfo (~> 0.3.24)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -16,17 +32,6 @@ GEM
     i18n (0.5.0)
     mongo (1.2.4)
       bson (>= 1.2.4)
-    mongo_odm (0.2.8)
-      activemodel (~> 3.0.4)
-      activemodel (~> 3.0.4)
-      activesupport (~> 3.0.4)
-      activesupport (~> 3.0.4)
-      bson_ext (~> 1.2.2)
-      bson_ext (~> 1.2.2)
-      mongo (~> 1.2.2)
-      mongo (~> 1.2.2)
-      tzinfo (~> 0.3.24)
-      tzinfo (~> 0.3.24)
     mustache (0.99.2)
     nokogiri (1.4.4)
     rack (1.2.1)
@@ -46,7 +51,7 @@ DEPENDENCIES
   aaronh-chronic (= 0.3.9)
   bson_ext
   html_truncator
-  mongo_odm
+  mongo_odm!
   mustache
   rack-flash
   sinatra
