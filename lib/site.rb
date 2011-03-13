@@ -14,9 +14,9 @@ class Site
 
   def self.create_default
     return false unless count == 0
-    _new = new
-    _new.settings['primary_color'] = '#295187'
-    _new.save && _new
+    site = new
+    site.settings['primary_color'] = '#295187'
+    site.save && site
   end
 
   def self.default
