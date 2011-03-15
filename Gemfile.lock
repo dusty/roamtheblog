@@ -1,16 +1,16 @@
 GIT
-  remote: https://github.com/dusty/mongo_odm.git
-  revision: fb5a68c9f4a57b6a77277b586900f5f94ffeb261
+  remote: https://github.com/carlosparamio/mongo_odm.git
+  revision: e8786200e4d02e1e90e70f149aa8471d1e54e2b6
   specs:
-    mongo_odm (0.2.8)
-      activemodel (~> 3.0.4)
-      activemodel (~> 3.0.4)
-      activesupport (~> 3.0.4)
-      activesupport (~> 3.0.4)
-      bson_ext (~> 1.2.2)
-      bson_ext (~> 1.2.2)
-      mongo (~> 1.2.2)
-      mongo (~> 1.2.2)
+    mongo_odm (0.2.10)
+      activemodel (~> 3.0.5)
+      activemodel (~> 3.0.5)
+      activesupport (~> 3.0.5)
+      activesupport (~> 3.0.5)
+      bson_ext (~> 1.2.4)
+      bson_ext (~> 1.2.4)
+      mongo (~> 1.2.4)
+      mongo (~> 1.2.4)
       tzinfo (~> 0.3.24)
       tzinfo (~> 0.3.24)
 
@@ -34,14 +34,14 @@ GEM
       bson (>= 1.2.4)
     mustache (0.99.2)
     nokogiri (1.4.4)
-    rack (1.2.1)
+    rack (1.2.2)
     rack-flash (0.1.1)
       rack
     sinatra (1.2.0)
       rack (~> 1.1)
       tilt (< 2.0, >= 1.2.2)
     tilt (1.2.2)
-    tzinfo (0.3.24)
+    tzinfo (0.3.25)
 
 PLATFORMS
   ruby
