@@ -8,22 +8,14 @@ require "bundler/setup"
   html_truncator
 }.each {|req| require req }
 
-# Init mongo connection
-config = {
+# Init MongoODM
+MongoODM.config = {
   :host => ENV['MONGO_HOST'] || 'localhost',
   :port => ENV['MONGO_PORT'] || 27017,
-  :database => ENV['MONGO_DB'] || 'roamtheblog'
+  :database => ENV['MONGO_DB'] || 'lottojoy',
+  :username => ENV['MONGO_USER'] || nil,
+  :password => ENV['MONGO_PASS'] || nil
 }
-
-# Authenticate if needed
-if (ENV['MONGO_USER'] && ENV['MONGO_PASS'])
-  config.update({
-   :username =>  ENV['MONGO_USER'],
-   :password => ENV['MONGO_PASS']
-  })
-end
-
-MongoODM.config = config
 
 # Require custom libraries
 Dir["lib/**/*.rb"].sort.each {|req| require req}

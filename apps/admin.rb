@@ -1,5 +1,3 @@
-##
-# AdminApp
 class AdminApp < BaseApp
 
   register Mustache::Sinatra
