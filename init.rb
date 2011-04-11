@@ -12,7 +12,7 @@ require "bundler/setup"
 MongoODM.config = {
   :host => ENV['MONGO_HOST'] || 'localhost',
   :port => ENV['MONGO_PORT'] || 27017,
-  :database => ENV['MONGO_DB'] || 'lottojoy',
+  :database => ENV['MONGO_DB'] || 'roamtheblog',
   :username => ENV['MONGO_USER'] || nil,
   :password => ENV['MONGO_PASS'] || nil
 }
