@@ -36,15 +36,15 @@ class Post
   end
 
   def self.sort_published
-    find({}, {:sort => [:published_at, :desc]})
+    sort([:published_at, :desc])
   end
 
   def self.sort_updated
-    find({}, {:sort => [:updated_at, :desc]})
+    sort([:updated_at, :desc])
   end
 
   def self.recent_update
-    sort_updated.find_one.updated_at rescue nil
+    sort_updated.first.updated_at
   end
 
   def self.recent(limit=nil)
@@ -72,8 +72,7 @@ class Post
   def self.younger(time)
     time = time.utc
     now  = Time.now.utc
-    find({:published_at => {'$gt' => time, '$lt' => now}},
-      {:sort => [:published_at, :asc]})
+    find(:published_at => {'$gt' => time, '$lt' => now}).sort([:published_at, :asc])
   end
 
   ##
@@ -82,9 +81,7 @@ class Post
     now  = Time.now.utc
     time = time.utc
     max_age = (time > now) ? now : time
-    find(
-      {:published_at => {'$lt' => max_age}},
-      {:sort => [:published_at, :desc]})
+    find(:published_at => {'$lt' => max_age}).sort([:published_at, :desc])
   end
 
   ##
