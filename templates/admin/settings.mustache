@@ -31,9 +31,9 @@
                    placeholder="value" class="text" value="" />
           </p>
           <br class="clear">
+          <input type="submit" name="submit" value="Add"
+                 class="submit" />
         </fieldset>
-        <input type="submit" name="submit" value="Add"
-               class="submit"/>
       </form>
     </aside>
     <form action="/admin/settings" method="post" name="settings">
@@ -80,10 +80,10 @@
                    class="text" value="{{value}}" />
           </p>
         {{/site_settings}}
+        <p style="clear: both;">
+          <input name="submit" value="Submit" type="submit" class="submit" />
+        </p>
       </fieldset>
-      <p style="clear: both;">
-        <input name="submit" value="Submit" type="submit" class="submit" />
-      </p>
     </form>
 
   </section>

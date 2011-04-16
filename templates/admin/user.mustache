@@ -42,15 +42,15 @@
                  placeholder="password" class="text" value="" />
         </p>
         <br class="clear">
+        <p>
+          <input name="submit" value="Submit" type="submit" class="submit" />
+          | <a href="/admin/users">Cancel</a>
+          {{^new_user}}
+          | <a href="/admin/users/{{user_id}}" class="delete_prompt"
+               rel="Delete this user?">Delete</a>
+          {{/new_user}}
+        </p>
       </fieldset>
-      <p>
-        <input name="submit" value="Submit" type="submit" class="submit" />
-        | <a href="/admin/users">Cancel</a>
-        {{^new_user}}
-        | <a href="/admin/users/{{user_id}}" class="delete_prompt"
-             rel="Delete this user?">Delete</a>
-        {{/new_user}}
-      </p>
 
     </form>
 
