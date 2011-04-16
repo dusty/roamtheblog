@@ -6,22 +6,22 @@
 
     <form action="/admin/session" method="post" name="login">
       <fieldset>
-        <p>
+        <p class="settings">
           <label for="login">Login</label>
           <br/>
-          <input id="login" name="login" size="30"
-                 placeholder="Your Login" required />
+          <input id="login" name="login" size="30" class="text" type="text"
+                 placeholder="Your Login" required /></td>
         </p>
-        <p>
+        <p class="settings">
           <label for="password">Password</label>
           <br/>
-          <input id="password" name="password" size="30"
+          <input id="password" name="password" size="30" class="text"
                  type="password" placeholder="Your Password" required />
         </p>
-        <p>
-          <input name="submit" value="Submit" type="submit" class="submit" />
-        </p>
       </fieldset>
+      <p>
+        <input name="submit" value="Submit" type="submit" class="submit" />
+      </p>
     </form>
 
   </section>

@@ -17,18 +17,23 @@
   <section class="content">
     <aside id="setting" style="display: none; margin: 15px 0 15px 0;">
       <form action="/admin/settings" method="post" name="setting">
-        <fieldset style="padding: 15px">
-          <label for="setting-name">Name</label>
-          <input id="setting-name" name="setting[name]"
-                 placeholder="name" class="text" value="" />
-
-          <label for="setting-value" style="margin-left: 15px">Value</label>
-          <input id="setting-value" name="setting[value]"
-                 placeholder="value" class="text" value="" />
-
-          <input type="submit" name="submit" value="Add"
-                 style="margin-left: 15px"/>
+        <fieldset>
+          <p class="settings">
+            <label for="setting-name">Name</label>
+            <br>
+            <input id="setting-name" name="setting[name]"
+                   placeholder="name" class="text" value="" />
+          </p>
+          <p class="settings">
+            <label for="setting-value">Value</label>
+            <br>
+            <input id="setting-value" name="setting[value]"
+                   placeholder="value" class="text" value="" />
+          </p>
+          <br class="clear">
         </fieldset>
+        <input type="submit" name="submit" value="Add"
+               class="submit"/>
       </form>
     </aside>
     <form action="/admin/settings" method="post" name="settings">
@@ -75,10 +80,10 @@
                    class="text" value="{{value}}" />
           </p>
         {{/site_settings}}
-        <p style="clear: both;">
-          <input name="submit" value="Submit" type="submit" class="submit" />
-        </p>
       </fieldset>
+      <p style="clear: both;">
+        <input name="submit" value="Submit" type="submit" class="submit" />
+      </p>
     </form>
 
   </section>

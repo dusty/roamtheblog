@@ -14,7 +14,8 @@ body {
   margin: 10px auto;
   color: #444;
   font-size: 16px;
-  font-family: Georgia, serif;
+  /* font-family: Georgia, serif; */
+  font-family: sans-serif;
 }
 
 h1 {
@@ -277,7 +278,7 @@ section.excerpt {
 
 p.settings {
   float: left;
-  margin-left: 15px;
+  margin-right: 15px;
 }
 
 div.left {
@@ -289,30 +290,12 @@ div.right {
   margin-left: 100px;
 }
 
-input.text {
-  width: 250px;
-}
-
-select.text {
-  width: 256px;
-}
-
 table {
   width: 100%;
 }
 
 table th {
   text-align: left;
-}
-
-textarea.small-area {
-  width: 800px;
-  height: 50px;
-}
-
-textarea.large-area {
-  width: 800px;
-  height: 300px;
 }
 
 /* FOOTER */
@@ -368,3 +351,55 @@ section.content ul {
 section.content ul ul {
   margin-left: 20px;
 }
+
+form {
+  font-family: sans-serif;
+}
+
+form input.text, form input.password {
+  width: 400px;
+  font-size: .9em;
+  color: #666;
+}
+
+form input.submit {
+  border: 1px solid #999;
+  padding: .25em .5em;
+  margin: .5em 0;
+  background: #fff;
+  color: #666;
+  font-size: 1.1em;
+}
+
+form input.submit:hover {
+  background: #787878;
+  color: #fff;
+  cursor: pointer;
+}
+
+fieldset {
+  padding: 1em;
+  border: 1px solid #ccc;
+}
+
+select.text {
+  width: 406px;
+  font-size: 2em;
+}
+
+textarea {
+  color: #444;
+  font-size: .75em;
+}
+
+textarea.small-area {
+  width: 820px;
+  height: 50px;
+}
+
+textarea.large-area {
+  width: 820px;
+  height: 700px;
+}
+
+
