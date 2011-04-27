@@ -42,7 +42,12 @@
     {{/setting_disqus}}
   </head>
   <body>
-    <header>
+    <aside id="notice">
+      {{#setting_message}}
+        {{{setting_message}}}
+      {{/setting_message}}
+    </aside>
+    <header style="clear: both;">
       <nav>
         <a href="/">Home</a>
         <a href="/about">About</a>
