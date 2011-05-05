@@ -47,8 +47,8 @@ class Post
     sort_updated.first.updated_at
   end
 
-  def self.recent(limit=nil)
-    limit ? active.sort_published.limit(limit) : active.sort_published
+  def self.recent(limit=0)
+    active.sort_published.limit(limit.to_i)
   end
 
   def self.without(post)

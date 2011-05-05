@@ -71,7 +71,7 @@ class UserApp < BaseApp
   get '/index.xml' do
     content_type :xml
     updated = Post.recent_update
-    posts   = Post.active
+    posts   = Post.recent(params[:limit])
     mustache(:feed, {:updated => updated, :posts => posts}, false)
   end
 
