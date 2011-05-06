@@ -1,32 +1,10 @@
-class Post
-  include MongoODM::Document
-  include MongoODM::Document::Timestamps
+class Post < Roam::Model
 
-  ##
-  # Attributes
-  field :title
-  field :body
-  field :author
-  field :slug
-  field :published_at, Time
-  field :tags, Array, :default => []
+  def self.create_indexes
+    collection.create_index [[:slug,1],[:published_at,1]], :unique => true
+    collection.create_index :tags
+  end
 
-  ##
-  # Indexes
-  create_index [[:slug,Mongo::ASCENDING],[:published_at,Mongo::ASCENDING]],
-    :unique => true
-  create_index :tags
-
-  ##
-  # Validations
-  validates_presence_of :title, :author, :body
-
-  ##
-  # Callbacks
-  before_save :generate_slug
-
-  ##
-  # Finders
   def self.by_slug(slug)
     find_one(:slug => slug)
   end
@@ -115,15 +93,27 @@ class Post
     collection.distinct(:tags, {:published_at => {'$lte' => Time.now.utc}})
   end
 
-  ##
-  # Add comma seperated list of tags
+  matic_accessor :title, :body, :author, :slug, :published_at, :tags
+
+  def tags
+    self[:tags].to_a
+  end
+
+  def validate
+    %w{ title author body}.each do |attr|
+      errors.add(attr, 'is required') if attr.blank?
+    end
+  end
+
+  def before_insert_or_update
+    generate_slug
+  end
+
   def tags=(list)
     list = list.split(%r{,\s*}).uniq if list.is_a?(String)
     write_attribute(:tags, list)
   end
 
-  ##
-  # Parse a string for published_at
   def published_at=(publish)
     publish = Chronic.parse(publish) if publish.is_a?(String)
     write_attribute(:published_at, publish.utc) if publish.is_a?(Time)
@@ -142,6 +132,7 @@ class Post
   end
 
   protected
+
   def generate_slug
     return nil if title.empty?
     date = published_at.is_a?(Time) ? published_at : Time.now.in_time_zone

@@ -1,24 +1,5 @@
-class Design
-  include MongoODM::Document
-  include MongoODM::Document::Timestamps
+class Design < Roam::Model
 
-  ##
-  # Attributes
-  field :name
-  field :description
-  field :layout
-  field :blog
-  field :feed
-  field :home
-  field :page
-  field :post
-  field :style
-  field :script
-  field :error
-  field :missing
-
-  ##
-  # Duplicate a design
   def self.duplicate(id)
     return false unless original = by_id(id)
     attributes = original.attributes
@@ -32,13 +13,6 @@ class Design
     copy
   end
 
-  ##
-  # Validations
-  validates_presence_of :name, :layout, :blog, :feed, :home, :page, :post
-  validates_presence_of :error, :missing, :style, :script
-
-  ##
-  # Default design
   def self.create_default
     return false unless count == 0
     design = new
@@ -51,8 +25,6 @@ class Design
     design.save && design
   end
 
-  ##
-  # Finders
   def self.by_id(id)
     find_one(:_id => BSON::ObjectId(id.to_s))
   end
@@ -61,16 +33,29 @@ class Design
     find({}, {:sort => [:updated_at, :desc]})
   end
 
-  ##
-  # Activate the design
+  matic_accessor :name, :description, :layout, :blog, :feed, :home
+  matic_accessor :page, :post, :style, :script, :error, :missing
+
+  def validate
+    %w{name layout blog feed home page post error missing style script}.each do |attr|
+      errors.add(:attr, 'is required') if attr.blank?
+    end
+  end
+
   def activate
     Site.default.design = self
   end
 
-  ##
-  # Is the design active
   def active?
     Site.default.design == self
+  end
+
+  protected
+
+  def require_attributes(*attributes)
+    attributes.each do |attribute|
+      errors.add(:attribute, 'is required') if attribute.blank?
+    end
   end
 
 end

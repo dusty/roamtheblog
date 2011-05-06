@@ -4,21 +4,18 @@ require "bundler/setup"
 
 # Include required gems
 %w{
-  mongo_odm rack-flash sinatra/base RedCloth mustache/sinatra chronic tzinfo
+  mongomatic rack-flash sinatra/base RedCloth mustache/sinatra chronic tzinfo
   html_truncator
 }.each {|req| require req }
 
-# Init MongoODM
-MongoODM.config = {
-  :host => ENV['MONGO_HOST'] || 'localhost',
-  :port => ENV['MONGO_PORT'] || 27017,
-  :database => ENV['MONGO_DB'] || 'roamtheblog',
-  :username => ENV['MONGO_USER'] || nil,
-  :password => ENV['MONGO_PASS'] || nil
-}
-
 # Require custom libraries
 Dir["lib/**/*.rb"].sort.each {|req| require req}
+
+## Setup mongomatic database
+Mongomatic.db = Mongo::Connection.new(ENV['MONGO_HOST'],ENV['MONGO_PORT']).db(ENV['MONGO_DB'])
+if (ENV['MONGO_USER'] && ENV['MONGO_PASS'])
+  Mongomatic.db.authenticate(ENV['MONGO_USER'], ENV['MONGO_PASS'])
+end
 
 # Require sinatra apps
 Dir["apps/**/*.rb"].sort.each {|req| require req}
