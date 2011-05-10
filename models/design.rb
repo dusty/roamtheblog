@@ -22,7 +22,7 @@ class Design < Roam::Model
       attribute = File.basename(template, File.extname(template))
       design.send("#{attribute}=", File.read(template))
     end
-    design.save && design
+    design.insert && design
   end
 
   def self.by_id(id)
@@ -38,7 +38,7 @@ class Design < Roam::Model
 
   def validate
     %w{name layout blog feed home page post error missing style script}.each do |attr|
-      errors.add(:attr, 'is required') if attr.blank?
+      errors.add(attr, 'is required') if self[attr].blank?
     end
   end
 
@@ -48,14 +48,6 @@ class Design < Roam::Model
 
   def active?
     Site.default.design == self
-  end
-
-  protected
-
-  def require_attributes(*attributes)
-    attributes.each do |attribute|
-      errors.add(:attribute, 'is required') if attribute.blank?
-    end
   end
 
 end

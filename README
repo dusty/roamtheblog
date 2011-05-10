@@ -402,7 +402,7 @@ FAQ
        # u = User.by_login('yourlogin')
        # u.password = 'yournewpass'
        # u.password_confirmation = 'yournewpass'
-       # u.save
+       # u.update
 
   Q. Why did you write this?
   A. My wife and I are traveling around and blogging about it for our

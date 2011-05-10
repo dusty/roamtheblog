@@ -16,7 +16,7 @@ class Page < Roam::Model
 
   def validate
     %w{ title body }.each do |attr|
-      errors.add(attr, 'is required') if attr.blank?
+      errors.add(attr, 'is required') if self[attr].blank?
     end
   end
 

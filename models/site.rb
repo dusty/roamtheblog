@@ -1,26 +1,21 @@
-class Site
-  include MongoODM::Document
-  include MongoODM::Document::Timestamps
+class Site < Roam::Model
 
-  ##
-  # Attributes
-  field :location
-  field :title, String, :default => 'My New Blog'
-  field :domain,  String, :default => 'example.com'
-  field :timezone,  String, :default => 'UTC'
-  field :cache, Integer, :default => 300
-  field :settings, Hash, :default => {}
-  field :design_id, String
+  matic_accessor :location, :title, :domain, :timezone, :cache, :settings, :design_id
 
   def self.create_default
     return false unless count == 0
     site = new
+    site.settings = {}
     site.settings['primary_color'] = '#295187'
-    site.save && site
+    site.insert && site
   end
 
   def self.default
     find_one
+  end
+
+  def before_insert_or_update
+    set_defaults
   end
 
   ##
@@ -37,6 +32,16 @@ class Site
   def design=(design)
     self.design_id = design.id.to_s
     save
+  end
+
+  protected
+
+  def set_defaults
+    self.title ||= 'My New Blog'
+    self.domain ||= 'example.com'
+    self.timezone ||= 'UTC'
+    self.cache ||= 300
+    self.settings ||= {}
   end
 
 end

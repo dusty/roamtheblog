@@ -20,7 +20,7 @@ class User < Roam::Model
     return false unless count == 0
     user = new(:login => 'admin', :name => 'admin')
     user.password, user.password_confirmation = 'admin', 'admin'
-    user.save && user
+    user.insert && user
   end
 
   def self.authenticate(login, password)
@@ -34,7 +34,7 @@ class User < Roam::Model
 
   def validate
     %w{ login name }.each do |attr|
-      errors.add(attr, 'is required') if attr.blank?
+      errors.add(attr, 'is required') if self[attr].blank?
     end
     if password_required?
       errors.add(:password, 'must be > 5 char') unless (password && password.length > 4)
