@@ -94,7 +94,7 @@ module Roam
     end
 
     get '/blog' do
-      posts = params[:tag] ? Post.active.by_tag(params[:tag]).to_a : Post.active.to_a
+      posts = Post.active(params[:tag]).to_a
       mustache(:blog, {:posts => posts, :tag => params[:tag]})
     end
 

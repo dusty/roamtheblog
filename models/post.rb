@@ -9,57 +9,57 @@ class Post < Roam::Model
     find_one(:slug => slug)
   end
 
-  def self.by_tag(tag)
-    find(:tags => tag)
-  end
-
   def self.sort_published
-    sort([:published_at, :desc])
+    find({}, {:sort => [:published_at, :desc]})
   end
 
   def self.sort_updated
-    sort([:updated_at, :desc])
+    find({}, {:sort => [:updated_at, :desc]})
   end
 
   def self.recent_update
-    sort_updated.first.updated_at
+    sort_updated.limit(1).first.updated_at
   end
 
   def self.recent(limit=0)
-    active.sort_published.limit(limit.to_i)
+    active.limit(limit.to_i)
   end
 
-  def self.without(post)
-    find(:_id => {'$ne' => post.id})
+  def self.nodate(tag=nil)
+    criteria = {:published_at => nil}
+    criteria.update(:tags => tag) if tag
+    find(criteria).sort([:updated_at, :desc])
   end
 
-  def self.nodate
-    find(:published_at => nil).sort_updated
+  def self.active(tag=nil)
+    criteria = {:published_at => {'$lte' => Time.now.utc}}
+    criteria.update(:tags => tag) if tag
+    find(criteria).sort([:published_at, :desc])
   end
 
-  def self.active
-    find(:published_at => {'$lte' => Time.now.utc}).sort_published
-  end
-
-  def self.future
-    find(:published_at => {'$gt' => Time.now.utc}).sort_published
+  def self.future(tag=nil)
+    criteria = {:published_at => {'$gt' => Time.now.utc}}
+    criteria.update(:tags => tag) if tag
+    find(criteria).sort([:published_at, :desc])
   end
 
   ##
   # Posts that are active and younger than a certain time
-  def self.younger(time)
-    time = time.utc
-    now  = Time.now.utc
-    find(:published_at => {'$gt' => time, '$lt' => now}).sort([:published_at, :asc])
+  def self.younger(post,limit)
+    time     = post.published_at.utc
+    now      = Time.now.utc
+    criteria = {:published_at => {'$gt' => time, '$lt' => now}, :_id => {'$ne' => post.id}}
+    find(criteria).sort([:published_at, :asc]).limit(limit.to_i)
   end
 
   ##
   # Posts that are active and older than a certain time
-  def self.older(time)
-    now  = Time.now.utc
-    time = time.utc
-    max_age = (time > now) ? now : time
-    find(:published_at => {'$lt' => max_age}).sort([:published_at, :desc])
+  def self.older(post,limit)
+    now      = Time.now.utc
+    time     = post.published_at.utc
+    max_age  = (time > now) ? now : time
+    criteria = {:published_at => {'$lt' => max_age}, :_id => {'$ne' => post.id}}
+    find(criteria).sort([:published_at, :desc]).limit(limit.to_i)
   end
 
   ##
@@ -78,8 +78,8 @@ class Post < Roam::Model
   def self.near(post,limit=2)
     return {:younger => [], :older => []} unless post.published_at
 
-    young = without(post).younger(post.published_at).limit(limit*2).to_a
-    older = without(post).older(post.published_at).limit(limit*2).to_a
+    young = younger(post,limit*2).to_a
+    older = older(post,limit*2).to_a
 
     older_diff = (older.length < limit) ? (limit - older.length) : 0
     young_diff = (young.length < limit) ? (limit - young.length) : 0
