@@ -67,7 +67,7 @@ module Roam
 
     post '/settings' do
       begin
-        name = params[:setting][:name].methodize if params[:setting]
+        name = params[:setting][:name].slugize if params[:setting]
         value = params[:setting][:value] if params[:setting]
         raise(StandardError, "name cannot be empty") if name.empty?
         site.settings.update({name => value})
