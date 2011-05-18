@@ -4,8 +4,7 @@ require "bundler/setup"
 
 # Include required gems
 %w{
-  mongomatic rack-flash sinatra/base RedCloth mustache/sinatra chronic
-  html_truncator tzinfo
+  mongomatic rack-flash sinatra/base RedCloth mustache/sinatra chronic html_truncator tzinfo
 }.each {|req| require req }
 
 # Require custom libraries
@@ -19,7 +18,7 @@ end
 
 # Require sinatra apps
 Dir["models/*.rb"].sort.each {|req| require req}
-Dir["apps/*.rb"].sort.each {|req| require req}
+Dir["app/*.rb"].sort.each {|req| require req}
 
 # Require mustache views
 Dir["views/**/*.rb"].sort.each {|req| require req}

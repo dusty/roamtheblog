@@ -48,5 +48,8 @@ module Roam
     def id
       self[:_id]
     end
+    def self.count
+      collection.count
+    end
   end
 end

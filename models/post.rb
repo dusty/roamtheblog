@@ -111,12 +111,12 @@ class Post < Roam::Model
 
   def tags=(list)
     list = list.split(%r{,\s*}).uniq if list.is_a?(String)
-    write_attribute(:tags, list)
+    self[:tags] = list
   end
 
   def published_at=(publish)
     publish = Chronic.parse(publish) if publish.is_a?(String)
-    write_attribute(:published_at, publish.utc) if publish.is_a?(Time)
+    self[:published_at] = publish.utc if publish.is_a?(Time)
   end
 
   def html
