@@ -1,11 +1,13 @@
-class UserApp
-  module Views
-    class Missing < Layout
+module Roam
+  class UserApp
+    module Views
+      class Missing < Layout
 
-      def title
-        "Not Found"
+        def title
+          "Not Found"
+        end
+
       end
-
     end
   end
 end

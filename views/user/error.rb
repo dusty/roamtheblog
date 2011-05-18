@@ -1,11 +1,13 @@
-class UserApp
-  module Views
-    class Error < Layout
+module Roam
+  class UserApp
+    module Views
+      class Error < Layout
 
-      def title
-        "Error"
+        def title
+          "Error"
+        end
+
       end
-
     end
   end
 end

@@ -48,7 +48,7 @@ class User < Roam::Model
 
   def record_login
     self.login_at = Time.now.utc
-    save
+    update
   end
 
   protected

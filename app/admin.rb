@@ -1,5 +1,5 @@
 module Roam
-  class Admin < App
+  class AdminApp < App
 
     register Mustache::Sinatra
 

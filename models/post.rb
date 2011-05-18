@@ -95,10 +95,6 @@ class Post < Roam::Model
 
   matic_accessor :title, :body, :author, :slug, :published_at, :tags
 
-  def tags
-    self[:tags].to_a
-  end
-
   def validate
     %w{ title author body}.each do |attr|
       errors.add(attr, 'is required') if self[attr].blank?
@@ -106,17 +102,13 @@ class Post < Roam::Model
   end
 
   def before_insert_or_update
+    split_tags
     generate_slug
+    parse_published
   end
 
-  def tags=(list)
-    list = list.split(%r{,\s*}).uniq if list.is_a?(String)
-    self[:tags] = list
-  end
-
-  def published_at=(publish)
-    publish = Chronic.parse(publish) if publish.is_a?(String)
-    self[:published_at] = publish.utc if publish.is_a?(Time)
+  def tags
+    self[:tags].to_a
   end
 
   def html
@@ -133,11 +125,21 @@ class Post < Roam::Model
 
   protected
 
+  def split_tags
+    list = self[:tags].split(%r{,\s*}).uniq if self[:tags].is_a?(String)
+    self[:tags] = list
+  end
+
   def generate_slug
     return nil if title.empty?
     date = published_at.is_a?(Time) ? published_at : Time.now.in_time_zone
     prefix = date.strftime("%Y%m%d")
     self.slug = "#{prefix}-#{title.slugize}"
+  end
+
+  def parse_published
+    publish = Chronic.parse(self[:published_at]) if self[:published_at].is_a?(String)
+    self[:published_at] = publish.is_a?(Time) ? publish.utc : nil
   end
 
 end

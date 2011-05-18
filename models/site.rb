@@ -31,7 +31,7 @@ class Site < Roam::Model
 
   def design=(design)
     self.design_id = design.id.to_s
-    save
+    update
   end
 
   protected

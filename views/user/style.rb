@@ -1,6 +1,8 @@
-class UserApp
-  module Views
-    class Style < Layout
+module Roam
+  class UserApp
+    module Views
+      class Style < Layout
+      end
     end
   end
 end

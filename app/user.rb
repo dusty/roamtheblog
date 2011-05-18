@@ -1,5 +1,5 @@
 module Roam
-  class User < App
+  class UserApp < App
 
     # Require mustache views
     Dir["views/user/*.rb"].sort.each {|req| require req}
@@ -44,7 +44,7 @@ module Roam
       #
       # The site variable is added automatically as it is required
       #   mustache(:page, :page => page)
-      #   UserApp::Views::Page.new(:site => site, :page => page).render
+      #     User::Views::Page.new(:site => site, :page => page).render
       def mustache(template, args={}, layout=true)
         args = args.update(:site => site, :site_tags => tags)
         layout_class = UserApp::Views::Layout

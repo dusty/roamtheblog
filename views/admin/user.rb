@@ -1,32 +1,34 @@
-class AdminApp
-  module Views
-    class User < Layout
+module Roam
+  class AdminApp
+    module Views
+      class User < Layout
 
-      def page_header
-        new_user ? "New User" : user_name
+        def page_header
+          new_user ? "New User" : user_name
+        end
+
+        def page_action
+          new_user ? "/admin/users" : "/admin/users/#{user_id}"
+        end
+
+        def page_method
+         new_user ? "post" : "put"
+        end
+
+        def new_user
+          @user.new_record?
+        end
+
+        def initialize
+          create_getters_and_errors('user',%w{name login})
+          create_error_getters('user',%w{password password_confirmation})
+        end
+
+        def user_id
+          @user.id
+        end
+
       end
-
-      def page_action
-        new_user ? "/admin/users" : "/admin/users/#{user_id}"
-      end
-
-      def page_method
-       new_user ? "post" : "put"
-      end
-
-      def new_user
-        @user.new_record?
-      end
-
-      def initialize
-        create_getters_and_errors('user',%w{name login})
-        create_error_getters('user',%w{password password_confirmation})
-      end
-
-      def user_id
-        @user.id
-      end
-
     end
   end
 end
