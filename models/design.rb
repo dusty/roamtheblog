@@ -1,4 +1,5 @@
-class Design < Roam::Model
+class Design < Mongomatic::Base
+  include Roam::Models
 
   def self.duplicate(id)
     return false unless original = by_id(id)

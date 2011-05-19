@@ -7,33 +7,41 @@ class TimestampObserver < Mongomatic::Observer
   end
 end
 
-module TimestampPlugin
-  def self.included(base)
-    base.send(:include, Mongomatic::Observable)
-    base.send(:observer, :TimestampObserver)
+module Mongomatic
+  module Plugins
+    module Timestamps
+      def self.included(base)
+        base.send(:include, Mongomatic::Observable)
+        base.send(:observer, :TimestampObserver)
+      end
+    end
   end
 end
 
-module AccessorPlugin
-  def self.included(base)
-    base.send(:extend, ClassMethods)
-  end
-  module ClassMethods
-    def matic_accessor(*attributes)
-      matic_reader(*attributes)
-      matic_writer(*attributes)
-    end
-    def matic_reader(*attributes)
-      attributes.each do |attribute|
-        define_method(:"#{attribute}") do
-          self[attribute]
-        end
+module Mongomatic
+  module Plugins
+    module Accessors
+      def self.included(base)
+        base.send(:extend, ClassMethods)
       end
-    end
-    def matic_writer(*attributes)
-      attributes.each do |attribute|
-        define_method(:"#{attribute}=") do |value|
-          self[attribute] = value
+      module ClassMethods
+        def matic_accessor(*attributes)
+          matic_reader(*attributes)
+          matic_writer(*attributes)
+        end
+        def matic_reader(*attributes)
+          attributes.each do |attribute|
+            define_method(:"#{attribute}") do
+              self[attribute]
+            end
+          end
+        end
+        def matic_writer(*attributes)
+          attributes.each do |attribute|
+            define_method(:"#{attribute}=") do |value|
+              self[attribute] = value
+            end
+          end
         end
       end
     end
@@ -41,15 +49,23 @@ module AccessorPlugin
 end
 
 module Roam
-  class Model < Mongomatic::Base
-    include TimestampPlugin
-    include AccessorPlugin
-    matic_accessor :created_at, :updated_at
-    def id
-      self[:_id]
+  module Models
+    def self.included(base)
+      base.send(:include, Mongomatic::Plugins::Timestamps)
+      base.send(:include, Mongomatic::Plugins::Accessors)
+      base.send(:matic_accessor, :created_at, :updated_at)
+      base.send(:extend, ClassMethods)
+      base.send(:include, InstanceMethods)
     end
-    def self.count
-      collection.count
+    module ClassMethods
+      def count
+        collection.count
+      end
+    end
+    module InstanceMethods
+      def id
+        self[:_id]
+      end
     end
   end
 end

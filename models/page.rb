@@ -1,4 +1,5 @@
-class Page < Roam::Model
+class Page < Mongomatic::Base
+  include Roam::Models
 
   def self.create_indexes
     collection.create_index :slug, :unique => true

@@ -1,4 +1,5 @@
-class Post < Roam::Model
+class Post < Mongomatic::Base
+  include Roam::Models
 
   def self.create_indexes
     collection.create_index [[:slug,1],[:published_at,1]], :unique => true

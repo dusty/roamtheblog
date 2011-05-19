@@ -1,4 +1,5 @@
-class User < Roam::Model
+class User < Mongomatic::Base
+  include Roam::Models
 
   def self.create_indexes
     collection.create_index :login, :unique => true

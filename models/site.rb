@@ -1,4 +1,5 @@
-class Site < Roam::Model
+class Site < Mongomatic::Base
+  include Roam::Models
 
   matic_accessor :location, :title, :domain, :timezone, :cache, :settings, :design_id
 
