@@ -163,7 +163,7 @@ module Roam
 
     delete '/posts/:id' do
       not_found unless @post = Post.by_slug(params[:id])
-      if @post.destroy
+      if @post.remove
         flash[:notice] = "Post deleted."
         redirect '/admin/posts'
       else
@@ -212,7 +212,7 @@ module Roam
 
     delete '/pages/:id' do
       not_found unless @page = Page.by_slug(params[:id])
-      if @page.destroy
+      if @page.remove
         flash[:notice] = "Page deleted."
         redirect '/admin/pages'
       else
@@ -279,7 +279,7 @@ module Roam
 
     delete '/designs/:id' do
       not_found unless design = Design.by_id(params[:id])
-      if design.destroy
+      if design.remove
         flash[:notice] = "Design removed."
         redirect "/admin/designs"
       else
@@ -295,6 +295,8 @@ module Roam
 
     post '/users' do
       @user = User.new(params[:user])
+      @user.password = params[:user][:password]
+      @user.password_confirmation = params[:user][:password_confirmation]
       if @user.insert
         flash[:notice] = "User created."
         redirect "/admin/users/#{@user.id}"
@@ -333,7 +335,7 @@ module Roam
         not_found unless @user = User.by_id(params[:id])
         raise(StandardError, "Cannot delete yourself") if @user == current_user
         raise(StandardError, "Cannot delete only user") if User.count < 2
-        if @user.destroy
+        if @user.remove
           flash["notice"] = "User removed."
           redirect "/admin/users"
         else
