@@ -1,8 +1,6 @@
 class Site < Mongomatic::Base
   include Roam::Models
 
-  matic_accessor :location, :title, :domain, :timezone, :cache, :settings, :design_id
-
   def self.create_default
     return false unless count == 0
     site = new
@@ -14,6 +12,8 @@ class Site < Mongomatic::Base
   def self.default
     find_one
   end
+
+  matic_accessor :location, :title, :domain, :timezone, :cache, :settings, :design_id
 
   def before_insert_or_update
     set_defaults

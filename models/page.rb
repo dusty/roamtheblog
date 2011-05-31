@@ -17,7 +17,7 @@ class Page < Mongomatic::Base
 
   def validate
     %w{ title body }.each do |attr|
-      errors.add(attr, 'is required') if self[attr].blank?
+      errors.add(attr, 'is required') if send(attr).blank?
     end
   end
 

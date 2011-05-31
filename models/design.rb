@@ -39,7 +39,7 @@ class Design < Mongomatic::Base
 
   def validate
     %w{name layout blog feed home page post error missing style script}.each do |attr|
-      errors.add(attr, 'is required') if self[attr].blank?
+      errors.add(attr, 'is required') if send(attr).blank?
     end
   end
 

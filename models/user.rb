@@ -35,7 +35,7 @@ class User < Mongomatic::Base
 
   def validate
     %w{ login name }.each do |attr|
-      errors.add(attr, 'is required') if self[attr].blank?
+      errors.add(attr, 'is required') if send(attr).blank?
     end
     if password_required?
       errors.add(:password, 'must be > 5 char') unless (password && password.length > 4)
