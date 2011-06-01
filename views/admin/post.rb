@@ -36,6 +36,10 @@ module Roam
           @post.tags.join(', ')
         end
 
+        def post_location
+          @post.location
+        end
+
       end
     end
   end

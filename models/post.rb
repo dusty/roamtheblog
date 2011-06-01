@@ -94,7 +94,7 @@ class Post < Mongomatic::Base
     collection.distinct(:tags, {:published_at => {'$lte' => Time.now.utc}})
   end
 
-  matic_accessor :title, :body, :author, :slug, :published_at, :tags
+  matic_accessor :title, :body, :author, :slug, :published_at, :tags, :location
 
   def validate
     %w{ title author body}.each do |attr|
