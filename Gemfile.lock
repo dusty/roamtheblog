@@ -9,6 +9,7 @@ GEM
     html_truncator (0.2.2)
       nokogiri (~> 1.4)
     i18n (0.6.0)
+    kgio (2.4.1)
     matic_accessor (0.0.1)
     matic_timestamp (0.0.1)
     mongo (1.3.1)
@@ -28,6 +29,9 @@ GEM
       tilt (< 2.0, >= 1.2.2)
     tilt (1.3.2)
     tzinfo (0.3.27)
+    unicorn (3.6.2)
+      kgio (~> 2.3)
+      rack
 
 PLATFORMS
   ruby
@@ -44,3 +48,4 @@ DEPENDENCIES
   rack-flash
   sinatra
   tzinfo
+  unicorn
