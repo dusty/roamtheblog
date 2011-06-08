@@ -71,7 +71,7 @@ module Roam
         value = params[:setting][:value] if params[:setting]
         raise(StandardError, "name cannot be empty") if name.empty?
         site.settings.update({name => value})
-        if site.insert
+        if site.update
           flash.now[:notice] = "Setting added."
           mustache :settings
         else
