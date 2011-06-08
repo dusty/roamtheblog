@@ -31,7 +31,7 @@ module Roam
       end
 
       def cache
-        if site.cache && site.cache > 0
+        if site.cache && site.cache.to_i > 0
           response.headers['Cache-Control'] = "public, max-age=#{site.cache}"
         end
       end

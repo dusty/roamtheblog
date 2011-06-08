@@ -340,8 +340,8 @@ module Roam
 
     put '/users/:id' do
       not_found unless @user = User.by_id(params[:id])
-      @user.password = params[:password]
-      @user.password_confirmation = params[:password_confirmation]
+      @user.password = params[:user][:password]
+      @user.password_confirmation = params[:user][:password_confirmation]
       @user.doc.update(params[:user])
       if @user.update
         flash[:notice] = "User updated."
