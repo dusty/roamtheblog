@@ -3,7 +3,7 @@ class Design < Mongomatic::Base
 
   def self.duplicate(id)
     return false unless original = by_id(id)
-    attributes = original.attributes
+    attributes = original.doc
     attributes.delete('_id')
     attributes.delete('created_at')
     attributes.delete('updated_at')
