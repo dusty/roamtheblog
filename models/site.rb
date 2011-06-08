@@ -13,7 +13,7 @@ class Site < Mongomatic::Base
     find_one
   end
 
-  matic_accessor :location, :title, :domain, :timezone, :cache, :settings, :design_id
+  matic_accessor :location, :title, :domain, :timezone, :cache, :settings, :design_id, :page_id
 
   def before_insert_or_update
     set_defaults
@@ -33,6 +33,24 @@ class Site < Mongomatic::Base
   def design=(design)
     self.design_id = design.id.to_s
     update
+  end
+  
+  ##
+  # Return the set home page.
+  def page
+    Page.by_slug(page_id) if page_id
+  end
+  
+  def page=(page)
+    self.page_id = page.slug
+    update
+  end
+  
+  def unset_page(page)
+    if page_id == page.slug
+      self.page_id = nil
+      update
+    end
   end
 
   protected

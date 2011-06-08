@@ -87,15 +87,37 @@ module Roam
     end
 
     get '/' do
-      posts = Post.recent(5).to_a
-      post  = posts.first
-      posts.delete(post)
-      mustache(:home, {:posts => posts, :post => post})
+      if page = site.page
+        mustache(:page, {:page => page})
+      else
+        posts = Post.recent(5).to_a
+        post  = posts.first
+        posts.delete(post)
+        mustache(:home, {:posts => posts, :post => post})
+      end
     end
 
     get '/blog' do
+      if site.page
+        posts = Post.recent(5).to_a
+        post  = posts.first
+        posts.delete(post)
+        mustache(:home, {:posts => posts, :post => post})
+      else
+        posts = Post.active(params[:tag]).to_a
+        mustache(:blog, {:posts => posts, :tag => params[:tag]})
+      end
+    end
+    
+    get '/posts' do
       posts = Post.active(params[:tag]).to_a
       mustache(:blog, {:posts => posts, :tag => params[:tag]})
+    end
+    
+    get '/posts/:id' do
+      not_found unless post = Post.by_slug(params[:id])
+      posts = Post.near(post,2)
+      mustache(:post, {:post => post, :posts => posts})
     end
 
     get '/blog/:id' do

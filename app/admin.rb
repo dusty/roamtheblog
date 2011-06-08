@@ -220,6 +220,28 @@ module Roam
         redirect '/admin/pages'
       end
     end
+    
+    put '/home/:id' do
+      not_found unless @page = Page.by_slug(params[:id])
+      if site.page = @page
+        flash[:notice] = "Page set as home."
+        redirect '/admin/pages'
+      else
+        flash[:warning] = "Error setting page as home."
+        redirect '/admin/pages'
+      end
+    end
+    
+    delete '/home/:id' do
+      not_found unless @page = Page.by_slug(params[:id])
+      if site.unset_page(@page)
+        flash[:notice] = "Page unset as home."
+        redirect '/admin/pages'
+      else
+        flash[:warning] = "Error unsetting page as home."
+        redirect '/admin/pages'
+      end
+    end
 
     get '/designs' do
       @_designs = Design.sort_updated.to_a

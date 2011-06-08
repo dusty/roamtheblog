@@ -8,7 +8,8 @@ module Roam
             {
               :page_updated => get_short_date(page.updated_at),
               :page_slug => page.slug,
-              :page_title => page.title
+              :page_title => page.title,
+              :page_home => site.page_id == page.slug
             }
           end
         end
