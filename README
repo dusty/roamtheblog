@@ -6,7 +6,7 @@ Built With:
   * Mustache
   * RedCloth
   * MongoDB
-  * Mongomatic
+  * MongoMapper
 
 Clean default template setup for use with:
   * Disqus
@@ -23,7 +23,8 @@ Markup
 
 Requirements
   Roamtheblog saves its data to a MongoDB database.  If you don't want to run
-  your own, I recommend using Mongo Machine (mongomachine.com).
+  your own, I recommend using MongoLab (mongolab.com).  They offer a free database
+  version that will cover your blog for quite some time.
 
   You must have ruby, git, and the bundler rubygem installed on the machine
   that will be running your blog.  If you don't want to run your own, I
@@ -51,7 +52,7 @@ MongoDB
   downloading, installing, and running mongodb.
 
   If you are running on Heroku, you may will need a mongodb instance that is
-  accessible over the internet.  Check out http://mongomachine.com if you
+  accessible over the internet.  Check out http://mongolab.com if you
   are looking for an affordable and reliable mongodb host.
 
   By default, roamtheblog uses the default of "localhost" port "27017" and
@@ -326,7 +327,7 @@ FAQ
        # u = User.by_login('yourlogin')
        # u.password = 'yournewpass'
        # u.password_confirmation = 'yournewpass'
-       # u.update
+       # u.save
 
   Q. Why did you write this?
   A. My wife and I are traveling around and blogging about it for our
