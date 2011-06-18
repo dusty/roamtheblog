@@ -55,8 +55,7 @@ module Roam
     end
 
     put '/settings' do
-      site.doc.update(params[:site])
-      if site.update
+      if site.update_attributes(params[:site])
         flash.now[:notice] = "Settings saved."
         mustache :settings
       else
@@ -71,7 +70,7 @@ module Roam
         value = params[:setting][:value] if params[:setting]
         raise(StandardError, "name cannot be empty") if name.empty?
         site.settings.update({name => value})
-        if site.update
+        if site.save
           flash.now[:notice] = "Setting added."
           mustache :settings
         else
@@ -86,7 +85,7 @@ module Roam
 
     delete '/settings/:id' do
       site.settings.delete(params[:id])
-      if site.update
+      if site.save
         flash[:notice] = "Setting removed."
         redirect '/admin/settings'
       else
@@ -135,7 +134,7 @@ module Roam
 
     post '/posts' do
       @post = Post.new(params[:post])
-      if @post.insert
+      if @post.save
         flash[:notice] = "Post created."
         redirect "/admin/posts/#{@post.slug}"
       else
@@ -151,8 +150,7 @@ module Roam
 
     put '/posts/:id' do
       not_found unless @post = Post.by_slug(params[:id])
-      @post.doc.update(params[:post])
-      if @post.update
+      if @post.update_attributes(params[:post])
         flash[:notice] = "Post updated."
         redirect "/admin/posts/#{@post.slug}"
       else
@@ -163,7 +161,7 @@ module Roam
 
     delete '/posts/:id' do
       not_found unless @post = Post.by_slug(params[:id])
-      if @post.remove
+      if @post.destroy
         flash[:notice] = "Post deleted."
         redirect '/admin/posts'
       else
@@ -179,7 +177,7 @@ module Roam
 
     post '/pages' do
       @page = Page.new(params[:page])
-      if @page.insert
+      if @page.save
         flash[:notice] = "Page created."
         redirect "/admin/pages/#{@page.slug}"
       else
@@ -200,8 +198,7 @@ module Roam
 
     put '/pages/:id' do
       not_found unless @page = Page.by_slug(params[:id])
-      @page.doc.update(params[:page])
-      if @page.update
+      if @page.update_attributes(params[:page])
         flash[:notice] = "Page updated."
         redirect "/admin/pages/#{@page.slug}"
       else
@@ -212,7 +209,7 @@ module Roam
 
     delete '/pages/:id' do
       not_found unless @page = Page.by_slug(params[:id])
-      if @page.remove
+      if @page.destroy
         flash[:notice] = "Page deleted."
         redirect '/admin/pages'
       else
@@ -220,7 +217,7 @@ module Roam
         redirect '/admin/pages'
       end
     end
-    
+
     put '/home/:id' do
       not_found unless @page = Page.by_slug(params[:id])
       if site.page = @page
@@ -231,7 +228,7 @@ module Roam
         redirect '/admin/pages'
       end
     end
-    
+
     delete '/home/:id' do
       not_found unless @page = Page.by_slug(params[:id])
       if site.unset_page(@page)
@@ -250,7 +247,7 @@ module Roam
 
     post '/designs' do
       @design = Design.new(params[:design])
-      if @design.insert
+      if @design.save
         flash[:notice] = "Design created."
         redirect "/admin/designs/#{@design.id}"
       else
@@ -289,8 +286,7 @@ module Roam
 
     put '/designs/:id' do
       not_found unless @design = Design.by_id(params[:id])
-      @design.doc.update(params[:design])
-      if @design.update
+      if @design.update_attributes(params[:design])
         flash[:notice] = "Design updated."
         redirect "/admin/designs/#{@design.id}"
       else
@@ -301,7 +297,7 @@ module Roam
 
     delete '/designs/:id' do
       not_found unless design = Design.by_id(params[:id])
-      if design.remove
+      if design.destroy
         flash[:notice] = "Design removed."
         redirect "/admin/designs"
       else
@@ -319,7 +315,7 @@ module Roam
       @user = User.new(params[:user])
       @user.password = params[:user][:password]
       @user.password_confirmation = params[:user][:password_confirmation]
-      if @user.insert
+      if @user.save
         flash[:notice] = "User created."
         redirect "/admin/users/#{@user.id}"
       else
@@ -342,8 +338,7 @@ module Roam
       not_found unless @user = User.by_id(params[:id])
       @user.password = params[:user][:password]
       @user.password_confirmation = params[:user][:password_confirmation]
-      @user.doc.update(params[:user])
-      if @user.update
+      if @user.update_attributes(params[:user])
         flash[:notice] = "User updated."
         redirect "/admin/users/#{@user.id}"
       else
@@ -357,7 +352,7 @@ module Roam
         not_found unless @user = User.by_id(params[:id])
         raise(StandardError, "Cannot delete yourself") if @user == current_user
         raise(StandardError, "Cannot delete only user") if User.count < 2
-        if @user.remove
+        if @user.destroy
           flash["notice"] = "User removed."
           redirect "/admin/users"
         else

@@ -1,9 +1,26 @@
-class Design < Mongomatic::Base
-  include Roam::Models
+class Design
+  include MongoMapper::Document
+
+  key :name, String
+  key :description, String
+  key :layout, String
+  key :blog, String
+  key :feed, String
+  key :home, String
+  key :page, String
+  key :post, String
+  key :style, String
+  key :script, String
+  key :error, String
+  key :missing, String
+  timestamps!
+
+  validates_presence_of :name, :description, :layout, :blog, :feed, :home
+  validates_presence_of :page, :post, :style, :script, :error, :missing
 
   def self.duplicate(id)
     return false unless original = by_id(id)
-    attributes = original.doc
+    attributes = original.attributes
     attributes.delete('_id')
     attributes.delete('created_at')
     attributes.delete('updated_at')
@@ -23,24 +40,15 @@ class Design < Mongomatic::Base
       attribute = File.basename(template, File.extname(template))
       design.send("#{attribute}=", File.read(template))
     end
-    design.insert && design
+    design.save && design
   end
 
   def self.by_id(id)
-    find_one(:_id => BSON::ObjectId(id.to_s))
+    find(id)
   end
 
   def self.sort_updated
-    find({}, {:sort => [:updated_at, :desc]})
-  end
-
-  matic_accessor :name, :description, :layout, :blog, :feed, :home
-  matic_accessor :page, :post, :style, :script, :error, :missing
-
-  def validate
-    %w{name layout blog feed home page post error missing style script}.each do |attr|
-      errors.add(attr, 'is required') if send(attr).blank?
-    end
+    sort(:updated_at.desc)
   end
 
   def activate

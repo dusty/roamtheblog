@@ -1,5 +1,18 @@
-class Post < Mongomatic::Base
-  include Roam::Models
+class Post
+  include MongoMapper::Document
+
+  key :title, String
+  key :body, String
+  key :author, String
+  key :slug, String
+  key :published_at, Time
+  key :tags, Array, :default => []
+  key :location, String
+  timestamps!
+
+  validates_presence_of :title, :body, :author, :slug
+
+  before_save :split_tags, :generate_slug, :parse_published
 
   def self.create_indexes
     collection.create_index [[:slug,1],[:published_at,1]], :unique => true
@@ -7,15 +20,15 @@ class Post < Mongomatic::Base
   end
 
   def self.by_slug(slug)
-    find_one(:slug => slug)
+    first(:slug => slug)
   end
 
   def self.sort_published
-    find({}, {:sort => [:published_at, :desc]})
+    sort(:published_at.desc)
   end
 
   def self.sort_updated
-    find({}, {:sort => [:updated_at, :desc]})
+    sort(:updated_at.desc)
   end
 
   def self.recent_update
@@ -27,21 +40,21 @@ class Post < Mongomatic::Base
   end
 
   def self.nodate(tag=nil)
-    criteria = {:published_at => nil}
-    criteria.update(:tags => tag) if tag
-    find(criteria).sort([:updated_at, :desc])
+    criteria = where(:published_at => nil)
+    criteria = criteria.where(:tags => tag) if tag
+    criteria.sort(:updated_at.desc)
   end
 
   def self.active(tag=nil)
-    criteria = {:published_at => {'$lte' => Time.now.utc}}
-    criteria.update(:tags => tag) if tag
-    find(criteria).sort([:published_at, :desc])
+    criteria = where(:published_at.lte => Time.now.utc)
+    criteria = criteria.where(:tags => tag) if tag
+    criteria.sort(:published_at.desc)
   end
 
   def self.future(tag=nil)
-    criteria = {:published_at => {'$gt' => Time.now.utc}}
-    criteria.update(:tags => tag) if tag
-    find(criteria).sort([:published_at, :desc])
+    criteria = where(:published_at.gt => Time.now.utc)
+    criteria = criteria.where(:tags => tag) if tag
+    criteria.sort(:published_at.desc)
   end
 
   ##
@@ -49,8 +62,8 @@ class Post < Mongomatic::Base
   def self.younger(post,limit)
     time     = post.published_at.utc
     now      = Time.now.utc
-    criteria = {:published_at => {'$gt' => time, '$lt' => now}, :_id => {'$ne' => post.id}}
-    find(criteria).sort([:published_at, :asc]).limit(limit.to_i)
+    criteria = where(:published_at.gt => time).where(:published_at.lt => now).where(:_id.ne => post.id)
+    criteria.sort(:published_at.asc).limit(limit.to_i)
   end
 
   ##
@@ -59,8 +72,8 @@ class Post < Mongomatic::Base
     now      = Time.now.utc
     time     = post.published_at.utc
     max_age  = (time > now) ? now : time
-    criteria = {:published_at => {'$lt' => max_age}, :_id => {'$ne' => post.id}}
-    find(criteria).sort([:published_at, :desc]).limit(limit.to_i)
+    criteria = where(:published_at.lt => max_age).where(:_id.ne => post.id)
+    criteria.sort(:published_at.desc).limit(limit.to_i)
   end
 
   ##
@@ -94,24 +107,6 @@ class Post < Mongomatic::Base
     collection.distinct(:tags, {:published_at => {'$lte' => Time.now.utc}})
   end
 
-  matic_accessor :title, :body, :author, :slug, :published_at, :tags, :location
-
-  def validate
-    %w{ title author body}.each do |attr|
-      errors.add(attr, 'is required') if send(attr).blank?
-    end
-  end
-
-  def before_insert_or_update
-    split_tags
-    generate_slug
-    parse_published
-  end
-
-  def tags
-    self[:tags].to_a
-  end
-
   def html
     RedCloth.new(body).to_html
   end
@@ -127,8 +122,8 @@ class Post < Mongomatic::Base
   protected
 
   def split_tags
-    list = self[:tags].split(%r{,\s*}).uniq if self[:tags].is_a?(String)
-    self[:tags] = list
+    list = tags.split(%r{,\s*}).uniq if tags.is_a?(String)
+    self.tags = list
   end
 
   def generate_slug
@@ -139,8 +134,8 @@ class Post < Mongomatic::Base
   end
 
   def parse_published
-    publish = Chronic.parse(self[:published_at]) if self[:published_at].is_a?(String)
-    self[:published_at] = publish.is_a?(Time) ? publish.utc : nil
+    publish = Chronic.parse(published_at) if published_at.is_a?(String)
+    self.published_at = publish.is_a?(Time) ? publish.utc : nil
   end
 
 end
