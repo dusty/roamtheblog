@@ -6,7 +6,7 @@ class Page
   key :slug, String
   timestamps!
 
-  validates_presence_of :title, :body, :slug
+  validates_presence_of :title, :body
 
   before_save :generate_slug
 

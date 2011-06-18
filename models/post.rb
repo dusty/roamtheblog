@@ -6,13 +6,15 @@ class Post
   key :author, String
   key :slug, String
   key :published_at, Time
-  key :tags, Array, :default => []
+  key :tags, Array, :default => lambda { Array.new }
   key :location, String
   timestamps!
 
-  validates_presence_of :title, :body, :author, :slug
+  attr_accessor :published_string, :tags_string
 
-  before_save :split_tags, :generate_slug, :parse_published
+  validates_presence_of :title, :body, :author
+
+  before_save :split_tags, :parse_published, :generate_slug
 
   def self.create_indexes
     collection.create_index [[:slug,1],[:published_at,1]], :unique => true
@@ -122,8 +124,8 @@ class Post
   protected
 
   def split_tags
-    list = tags.split(%r{,\s*}).uniq if tags.is_a?(String)
-    self.tags = list
+    return [] if tags_string.empty?
+    self.tags = tags_string.split(%r{,\s*}).uniq
   end
 
   def generate_slug
@@ -134,8 +136,8 @@ class Post
   end
 
   def parse_published
-    publish = Chronic.parse(published_at) if published_at.is_a?(String)
-    self.published_at = publish.is_a?(Time) ? publish.utc : nil
+    return nil if published_string.empty?
+    self.published_at = Chronic.parse(published_string).utc rescue nil
   end
 
 end

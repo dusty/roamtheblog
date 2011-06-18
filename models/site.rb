@@ -6,7 +6,7 @@ class Site
   key :domain, String, :default => 'example.com'
   key :timezone, String, :default => 'UTC'
   key :cache, Integer, :default => 300
-  key :settings, Hash, :default => {}
+  key :settings, Hash, :default => lambda { Hash.new }
   key :design_id, String
   key :page_id, String
   timestamps!
