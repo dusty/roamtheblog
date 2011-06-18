@@ -14,7 +14,6 @@ class Site
   def self.create_default
     return false unless count == 0
     site = new
-    site.settings = {}
     site.settings['primary_color'] = '#295187'
     site.save && site
   end
@@ -28,15 +27,13 @@ class Site
   # If not assign the next design or create a default
   def design
     unless design_id && _design = Design.by_id(design_id)
-      _design = Design.first || Design.create_default
-      self.design = _design if _design
+      self.design = Design.first || Design.create_default
     end
     _design
   end
 
   def design=(design)
-    self.design_id = design.id.to_s
-    save
+    update_attributes(:design_id => design.id.to_s)
   end
 
   ##
@@ -46,15 +43,11 @@ class Site
   end
 
   def page=(page)
-    self.page_id = page.slug
-    save
+    update_attributes(:page_id => page.slug)
   end
 
   def unset_page(page)
-    if page_id == page.slug
-      self.page_id = nil
-      save
-    end
+    update_attributes(:page_id => nil) if page_id == page.slug
   end
 
 end

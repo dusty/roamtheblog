@@ -15,16 +15,6 @@ class User
   validates_length_of :password, :minimum => 5, :if => :password_required?
   validates_confirmation_of :password, :if => :password_required?
 
-   def validate
-     %w{ login name }.each do |attr|
-       errors.add(attr, 'is required') if send(attr).blank?
-     end
-     if password_required?
-       errors.add(:password, 'must be > 5 char') unless (password && password.length > 4)
-       errors.add(:password, 'does not match') unless password == password_confirmation
-     end
-   end
-
   def self.create_indexes
     collection.create_index :login, :unique => true
   end
@@ -43,9 +33,8 @@ class User
 
   def self.create_default
     return false unless count == 0
-    user = new(:login => 'admin', :name => 'admin')
-    user.password, user.password_confirmation = 'admin', 'admin'
-    user.save && user
+    u = new(:login => 'admin', :name => 'admin', :password => 'admin', :password_confirmation => 'admin')
+    u.save && user
   end
 
   def self.authenticate(login, password)
@@ -55,8 +44,7 @@ class User
   end
 
   def record_login
-    self.login_at = Time.now.utc
-    update
+    update_attributes(:login_at => Time.now.utc)
   end
 
   protected

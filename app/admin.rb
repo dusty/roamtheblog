@@ -313,8 +313,6 @@ module Roam
 
     post '/users' do
       @user = User.new(params[:user])
-      @user.password = params[:user][:password]
-      @user.password_confirmation = params[:user][:password_confirmation]
       if @user.save
         flash[:notice] = "User created."
         redirect "/admin/users/#{@user.id}"
@@ -336,8 +334,6 @@ module Roam
 
     put '/users/:id' do
       not_found unless @user = User.by_id(params[:id])
-      @user.password = params[:user][:password]
-      @user.password_confirmation = params[:user][:password_confirmation]
       if @user.update_attributes(params[:user])
         flash[:notice] = "User updated."
         redirect "/admin/users/#{@user.id}"

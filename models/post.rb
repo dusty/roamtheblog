@@ -64,7 +64,7 @@ class Post
   def self.younger(post,limit)
     time     = post.published_at.utc
     now      = Time.now.utc
-    criteria = where(:published_at.gt => time).where(:published_at.lt => now).where(:_id.ne => post.id)
+    criteria = where(:published_at => {:$gt => time, :$lt => now}).where(:_id.ne => post.id)
     criteria.sort(:published_at.asc).limit(limit.to_i)
   end
 

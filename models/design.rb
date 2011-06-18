@@ -20,11 +20,7 @@ class Design
 
   def self.duplicate(id)
     return false unless original = by_id(id)
-    attributes = original.attributes
-    attributes.delete('_id')
-    attributes.delete('created_at')
-    attributes.delete('updated_at')
-    copy = new(attributes)
+    copy = original.clone
     tag = "#{Time.now.to_i}"
     copy.name = "#{original.name}-#{tag}"
     copy.description = "#{tag}: #{original.description}"
