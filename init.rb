@@ -8,7 +8,7 @@ require "bundler/setup"
 }.each {|req| require req }
 
 # Require custom libraries
-Dir["lib/**/*.rb"].sort.each {|req| require req}
+Dir["./lib/**/*.rb"].sort.each {|req| require req}
 
 ## Connect to MongoDB
 MongoMapper.connection = Mongo::Connection.new(ENV['MONGO_HOST'],ENV['MONGO_PORT'])
@@ -18,11 +18,11 @@ if (ENV['MONGO_USER'] && ENV['MONGO_PASS'])
 end
 
 # Require sinatra apps
-Dir["models/*.rb"].sort.each {|req| require req}
-Dir["app/*.rb"].sort.each {|req| require req}
+Dir["./models/*.rb"].sort.each {|req| require req}
+Dir["./app/*.rb"].sort.each {|req| require req}
 
 # Require mustache views
-Dir["views/**/*.rb"].sort.each {|req| require req}
+Dir["./views/**/*.rb"].sort.each {|req| require req}
 
 # Create defaults
 User.create_default
