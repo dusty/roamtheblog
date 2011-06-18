@@ -100,7 +100,10 @@ Admin Panel
 
   Pages
     Create static pages that are not blog posts such as an About page.
-    Pages have a URL based on the title, such as /about.
+    Pages have a URL based on the title, such as /about.  You may set
+    a page as the homepage, which will override the blog as the homepage.
+    This could be handy if you are using roamtheblog as a webpage with
+    a blog component.
 
   Posts
     Create blog posts.  You can assign a publish date to automatically
@@ -152,26 +155,56 @@ Templates
   Missing
     The content provided when a page is not found
 
-  Blog (/blog)
-    Lists all the posts on this blog
+  Blog
+    Lists all the posts on this blog.
 
-  Feed (/index.xml)
+  Feed
     Provides XML output of the posts for an RSS feed
 
-  Home (/)
-    The main page of the site, showing only the most recent post
+  Home
+    The main page of the blog, showing only the most recent post
 
-  Page (/about)
+  Page
     Static pages that are not a blog post, such as an About page
 
-  Post (/blog/20110101-my-blog-post)
+  Post
     Shows a blog post in its entirety
 
-  Script (/application.js)
+  Script
     Any custom javascript code
 
-  Style (/style.css)
+  Style
     The CSS Stylesheet for the site
+
+Routes
+  /index.xml
+    Displays the Feed template with an XML content-type
+
+  /application.js
+    Displays the Script template with a javascript content-type
+
+  /style.css
+    Displays the Style template with a css content-type
+
+  /
+  	If setup with a page as the homepage, this will show the Page template for that page.
+    Otherwise, it will show the Home template with the most recent blog post.
+
+  /blog
+    If setup with a page as the homepage, this will show the Blog template listing all posts.
+    Otherwise, it will show the Home template with the most recent blog post.
+
+  /posts
+    Shows the Blog template listing all posts.
+
+  /blog/:postname (eg: /blog/20110101-my-blog-post)
+    Shows the Post template with the post that has the same name.
+
+  /posts/:postname (eg: /posts/20110101-my-blog-post)
+    Same as above.  Shows the Post template with the post that has the same name.
+
+  /:pagename  (eg: /about)
+    Shows the Page template with the page that has the same name.
 
 Variables
   Each template is able to use certain mustache variables to provide content.
@@ -282,6 +315,12 @@ Default Template
     flickr: link to your flickr account
 
 FAQ
+  Q. How do I make a Page as the homepage instead of the last blog post?
+  A. In the Pages section of the Admin panel, click on the "Set" link under the
+     Home column listing all the pages.  See the Routes section above to see how
+     that changes the routes.  To reverse this action, click Unset next to the Page
+     that is set.
+
   Q. How do I format a blog post or page?
   A. Roamtheblog uses the Textile markup to make it easy to write
      HTML pages without having to understand or use HTML.  When you click
