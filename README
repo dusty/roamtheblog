@@ -15,6 +15,7 @@ Clean default template setup for use with:
   * Facebook
   * YouTube
   * Twitter
+  * SmugMug
 
 Markup
   Roamtheblog makes it easy to create a website and/or blog by using the
@@ -334,16 +335,15 @@ FAQ
 
   Q. How can I add a picture or video to my page or blog post?
   A. Roamtheblog is as simple as it can be and does not manage media.  I
-     recommend using a site that specializes in that, such as Flickr, Picasa,
-     and YouTube.
+     recommend using a site that specializes in that, such as SmugMug, Flickr,
+     Picasa, YouTube, etc....
 
      For example, when you've uploaded a picture to Flickr, you can share that
      picture.  One of the options will give you a link to copy/paste into
      your blog post.  You can choose the size you'd like and just copy/paste
      that code into your post.
 
-     By doing it this way, flickr or whomever, will host all your pictures.
-     These companies are optimized in serving images/videos and it will
+     These companies are optimized in serving images and videos and it will
      decrease the load on your application.  In addition, you may enjoy some
      of the community features of these sharing sites.
 
