@@ -25,6 +25,7 @@ class Site < Mongomatic::Base
   def design
     unless design_id && _design = Design.by_id(design_id)
       _design = Design.find_one || Design.create_default
+      self.design = _design if _design
     end
     _design
   end

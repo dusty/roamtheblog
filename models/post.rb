@@ -9,10 +9,13 @@ class Post < Mongomatic::Base
     end
   end
 
-  def before_insert_or_update
+  def before_validate
     split_tags
-    generate_slug
     parse_published
+  end
+
+  def before_insert_or_update
+    generate_slug
   end
 
   def tags
@@ -127,9 +130,7 @@ class Post < Mongomatic::Base
   protected
 
   def split_tags
-    if self[:tags].is_a?(String)
-      self[:tags] = self[:tags].split(%r{,\s*}).uniq
-    end
+    self[:tags] = self[:tags].split(%r{,\s*}).uniq if self[:tags].is_a?(String)
   end
 
   def generate_slug

@@ -31,12 +31,12 @@ module ViewHelpers
 
     def get_short_date(date)
       date = parse_date(date)
-      date ? date.strftime("%m/%d/%Y %l:%M %P") : "---"
+      date ? date.strftime("%m/%d/%Y %l:%M %P") : ""
     end
 
     def get_long_date(date)
       date = parse_date(date)
-      date ? date.strftime("%B #{date.day.ordinal}, %Y") : "---"
+      date ? date.strftime("%B #{date.day.ordinal}, %Y") : ""
     end
 
     private
