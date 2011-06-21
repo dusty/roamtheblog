@@ -1,20 +1,23 @@
-class Post
-  include MongoMapper::Document
+class Post < Mongomatic::Base
+  include Roam::Models
 
-  key :title, String
-  key :body, String
-  key :author, String
-  key :slug, String
-  key :published_at, Time
-  key :tags, Array, :default => lambda { Array.new }
-  key :location, String
-  timestamps!
+  matic_accessor :title, :body, :author, :slug, :published_at, :tags, :location
 
-  attr_accessor :published_string, :tags_string
+  def validate
+    %w{ title author body}.each do |attr|
+      errors.add(attr, 'is required') if send(attr).blank?
+    end
+  end
 
-  validates_presence_of :title, :body, :author
+  def before_insert_or_update
+    split_tags
+    generate_slug
+    parse_published
+  end
 
-  before_save :split_tags, :parse_published, :generate_slug
+  def tags
+    self[:tags].to_a
+  end
 
   def self.create_indexes
     collection.create_index [[:slug,1],[:published_at,1]], :unique => true
@@ -22,15 +25,15 @@ class Post
   end
 
   def self.by_slug(slug)
-    first(:slug => slug)
+    find_one(:slug => slug)
   end
 
   def self.sort_published
-    sort(:published_at.desc)
+    find({}, {:sort => [:published_at, :desc]})
   end
 
   def self.sort_updated
-    sort(:updated_at.desc)
+    find({}, {:sort => [:updated_at, :desc]})
   end
 
   def self.recent_update
@@ -42,21 +45,21 @@ class Post
   end
 
   def self.nodate(tag=nil)
-    criteria = where(:published_at => nil)
-    criteria = criteria.where(:tags => tag) if tag
-    criteria.sort(:updated_at.desc)
+    criteria = {:published_at => nil}
+    criteria.update(:tags => tag) if tag
+    find(criteria).sort([:updated_at, :desc])
   end
 
   def self.active(tag=nil)
-    criteria = where(:published_at.lte => Time.now.utc)
-    criteria = criteria.where(:tags => tag) if tag
-    criteria.sort(:published_at.desc)
+    criteria = {:published_at => {'$lte' => Time.now.utc}}
+    criteria.update(:tags => tag) if tag
+    find(criteria).sort([:published_at, :desc])
   end
 
   def self.future(tag=nil)
-    criteria = where(:published_at.gt => Time.now.utc)
-    criteria = criteria.where(:tags => tag) if tag
-    criteria.sort(:published_at.desc)
+    criteria = {:published_at => {'$gt' => Time.now.utc}}
+    criteria.update(:tags => tag) if tag
+    find(criteria).sort([:published_at, :desc])
   end
 
   ##
@@ -64,8 +67,8 @@ class Post
   def self.younger(post,limit)
     time     = post.published_at.utc
     now      = Time.now.utc
-    criteria = where(:published_at => {:$gt => time, :$lt => now}).where(:_id.ne => post.id)
-    criteria.sort(:published_at.asc).limit(limit.to_i)
+    criteria = {:published_at => {'$gt' => time, '$lt' => now}, :_id => {'$ne' => post.id}}
+    find(criteria).sort([:published_at, :asc]).limit(limit.to_i)
   end
 
   ##
@@ -74,8 +77,8 @@ class Post
     now      = Time.now.utc
     time     = post.published_at.utc
     max_age  = (time > now) ? now : time
-    criteria = where(:published_at.lt => max_age).where(:_id.ne => post.id)
-    criteria.sort(:published_at.desc).limit(limit.to_i)
+    criteria = {:published_at => {'$lt' => max_age}, :_id => {'$ne' => post.id}}
+    find(criteria).sort([:published_at, :desc]).limit(limit.to_i)
   end
 
   ##
@@ -124,8 +127,9 @@ class Post
   protected
 
   def split_tags
-    return [] if tags_string.empty?
-    self.tags = tags_string.split(%r{,\s*}).uniq
+    if self[:tags].is_a?(String)
+      self[:tags] = self[:tags].split(%r{,\s*}).uniq
+    end
   end
 
   def generate_slug
@@ -136,8 +140,8 @@ class Post
   end
 
   def parse_published
-    return nil if published_string.empty?
-    self.published_at = Chronic.parse(published_string).utc rescue nil
+    publish = Chronic.parse(self[:published_at]) if self[:published_at].is_a?(String)
+    self[:published_at] = publish.is_a?(Time) ? publish.utc : nil
   end
 
 end

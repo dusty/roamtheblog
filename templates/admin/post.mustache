@@ -28,7 +28,7 @@
           </label>
           <span class="error">{{post_date_error}}</span>
           <br/>
-          <input id="date" name="post[published_string]"
+          <input id="date" name="post[published_at]"
                  placeholder="now, this friday, tomorrow at 7pm"
                  class="text" value="{{post_date}}" />
         </p>
@@ -47,7 +47,7 @@
            <label for="author">Tags</label>
            <span class="error">{{post_tags_error}}</span>
            <br/>
-           <input id="author" name="post[tags_string]" placeholder="tag1, tag2"
+           <input id="author" name="post[tags]" placeholder="tag1, tag2"
                    class="text" value="{{post_tags}}" />
          </p>
 

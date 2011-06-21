@@ -1,40 +1,44 @@
-class User
-  include MongoMapper::Document
+class User < Mongomatic::Base
+  include Roam::Models
 
-  key :name, String
-  key :login, String
-  key :passwd, String
-  key :salt, String
-  key :login_at, Time
-  timestamps!
+  matic_accessor :name, :login, :passwd, :salt, :login_at
   attr_accessor :password, :password_confirmation
 
-  before_save :encrypt_password
+  def validate
+    %w{ login name }.each do |attr|
+      errors.add(attr, 'is required') if send(attr).blank?
+    end
+    if password_required?
+      errors.add(:password, 'must be > 5 char') unless (password && password.length > 4)
+      errors.add(:password, 'does not match') unless password == password_confirmation
+    end
+  end
 
-  validates_presence_of :name, :login
-  validates_length_of :password, :minimum => 5, :if => :password_required?
-  validates_confirmation_of :password, :if => :password_required?
+  def before_insert_or_update
+    encrypt_password
+  end
 
   def self.create_indexes
     collection.create_index :login, :unique => true
   end
 
   def self.by_id(id)
-    find(id)
+    find_one(:_id => BSON::ObjectId(id.to_s))
   end
 
   def self.by_login(login)
-    first(:login => login)
+    find_one(:login => login)
   end
 
   def self.sort_logins
-    sort(:login_at.desc)
+    find({}, {:sort => [:login_at, :desc]})
   end
 
   def self.create_default
     return false unless count == 0
-    u = new(:login => 'admin', :name => 'admin', :password => 'admin', :password_confirmation => 'admin')
-    u.save && user
+    user = new(:login => 'admin', :name => 'admin')
+    user.password, user.password_confirmation = 'admin', 'admin'
+    user.insert && user
   end
 
   def self.authenticate(login, password)
@@ -44,7 +48,8 @@ class User
   end
 
   def record_login
-    update_attributes(:login_at => Time.now.utc)
+    self.login_at = Time.now.utc
+    update
   end
 
   protected

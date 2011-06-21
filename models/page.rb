@@ -1,25 +1,28 @@
-class Page
-  include MongoMapper::Document
+class Page < Mongomatic::Base
+  include Roam::Models
 
-  key :title, String
-  key :body, String
-  key :slug, String
-  timestamps!
+  matic_accessor :title, :body, :slug
 
-  validates_presence_of :title, :body
+  def validate
+    %w{ title body }.each do |attr|
+      errors.add(attr, 'is required') if send(attr).blank?
+    end
+  end
 
-  before_save :generate_slug
+  def before_insert_or_update
+    generate_slug
+  end
 
   def self.create_indexes
     collection.create_index :slug, :unique => true
   end
 
   def self.by_slug(slug)
-    first(:slug => slug)
+    find_one(:slug => slug)
   end
 
   def self.sort_updated
-    sort(:updated_at.desc)
+    find({}, {:sort => [:updated_at, :desc]})
   end
 
   def html

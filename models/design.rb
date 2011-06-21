@@ -1,27 +1,23 @@
-class Design
-  include MongoMapper::Document
+class Design < Mongomatic::Base
+  include Roam::Models
 
-  key :name, String
-  key :description, String
-  key :layout, String
-  key :blog, String
-  key :feed, String
-  key :home, String
-  key :page, String
-  key :post, String
-  key :style, String
-  key :script, String
-  key :error, String
-  key :missing, String
-  timestamps!
+  matic_accessor :name, :description, :layout, :blog, :feed, :home
+  matic_accessor :page, :post, :style, :script, :error, :missing
 
-  validates_presence_of :name, :description, :layout, :blog, :feed, :home
-  validates_presence_of :page, :post, :style, :script, :error, :missing
+  def validate
+    %w{name layout blog feed home page post error missing style script}.each do |attr|
+      errors.add(attr, 'is required') if send(attr).blank?
+    end
+  end
 
   def self.duplicate(id)
     return false unless original = by_id(id)
-    copy = original.clone
+    attributes = original.doc
+    attributes.delete('_id')
+    attributes.delete('created_at')
+    attributes.delete('updated_at')
     tag = "#{Time.now.to_i}"
+    copy = new(attributes)
     copy.name = "#{original.name}-#{tag}"
     copy.description = "#{tag}: #{original.description}"
     copy
@@ -36,15 +32,15 @@ class Design
       attribute = File.basename(template, File.extname(template))
       design.send("#{attribute}=", File.read(template))
     end
-    design.save && design
+    design.insert && design
   end
 
   def self.by_id(id)
-    find(id)
+    find_one(:_id => BSON::ObjectId(id.to_s))
   end
 
   def self.sort_updated
-    sort(:updated_at.desc)
+    find({}, {:sort => [:updated_at, :desc]})
   end
 
   def activate

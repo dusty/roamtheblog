@@ -1,25 +1,22 @@
-class Site
-  include MongoMapper::Document
+class Site < Mongomatic::Base
+  include Roam::Models
 
-  key :location, String
-  key :title, String, :default => 'My New Blog'
-  key :domain, String, :default => 'example.com'
-  key :timezone, String, :default => 'UTC'
-  key :cache, Integer, :default => 300
-  key :settings, Hash, :default => lambda { Hash.new }
-  key :design_id, String
-  key :page_id, String
-  timestamps!
+  matic_accessor :location, :title, :domain, :timezone, :cache, :settings, :design_id, :page_id
+
+  def before_insert_or_update
+    set_defaults
+  end
 
   def self.create_default
     return false unless count == 0
     site = new
+    site.settings = {}
     site.settings['primary_color'] = '#295187'
-    site.save && site
+    site.insert && site
   end
 
   def self.default
-    first
+    find_one
   end
 
   ##
@@ -27,13 +24,14 @@ class Site
   # If not assign the next design or create a default
   def design
     unless design_id && _design = Design.by_id(design_id)
-      self.design = Design.first || Design.create_default
+      _design = Design.find_one || Design.create_default
     end
     _design
   end
 
   def design=(design)
-    update_attributes(:design_id => design.id.to_s)
+    self.design_id = design.id.to_s
+    update
   end
 
   ##
@@ -43,11 +41,25 @@ class Site
   end
 
   def page=(page)
-    update_attributes(:page_id => page.slug)
+    self.page_id = page.slug
+    update
   end
 
   def unset_page(page)
-    update_attributes(:page_id => nil) if page_id == page.slug
+    if page_id == page.slug
+      self.page_id = nil
+      update
+    end
+  end
+
+  protected
+
+  def set_defaults
+    self.title ||= 'My New Blog'
+    self.domain ||= 'example.com'
+    self.timezone ||= 'UTC'
+    self.cache ||= 300
+    self.settings ||= {}
   end
 
 end
