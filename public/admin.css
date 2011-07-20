@@ -357,7 +357,7 @@ form {
 }
 
 form input.text, form input.password {
-  width: 400px;
+  width: 405px;
   font-size: .9em;
   color: #666;
 }
@@ -383,7 +383,7 @@ fieldset {
 }
 
 select.text {
-  width: 406px;
+  width: 411px;
   font-size: 2em;
 }
 
