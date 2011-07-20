@@ -18,6 +18,16 @@ if (ENV['MONGO_USER'] && ENV['MONGO_PASS'])
   MongoMapper.database.authenticate(ENV['MONGO_USER'], ENV['MONGO_PASS'])
 end
 
+## Setup Email options
+SMTP_OPTS = {
+  :address => ENV['SMTP_HOST'],
+  :user_name => ENV['SMTP_USER'],
+  :password => ENV['SMTP_PASS'],
+  :port => ENV['SMTP_PORT'],
+  :authentication => ENV['SMTP_AUTH'],
+  :domain => ENV['SMTP_DOMAIN'] || 'localhost.localdomain'
+}
+
 # Require sinatra apps
 Dir["./models/*.rb"].sort.each {|req| require req}
 Dir["./app/*.rb"].sort.each {|req| require req}
