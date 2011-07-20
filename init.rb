@@ -4,7 +4,7 @@ require "bundler/setup"
 
 # Include required gems
 %w{
-  mongomatic rack-flash sinatra/base mustache/sinatra RedCloth chronic html_truncator tzinfo
+  mongo_mapper rack-flash sinatra/base mustache/sinatra RedCloth chronic html_truncator tzinfo
   active_support/inflector
 }.each {|req| require req }
 
@@ -12,9 +12,10 @@ require "bundler/setup"
 Dir["./lib/**/*.rb"].sort.each {|req| require req}
 
 ## Connect to MongoDB
-Mongomatic.db = Mongo::Connection.new(ENV['MONGO_HOST'],ENV['MONGO_PORT']).db(ENV['MONGO_DB'] || 'roamtheblog')
+MongoMapper.connection = Mongo::Connection.new(ENV['MONGO_HOST'],ENV['MONGO_PORT'])
+MongoMapper.database = ENV['MONGO_DB'] || 'roamtheblog'
 if (ENV['MONGO_USER'] && ENV['MONGO_PASS'])
-  Mongomatic.db.authenticate(ENV['MONGO_USER'], ENV['MONGO_PASS'])
+  MongoMapper.database.authenticate(ENV['MONGO_USER'], ENV['MONGO_PASS'])
 end
 
 # Require sinatra apps

@@ -1,66 +1,51 @@
-class Site < Mongomatic::Base
-  include Roam::Models
+class Site
+  include MongoMapper::Document
 
-  matic_accessor :location, :title, :domain, :timezone, :cache, :settings, :design_id, :page_id
-
-  def before_insert_or_update
-    set_defaults
-  end
+  key :location, String
+  key :title, String, :default => 'My New Blog'
+  key :domain, String, :default => 'example.com'
+  key :timezone, String, :default => 'UTC'
+  key :cache, Integer, :default => 300
+  key :settings, Hash
+  key :design_id, BSON::ObjectId
+  key :page_id, BSON::ObjectId
 
   def self.create_default
     return false unless count == 0
     site = new
-    site.settings = {}
     site.settings['primary_color'] = '#295187'
-    site.insert && site
+    site.save && site
   end
 
   def self.default
-    find_one
+    first
   end
 
-  ##
-  # Return the associated design if it exists
-  # If not assign the next design or create a default
+  ## Return the associated design if it exists
+  ## If not assign the next design or create a default
   def design
-    unless design_id && _design = Design.by_id(design_id)
-      _design = Design.find_one || Design.create_default
-      self.design = _design if _design
+    unless design_id && _design = Design.find(design_id)
+      _design = (Design.first || Design.create_default)
+      self.design = _design
     end
     _design
   end
 
   def design=(design)
-    self.design_id = design.id.to_s
-    update
+    update_attributes(:design_id => design.id)
   end
 
-  ##
-  # Return the set home page.
+  ## Return the set home page.
   def page
-    Page.by_slug(page_id) if page_id
+    Page.find(page_id) if page_id
   end
 
   def page=(page)
-    self.page_id = page.slug
-    update
+    update_attributes(:page_id => page.id)
   end
 
   def unset_page(page)
-    if page_id == page.slug
-      self.page_id = nil
-      update
-    end
-  end
-
-  protected
-
-  def set_defaults
-    self.title ||= 'My New Blog'
-    self.domain ||= 'example.com'
-    self.timezone ||= 'UTC'
-    self.cache ||= 300
-    self.settings ||= {}
+    update_attributes(:page_id => nil) if (page_id == page.id)
   end
 
 end

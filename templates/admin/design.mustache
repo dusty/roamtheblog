@@ -30,97 +30,97 @@
           <input id="description" name="design[description]"
                  placeholder="This is a wonderful design that I love."
                  class="text" value="{{design_description}}"
-                 style="width: 800px;" />
+                 style="width: 830px;" />
         </p>
 
         <p>
           <label for="layout">Layout</label>
           <span class="error">{{design_layout_error}}</span>
           <br/>
-          <textarea id="layout" name="design[layout]"
+          <textarea id="layout" name="design[layout]" class="textarea"
                     placeholder="This is the main layout of the site."
-                    class="large-area">{{{design_layout}}}</textarea>
+                    cols="118" rows="5">{{{design_layout}}}</textarea>
         </p>
 
         <p>
           <label for="blog">Blog</label>
           <span class="error">{{design_blog_error}}</span>
           <br/>
-          <textarea id="blog" name="design[blog]"
+          <textarea id="blog" name="design[blog]" class="textarea"
                     placeholder="This is the blog listing page."
-                    class="large-area">{{{design_blog}}}</textarea>
+                    cols="118" rows="5">{{{design_blog}}}</textarea>
         </p>
 
         <p>
           <label for="page">Page</label>
           <span class="error">{{design_page_error}}</span>
           <br/>
-          <textarea id="page" name="design[page]"
+          <textarea id="page" name="design[page]" class="textarea"
                     placeholder="This is the Page template."
-                    class="large-area">{{{design_page}}}</textarea>
+                    cols="118" rows="5">{{{design_page}}}</textarea>
         </p>
 
         <p>
           <label for="post">Post</label>
           <span class="error">{{design_post_error}}</span>
           <br/>
-          <textarea id="post" name="design[post]"
+          <textarea id="post" name="design[post]" class="textarea"
                     placeholder="This is the Post template."
-                    class="large-area">{{{design_post}}}</textarea>
+                    cols="118" rows="5">{{{design_post}}}</textarea>
         </p>
 
         <p>
           <label for="home">Home</label>
           <span class="error">{{design_home_error}}</span>
           <br/>
-          <textarea id="home" name="design[home]"
+          <textarea id="home" name="design[home]" class="textarea"
                     placeholder="This is the Home template."
-                    class="large-area">{{{design_home}}}</textarea>
+                    cols="118" rows="5">{{{design_home}}}</textarea>
         </p>
 
         <p>
           <label for="feed">Feed</label>
           <span class="error">{{design_feed_error}}</span>
           <br/>
-          <textarea id="feed" name="design[feed]"
+          <textarea id="feed" name="design[feed]" class="textarea"
                     placeholder="This is the RSS Feed."
-                    class="large-area">{{{design_feed}}}</textarea>
+                    cols="118" rows="5">{{{design_feed}}}</textarea>
         </p>
 
         <p>
           <label for="missing">Missing</label>
           <span class="error">{{design_missing_error}}</span>
           <br/>
-          <textarea id="missing" name="design[missing]"
+          <textarea id="missing" name="design[missing]" class="textarea"
                     placeholder="This is the Not Found / Missing template."
-                    class="large-area">{{{design_missing}}}</textarea>
+                    cols="118" rows="5">{{{design_missing}}}</textarea>
         </p>
 
         <p>
           <label for="error">Error</label>
           <span class="error">{{design_error_error}}</span>
           <br/>
-          <textarea id="error" name="design[error]"
+          <textarea id="error" name="design[error]" class="textarea"
                     placeholder="This is the Error template."
-                    class="large-area">{{{design_error}}}</textarea>
+                    cols="118" rows="5">{{{design_error}}}</textarea>
         </p>
 
         <p>
           <label for="style">CSS Stylesheet</label>
           <span class="error">{{design_style_error}}</span>
           <br/>
-          <textarea id="style" name="design[style]"
+          <textarea id="style" name="design[style]" class="textarea"
                     placeholder="This is the CSS Stylesheet template."
-                    class="large-area">{{{design_style}}}</textarea>
+                    cols="118" rows="5">{{{design_style}}}</textarea>
         </p>
 
         <p>
           <label for="script">Javascript</label>
           <span class="error">{{design_script_error}}</span>
           <br/>
-          <textarea id="script" name="design[script]"
+          <textarea id="script" name="design[script]" class="textarea"
                     placeholder="This is the Javascript template."
-                    class="large-area">{{{design_script}}}</textarea>
+                    cols="118" rows="5">{{{design_script}}}</textarea>
         </p>
 
         <p>
@@ -137,3 +137,9 @@
 
   </section>
 </article>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $(".textarea").autoGrow();
+  });
+</script>

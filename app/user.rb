@@ -108,12 +108,12 @@ module Roam
         mustache(:blog, {:posts => posts, :tag => params[:tag]})
       end
     end
-    
+
     get '/posts' do
       posts = Post.active(params[:tag]).to_a
       mustache(:blog, {:posts => posts, :tag => params[:tag]})
     end
-    
+
     get '/posts/:id' do
       not_found unless post = Post.by_slug(params[:id])
       posts = Post.near(post,2)

@@ -391,15 +391,3 @@ textarea {
   color: #444;
   font-size: .75em;
 }
-
-textarea.small-area {
-  width: 820px;
-  height: 50px;
-}
-
-textarea.large-area {
-  width: 820px;
-  height: 700px;
-}
-
-

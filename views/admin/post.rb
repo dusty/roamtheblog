@@ -21,7 +21,7 @@ module Roam
 
         def initialize
           create_getters_and_errors('post',%w{slug title body})
-          create_error_getter('post',%w{author published_at tags})
+          create_error_getters('post',%w{author published_at tags})
         end
 
         def post_author

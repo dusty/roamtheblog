@@ -73,9 +73,9 @@
           </span>
           <span class="error">{{post_body_error}}</span>
           <br/>
-          <textarea id="body" name="post[body]"
+          <textarea id="body" name="post[body]" class="textarea"
                     placeholder="This is the main content of the page."
-                    class="large-area">{{{post_body}}}</textarea>
+                    cols="118" rows="5">{{{post_body}}}</textarea>
         </p>
 
         <p>
@@ -95,3 +95,8 @@
   </section>
 </article>
 
+<script type="text/javascript">
+  $(document).ready(function(){
+    $(".textarea").autoGrow();
+  });
+</script>

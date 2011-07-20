@@ -1,42 +1,32 @@
-class Post < Mongomatic::Base
-  include Roam::Models
+class Post
+  include MongoMapper::Document
 
-  matic_accessor :title, :body, :author, :slug, :published_at, :tags, :location
+  key :title, String
+  key :body, String
+  key :author, String
+  key :slug, String
+  key :published_at, Time
+  key :tags, Array
+  key :location, String
+  timestamps!
 
-  def validate
-    %w{ title author body}.each do |attr|
-      errors.add(attr, 'is required') if send(attr).blank?
-    end
-  end
+  ensure_index [[:slug,1],[:published_at,1]], :unique => true
+  ensure_index :tags
 
-  def before_validate
-    split_tags
-    parse_published
-  end
+  validates_presence_of :title, :author, :body
 
-  def before_insert_or_update
-    generate_slug
-  end
-
-  def tags
-    self[:tags].to_a
-  end
-
-  def self.create_indexes
-    collection.create_index [[:slug,1],[:published_at,1]], :unique => true
-    collection.create_index :tags
-  end
+  before_save :generate_slug
 
   def self.by_slug(slug)
-    find_one(:slug => slug)
+    first(:slug => slug)
   end
 
   def self.sort_published
-    find({}, {:sort => [:published_at, :desc]})
+    where({}, {:sort => [:published_at, :desc]})
   end
 
   def self.sort_updated
-    find({}, {:sort => [:updated_at, :desc]})
+    where({}, {:sort => [:updated_at, :desc]})
   end
 
   def self.recent_update
@@ -50,19 +40,19 @@ class Post < Mongomatic::Base
   def self.nodate(tag=nil)
     criteria = {:published_at => nil}
     criteria.update(:tags => tag) if tag
-    find(criteria).sort([:updated_at, :desc])
+    where(criteria).sort([:updated_at, :desc])
   end
 
   def self.active(tag=nil)
     criteria = {:published_at => {'$lte' => Time.now.utc}}
     criteria.update(:tags => tag) if tag
-    find(criteria).sort([:published_at, :desc])
+    where(criteria).sort([:published_at, :desc])
   end
 
   def self.future(tag=nil)
     criteria = {:published_at => {'$gt' => Time.now.utc}}
     criteria.update(:tags => tag) if tag
-    find(criteria).sort([:published_at, :desc])
+    where(criteria).sort([:published_at, :desc])
   end
 
   ##
@@ -71,7 +61,7 @@ class Post < Mongomatic::Base
     time     = post.published_at.utc
     now      = Time.now.utc
     criteria = {:published_at => {'$gt' => time, '$lt' => now}, :_id => {'$ne' => post.id}}
-    find(criteria).sort([:published_at, :asc]).limit(limit.to_i)
+    where(criteria).sort([:published_at, :asc]).limit(limit.to_i)
   end
 
   ##
@@ -81,7 +71,7 @@ class Post < Mongomatic::Base
     time     = post.published_at.utc
     max_age  = (time > now) ? now : time
     criteria = {:published_at => {'$lt' => max_age}, :_id => {'$ne' => post.id}}
-    find(criteria).sort([:published_at, :desc]).limit(limit.to_i)
+    where(criteria).sort([:published_at, :desc]).limit(limit.to_i)
   end
 
   ##
@@ -127,11 +117,16 @@ class Post < Mongomatic::Base
     published_at ? (Time.now.utc >= published_at) : false
   end
 
-  protected
-
-  def split_tags
-    self[:tags] = self[:tags].split(%r{,\s*}).uniq if self[:tags].is_a?(String)
+  def update_from_params(params={})
+    self.title        = params[:title]
+    self.body         = params[:body]
+    self.author       = params[:author]
+    self.location     = params[:location]
+    self.tags         = parse_tags(params[:tags])
+    self.published_at = parse_published(params[:published_at])
   end
+
+  protected
 
   def generate_slug
     return nil if title.empty?
@@ -140,9 +135,12 @@ class Post < Mongomatic::Base
     self.slug = "#{prefix}-#{title.slugize}"
   end
 
-  def parse_published
-    publish = Chronic.parse(self[:published_at]) if self[:published_at].is_a?(String)
-    self[:published_at] = publish.is_a?(Time) ? publish.utc : nil
+  def parse_tags(tags)
+    tags.is_a?(String) ? tags.split(%r{,\s*}).uniq : tags
+  end
+
+  def parse_published(published)
+    (published.is_a?(String) ? Chronic.parse(published).utc : published.utc) rescue nil
   end
 
 end

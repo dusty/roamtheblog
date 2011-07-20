@@ -6,7 +6,7 @@ Built With:
   * Mustache
   * RedCloth
   * MongoDB
-  * Mongomatic
+  * MongoMapper
 
 Clean default template setup for use with:
   * Disqus
@@ -367,7 +367,7 @@ FAQ
        # u = User.by_login('yourlogin')
        # u.password = 'yournewpass'
        # u.password_confirmation = 'yournewpass'
-       # u.update
+       # u.save
 
   Q. Why did you write this?
   A. My wife and I are traveling around and blogging about it for our

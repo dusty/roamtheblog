@@ -1,3 +1,4 @@
+
 <article class="post">
   <header>
     <h1>
@@ -30,9 +31,9 @@
           </span>
           <span class="error">{{page_body_error}}</span>
           <br/>
-          <textarea id="body" name="page[body]"
+          <textarea id="body" name="page[body]" class="textarea"
                     placeholder="This is the main content of the page."
-                    class="large-area">{{{page_body}}}</textarea>
+                    cols="118" rows="5">{{{page_body}}}</textarea>
         </p>
 
         <p>
@@ -50,3 +51,8 @@
   </section>
 </article>
 
+<script type="text/javascript">
+  $(document).ready(function(){
+    $(".textarea").autoGrow();
+  });
+</script>
