@@ -23,7 +23,7 @@ class Email
     {
       'X-SMTPAPI' => {
         'to' => recipients,
-        'category' => 'agentpocket'
+        'category' => site.domain
       }.to_json
     }
   end

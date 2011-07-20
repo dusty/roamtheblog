@@ -21,16 +21,8 @@ class Post
     first(:slug => slug)
   end
 
-  def self.sort_published
-    where({}, {:sort => [:published_at, :desc]})
-  end
-
-  def self.sort_updated
-    where({}, {:sort => [:updated_at, :desc]})
-  end
-
   def self.recent_update
-    sort_updated.limit(1).first.updated_at
+    sort([:updated_at, :desc]).limit(1).first.updated_at
   end
 
   def self.recent(limit=0)
@@ -90,8 +82,8 @@ class Post
   def self.near(post,limit=2)
     return {:younger => [], :older => []} unless post.published_at
 
-    young = younger(post,limit*2).to_a
-    older = older(post,limit*2).to_a
+    young = younger(post,limit*2).all
+    older = older(post,limit*2).all
 
     older_diff = (older.length < limit) ? (limit - older.length) : 0
     young_diff = (young.length < limit) ? (limit - young.length) : 0

@@ -39,8 +39,8 @@ class Design
     design.save && design
   end
 
-  def self.sort_updated
-    sort(:updated_at.desc)
+  def self.recent(limit=0)
+    sort([:updated_at, :desc]).limit(limit.to_i)
   end
 
   def activate

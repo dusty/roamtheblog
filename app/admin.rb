@@ -121,9 +121,9 @@ module Roam
     end
 
     get '/posts' do
-      @nodate  = Post.nodate.to_a
-      @future  = Post.future.to_a
-      @active  = Post.active.to_a
+      @nodate  = Post.nodate.all
+      @future  = Post.future.all
+      @active  = Post.active.all
       mustache :posts
     end
 
@@ -173,7 +173,7 @@ module Roam
     end
 
     get '/pages' do
-      @_pages = Page.sort_updated.to_a
+      @_pages = Page.recent.all
       mustache :pages
     end
 
@@ -243,7 +243,7 @@ module Roam
     end
 
     get '/designs' do
-      @_designs = Design.sort_updated.to_a
+      @_designs = Design.recent.all
       mustache :designs
     end
 
@@ -309,7 +309,7 @@ module Roam
     end
 
     get '/users' do
-      @_users = User.sort_logins.to_a
+      @_users = User.recent.all
       mustache :users
     end
 

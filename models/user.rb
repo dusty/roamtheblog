@@ -23,8 +23,8 @@ class User
     first(:login => login)
   end
 
-  def self.sort_logins
-    sort(:login_at.desc)
+  def self.recent(limit=0)
+    sort([:login_at, :desc]).limit(limit.to_i)
   end
 
   def self.create_default

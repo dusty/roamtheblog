@@ -90,7 +90,7 @@ module Roam
       if page = site.page
         mustache(:page, {:page => page})
       else
-        posts = Post.recent(5).to_a
+        posts = Post.recent(5).all
         post  = posts.first
         posts.delete(post)
         mustache(:home, {:posts => posts, :post => post})
@@ -99,18 +99,18 @@ module Roam
 
     get '/blog' do
       if site.page
-        posts = Post.recent(5).to_a
+        posts = Post.recent(5).all
         post  = posts.first
         posts.delete(post)
         mustache(:home, {:posts => posts, :post => post})
       else
-        posts = Post.active(params[:tag]).to_a
+        posts = Post.active(params[:tag]).all
         mustache(:blog, {:posts => posts, :tag => params[:tag]})
       end
     end
 
     get '/posts' do
-      posts = Post.active(params[:tag]).to_a
+      posts = Post.active(params[:tag]).all
       mustache(:blog, {:posts => posts, :tag => params[:tag]})
     end
 
