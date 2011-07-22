@@ -186,7 +186,7 @@ Routes
     Displays the Style template with a css content-type
 
   /
-  	If setup with a page as the homepage, this will show the Page template for that page.
+    If setup with a page as the homepage, this will show the Page template for that page.
     Otherwise, it will show the Home template with the most recent blog post.
 
   /blog
