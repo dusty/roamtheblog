@@ -19,7 +19,7 @@ class Design
   validates_presence_of :error, :missing, :style, :script
 
   def self.duplicate(id)
-    return false unless original = by_id(id)
+    return false unless original = find(id)
     tag = "#{Time.now.to_i}"
     copy = original.clone
     copy.name = "#{original.name}-#{tag}"

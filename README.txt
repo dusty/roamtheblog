@@ -71,13 +71,12 @@ MongoDB
   MONGO_PASS: password to login with
 
 Running Locally:
-  * Assuming mongod is running and you have git and bundler installed
+  * Assuming mongod is running and you have git and bundler installed.  Check
+    out http://pow.cx/ for an easy way to run rack apps on your machine.
 
   # git clone https://github.com/dusty/roamtheblog.git
   # cd roamtheblog
   # bundle install --path tmp/
-  # bundle exec unicorn
-  # open http://localhost:8080
 
 Running on Heroku:
   * Assuming you have git, bundler, and heroku gem installed.  Note, you must
@@ -93,8 +92,6 @@ Running on Heroku:
   # open http://YOURAPPNAME.herokuapp.com
 
 Admin Panel
-  Local:  http://localhost:8080/admin
-  Heroku: http://YOURAPPNAME.herokuapp.com/admin
 
   Go to the admin panel (/admin) to manage your site.  By default the
   username and password is 'admin' (without the quotes).  After you login
