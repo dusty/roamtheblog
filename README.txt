@@ -375,6 +375,6 @@ FAQ
   Q. Why did you release it as open source?
   A. This is for someone that wants to learn about Ruby, Sinatra, or MongoDB.
 
-  Q. What if I am not a Geek and don't understand these instructions?
-  A. If you really want to try it out, then I can setup this blog software for
-     you if you'd like.  Send me an email.
+  Q. What if I don't understand these instructions?
+  A. Give it a shot.  Send me an email if you are have problems and I might be
+     able to offer some advice.
