@@ -70,26 +70,52 @@ MongoDB
   MONGO_USER: username to login with
   MONGO_PASS: password to login with
 
+Rakefile
+  The rakefile contains some handy commands to manage your app from the command-line
+
+    rake run   - will run your app locally listening on port 3000
+    rake start - will start your app as a daemon, to be used on your server
+    rake stop  - will stop your app if running as a daemon
+    rake shell - opens an IRB prompt with your app fully loaded
+
 Running Locally:
-  * Assuming mongod is running and you have git and bundler installed.  Check
-    out http://pow.cx/ for an easy way to run rack apps on your machine.
+  Must have mongod running and git and bundler installed.
 
   # git clone https://github.com/dusty/roamtheblog.git
   # cd roamtheblog
   # bundle install --path tmp/
+  # rake run
+
+  You can now see the blog at http://localhost:3000
 
 Running on Heroku:
-  * Assuming you have git, bundler, and heroku gem installed.  Note, you must
-    add your mongodb connection information as heroku config variables.
+  Must have git, bundler, and heroku gem installed.  Note, you must add your mongodb
+  connection information as heroku config variables.
 
   # git clone https://github.com/dusty/roamtheblog.git
   # cd roamtheblog
   # heroku create YOURAPPNAME --stack cedar
-  # heroku config:add \
-    MONGO_HOST=xxxx MONGO_PORT=xxxx MONGO_DB=xxxx \
-    MONGO_USER=xxxx MONGO_PASS=xxxx
+  # heroku config:add MONGO_HOST=xx MONGO_PORT=xx MONGO_DB=xx MONGO_USER=xx MONGO_PASS=xx
   # git push heroku master
-  # open http://YOURAPPNAME.herokuapp.com
+
+  You can now see the blog at http://YOURAPPNAME.herokuapp.com
+
+Running on your server:
+  If you are not pointing to a local mongodb server with a database named roamtheblog,
+  then you will need to prefix the rake command with your mongodb connection information.
+
+  Also, you will need to configure nginx to proxy the requests to your app instance.
+  See the config/unicorn.rb file for an example.
+
+  You may want to check out something like Capistrano to make your deployments easier.
+  https://github.com/capistrano/capistrano/wiki
+
+  # cd /the/path/to/your/app
+  # git clone https://github.com/dusty/roamtheblog.git
+  # cd roamtheblog
+  # bundle install --path tmp/
+  # MONGO_HOST=xxxx MONGO_PORT=xx MONGO_DB=xx MONGO_USER=xx MONGO_PASS=xx rake start
+
 
 Admin Panel
 
@@ -340,10 +366,6 @@ FAQ
      picture.  One of the options will give you a link to copy/paste into
      your blog post.  You can choose the size you'd like and just copy/paste
      that code into your post.
-
-     These companies are optimized in serving images and videos and it will
-     decrease the load on your application.  In addition, you may enjoy some
-     of the community features of these sharing sites.
 
   Q. How can I add a logo to my site?
   A. You need a direct link to the image.  If you are using the default
