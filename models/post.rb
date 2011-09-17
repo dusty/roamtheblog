@@ -118,6 +118,15 @@ class Post
     self.published_at = parse_published(params[:published_at])
   end
 
+  def save_without_timestamps
+    begin
+      self.class.skip_callback(:save, :update_timestamps)
+      save
+    ensure
+      self.class.set_callback(:save, :update_timestamps)
+    end
+  end
+
   protected
 
   def generate_slug

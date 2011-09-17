@@ -3,14 +3,14 @@
     <h1>
       {{page_header}}
       <span class="tiny">
-        ({{^new_post}}<a href="/blog/{{post_slug}}?{{timestamp}}" target="_preview">Preview</a> |
+        ({{^new_post}}<a href="/blog/{{post_slug}}?{{timestamp}}" target="x-preview">Preview</a> |
          {{/new_post}}<a href="/admin/posts" >Cancel</a>)
       </span>
     </h1>
   </header>
   <section class="content">
 
-    <form action="{{page_action}}" method="post" name="login">
+    <form id="postform" action="{{page_action}}" method="post" name="post">
     <input type="hidden" name="_method" value="{{page_method}}" />
 
       <fieldset>
@@ -39,15 +39,15 @@
            <label for="location">Location</label>
            <span class="error">{{post_location_error}}</span>
            <br/>
-           <input id="author" name="post[location]" placeholder="Buenos Aires, Argentina"
+           <input id="location" name="post[location]" placeholder="Buenos Aires, Argentina"
                    class="text" value="{{post_location}}" />
         </p>
 
         <p class="settings">
-           <label for="author">Tags</label>
+           <label for="tags">Tags</label>
            <span class="error">{{post_tags_error}}</span>
            <br/>
-           <input id="author" name="post[tags]" placeholder="tag1, tag2"
+           <input id="tags" name="post[tags]" placeholder="tag1, tag2"
                    class="text" value="{{post_tags}}" />
          </p>
 
@@ -67,9 +67,9 @@
           <label for="title">Body</label>
           <span class="small">
           (<a href="http://redcloth.org/hobix.com/textile/quick.html"
-              target="_help">Cheatsheet</a> |
+              target="x-help">Cheatsheet</a> |
           <a href="http://redcloth.org/textile"
-             target="_help">Documentation</a>)
+             target="x-help">Documentation</a>)
           </span>
           <span class="error">{{post_body_error}}</span>
           <br/>
@@ -78,8 +78,18 @@
                     cols="118" rows="5">{{{post_body}}}</textarea>
         </p>
 
+        <script type="text/javascript">
+          function confirmUpdate() {
+            if (confirm('Update will change the timestamp, are you sure?')) {
+              document.getElementById("postform").submit();
+            }
+          }
+        </script>
+
         <p>
-          <input name="submit" value="Submit" type="submit" class="submit" />
+          <input name="save" value="Save" type="submit" class="submit" />
+          |
+          <input type="button" value="Update" name="update" onClick="confirmUpdate()" class="submit">
           |
           <a href="/admin/posts">Cancel</a>
           {{^new_post}}

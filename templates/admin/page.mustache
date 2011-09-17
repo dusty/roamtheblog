@@ -4,7 +4,7 @@
     <h1>
       {{page_header}}
       <span class="tiny">
-        ({{^new_page}}<a href="/{{page_slug}}?{{timestamp}}" target="_preview">Preview</a> |
+        ({{^new_page}}<a href="/{{page_slug}}?{{timestamp}}" target="x-preview">Preview</a> |
          {{/new_page}}<a href="/admin/pages" >Cancel</a>)</span>
     </h1>
 
@@ -26,8 +26,8 @@
           <label for="title">Body</label>
           &nbsp;
           <span class="small">
-            (<a href="http://redcloth.org/hobix.com/textile/quick.html" target="_help">Cheatsheet</a> |
-             <a href="http://redcloth.org/textile" target="_help">Documentation</a>)
+            (<a href="http://redcloth.org/hobix.com/textile/quick.html" target="x-help">Cheatsheet</a> |
+             <a href="http://redcloth.org/textile" target="x-help">Documentation</a>)
           </span>
           <span class="error">{{page_body_error}}</span>
           <br/>
