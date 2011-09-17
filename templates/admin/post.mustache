@@ -88,8 +88,10 @@
 
         <p>
           <input name="save" value="Save" type="submit" class="submit" />
+          {{^new_post}}
           |
           <input type="button" value="Update" name="update" onClick="confirmUpdate()" class="submit">
+          {{/new_post}}
           |
           <a href="/admin/posts">Cancel</a>
           {{^new_post}}
