@@ -152,7 +152,7 @@ module Roam
     put '/posts/:id' do
       not_found unless @post = Post.by_slug(params[:id])
       @post.update_from_params(params[:post])
-      if (@post.save if params[:save]) || (@post.save_without_timestamps unless params[:save])
+      if (params[:save] ? @post.save_without_timestamps : @post.save)
         flash[:notice] = "Post updated."
         redirect "/admin/posts/#{@post.slug}"
       else
