@@ -78,20 +78,12 @@
                     cols="118" rows="5">{{{post_body}}}</textarea>
         </p>
 
-        <script type="text/javascript">
-          function confirmUpdate() {
-            if (confirm('Update will change the timestamp, are you sure?')) {
-              document.getElementById("postform").submit();
-            }
-          }
-        </script>
-
         <p>
           <input name="save" value="Save" type="submit" class="submit" />
-          {{^new_post}}
+          {{#active_post}}
           |
           <input type="button" value="Update" name="update" onClick="confirmUpdate()" class="submit">
-          {{/new_post}}
+          {{/active_post}}
           |
           <a href="/admin/posts">Cancel</a>
           {{^new_post}}
@@ -106,6 +98,14 @@
 
   </section>
 </article>
+
+<script type="text/javascript">
+  function confirmUpdate() {
+    if (confirm('Update will change the timestamp, are you sure?')) {
+      document.getElementById("postform").submit();
+    }
+  }
+</script>
 
 <script type="text/javascript">
   $(document).ready(function(){

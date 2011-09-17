@@ -7,6 +7,10 @@ module Roam
           @post.new_record?
         end
 
+        def active_post
+          @post.active?
+        end
+
         def page_action
           new_post ? "/admin/posts" : "/admin/posts/#{post_slug}"
         end
