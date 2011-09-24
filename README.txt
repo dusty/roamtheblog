@@ -104,12 +104,6 @@ Running on your server:
   If you are not pointing to a local mongodb server with a database named roamtheblog,
   then you will need to prefix the rake command with your mongodb connection information.
 
-  Also, you will need to configure nginx to proxy the requests to your app instance.
-  See the config/unicorn.rb file for an example.
-
-  You may want to check out something like Capistrano to make your deployments easier.
-  https://github.com/capistrano/capistrano/wiki
-
   # cd /the/path/to/your/app
   # git clone https://github.com/dusty/roamtheblog.git
   # cd roamtheblog
