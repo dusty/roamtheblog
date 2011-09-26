@@ -94,11 +94,11 @@ Running on Heroku:
 
   # git clone https://github.com/dusty/roamtheblog.git
   # cd roamtheblog
-  # heroku create YOURAPPNAME --stack cedar
+  # heroku create YOURAPPNAME --stack bamboo-mri-1.9.2
   # heroku config:add MONGO_HOST=xx MONGO_PORT=xx MONGO_DB=xx MONGO_USER=xx MONGO_PASS=xx
   # git push heroku master
 
-  You can now see the blog at http://YOURAPPNAME.herokuapp.com
+  You can now see the blog at http://YOURAPPNAME.heroku.com
 
 Running on your server:
   If you are not pointing to a local mongodb server with a database named roamtheblog,
