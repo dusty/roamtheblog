@@ -110,7 +110,6 @@ Running on your server:
   # bundle install --path tmp/
   # MONGO_HOST=xxxx MONGO_PORT=xx MONGO_DB=xx MONGO_USER=xx MONGO_PASS=xx rake start
 
-
 Admin Panel
 
   Go to the admin panel (/admin) to manage your site.  By default the

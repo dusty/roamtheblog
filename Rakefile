@@ -9,20 +9,18 @@ end
 
 desc "Run app in foreground"
 task :run do
-  sh 'bundle exec thin start'
+  sh 'bundle exec passenger start'
 end
 
 desc "Start app server"
 task :start do
-  sh 'bundle exec thin -C config/thin.yml start'
+  sh 'bundle exec passenger start -d'
 end
 
 desc "Stop app server"
 task :stop do
-  sh 'bundle exec thin -C config/thin.yml stop'
+  sh 'bundle exec passenger stop'
 end
 
 desc "Stop app server"
-task :restart do
-  sh 'bundle exec thin -C config/thin.yml restart'
-end
+task :restart => [:stop, :start]
