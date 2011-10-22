@@ -8,6 +8,7 @@ module Roam
       set :show_exceptions, false
       set :static, true
       set :logging, Proc.new { ENV['RACK_ENV'] == "production" }
+      set :public_folder, 'public'
     end
 
     helpers do
