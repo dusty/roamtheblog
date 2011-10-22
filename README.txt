@@ -7,6 +7,7 @@ Built With:
   * RedCloth
   * MongoDB
   * MongoMapper
+  * Twitter Bootstrap
 
 Clean default template setup for use with:
   * Disqus
