@@ -2,6 +2,10 @@ body {
   padding-top: 60px;
 }
 
+a.brand img {
+  vertical-align: text-bottom;
+}
+
 .small {
   font-size: 85%;
 }

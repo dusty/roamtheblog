@@ -31,14 +31,17 @@
   <div class="topbar">
     <div class="fill">
       <div class="container">
-        <a class="brand" target="x-preview" href="/"><%= site.domain %></a>
+        <a class="brand" target="x-preview" href="/">
+          <img src="/images/world.png" alt="logo" />
+          <%= site.domain %>
+        </a>
         <% if current_user %>
         <ul class="nav">
-          <li class="<%= check_active('/admin/posts') %>"><a href="/admin/posts">Posts</a></li>
-          <li class="<%= check_active('/admin/pages') %>"><a href="/admin/pages">Pages</a></li>
-          <li class="<%= check_active('/admin/designs') %>"><a href="/admin/designs">Designs</a></li>
-          <li class="<%= check_active('/admin/users') %>"><a href="/admin/users">Users</a></li>
-          <li class="<%= check_active('/admin/settings') %>"><a href="/admin/settings">Settings</a></li>
+          <li class="<%= check_active('/posts') %>"><a href="/admin/posts">Posts</a></li>
+          <li class="<%= check_active('/pages') %>"><a href="/admin/pages">Pages</a></li>
+          <li class="<%= check_active('/designs') %>"><a href="/admin/designs">Designs</a></li>
+          <li class="<%= check_active('/users') %>"><a href="/admin/users">Users</a></li>
+          <li class="<%= check_active('/settings') %>"><a href="/admin/settings">Settings</a></li>
         </ul>
         <ul class="nav secondary-nav">
           <li class=""><a href="/admin/session" class="delete">Logout</a></li>
