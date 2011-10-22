@@ -1,0 +1,27 @@
+<h2>Posts
+  <span class="label notice">
+    <a href="/admin/posts/new">New</a>
+  </span>
+</h2>
+<blockquote><p>All your current posts.  Click the title to edit and the status label to preview.</p></blockquote>
+
+<table class="zebra-striped">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Publish Date</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @nodate.each do |post| %>
+    <%= partial :_post, :post => post %>
+  <% end %>
+  <% @future.each do |post| %>
+    <%= partial :_post, :post => post %>
+  <% end %>
+  <% @active.each do |post| %>
+    <%= partial :_post, :post => post %>
+  <% end %>
+  </tbody>
+</table>

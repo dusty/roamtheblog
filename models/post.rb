@@ -127,6 +127,14 @@ class Post
     end
   end
 
+  def status
+    active? ? "Published" : "Pending"
+  end
+
+  def tag_list
+    tags.join(', ')
+  end
+
   protected
 
   def generate_slug

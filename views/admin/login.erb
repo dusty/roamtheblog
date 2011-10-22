@@ -1,0 +1,29 @@
+<h2><%= site.title %> Login</h2>
+<blockquote><p>Welcome to <%= site.title %>.  Please enter your login and password to continue.</p></blockquote>
+
+<form action="/admin/session" method="post" name="login">
+  <fieldset>
+
+    <div class="clearfix">
+      <label for="login">Login</label>
+      <div class="input">
+        <input id="login" name="login" type="text"
+               value="<%= params[:login] %>" placeholder="Login" class="span4" />
+      </div>
+    </div>
+
+    <div class="clearfix">
+      <label for="password">Password</label>
+      <div class="input">
+        <input id="password" name="password" type="password"
+               value="" placeholder="Password" class="span4" />
+      </div>
+    </div>
+
+    <div class="actions">
+      <input name="submit" value="Submit" type="submit" class="btn primary" />
+      <a href="/admin/password" class="btn">Forgot</a>
+    </div>
+
+  </fieldset>
+</form>

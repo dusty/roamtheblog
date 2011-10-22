@@ -30,9 +30,9 @@ class Design
   def self.create_default
     return false unless count == 0
     design = new
-    design.name = 'RoamTheBlog'
-    design.description = 'Clean design inspired by roamthepla.net'
-    Dir["templates/user/*.mustache"].each do |template|
+    design.name = 'CleanBlog'
+    design.description = 'Clean with lots of whitespace'
+    Dir["templates/cleanwhite/*.mustache"].each do |template|
       attribute = File.basename(template, File.extname(template))
       design.send("#{attribute}=", File.read(template))
     end

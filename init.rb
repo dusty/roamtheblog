@@ -32,9 +32,6 @@ SMTP_OPTS = {
 Dir["./models/*.rb"].sort.each {|req| require req}
 Dir["./app/*.rb"].sort.each {|req| require req}
 
-# Require mustache views
-Dir["./views/**/*.rb"].sort.each {|req| require req}
-
 # Create defaults
 User.create_default
 Site.create_default

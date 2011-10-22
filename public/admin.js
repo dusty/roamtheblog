@@ -1,5 +1,5 @@
 $(document).ready(function(){
-  $("#message p.notice, #message p.error").animate(
+  $(".alert-message").animate(
     {opacity: 1.0}, 3000).fadeOut("slow");
 
   $('a.delete').live('click', function(event) {

@@ -1,0 +1,106 @@
+<h2>
+  <% if @post.new_record? %>
+    New Post
+  <% else %>
+    <a href="<%= post_path(@post,true) %>" target="x-preview"><%= @post.title %></a>
+  <% end %>
+</h2>
+
+<blockquote>
+  <% if @post.new_record? %>
+  <p>Leave the date blank to leave as Pending.  Once saved, you can preview the post.</p>
+  <% else %>
+  <p>Click on the title to preview the post.  <strong>Save</strong> silently modifies the post.  <strong>Update</strong> will save the post with a new timestamp, and regenerate RSS feeds.</p>
+  <% end %>
+</blockquote>
+
+
+<form id="postform" action="<%= admin_post_path(@post) %>" method="post" name="post">
+<input type="hidden" name="_method" value="<%= form_method(@post) %>" />
+
+  <fieldset>
+
+    <div class="clearfix<%= error_class(@post, :title) %>">
+      <label for="title">Title</label>
+      <div class="input">
+        <input id="title" name="post[title]" type="text" class="span8"
+               value="<%= @post.title %>" placeholder="Post Title" />
+        <span class="help-inline"><%= errors_for(@post, :title) %></span>
+      </div>
+    </div>
+
+    <div class="clearfix<%= error_class(@post, :location) %>">
+      <label for="location">Location</label>
+      <div class="input">
+        <input id="location" name="post[location]" type="text" class="span8"
+               value="<%= @post.location %>" placeholder="Buenos Aires, Argentina" />
+        <span class="help-inline"><%= errors_for(@post, :location) %></span>
+      </div>
+    </div>
+
+    <div class="clearfix<%= error_class(@post, :tags) %>">
+      <label for="tags">Tags</label>
+      <div class="input">
+        <input id="tags" name="post[tags]" type="text" class="span8"
+               value="<%= @post.tag_list %>" placeholder="tag1, tag2" />
+        <span class="help-inline"><%= errors_for(@post, :tags) %></span>
+      </div>
+    </div>
+
+    <div class="clearfix<%= error_class(@post, :author) %>">
+      <label for="author">Author</label>
+      <div class="input">
+        <input id="author" name="post[author]" type="text" class="span8"
+               value="<%= @post.author || current_user.name %>" placeholder="The Author" />
+        <span class="help-inline"><%= errors_for(@post, :author) %></span>
+      </div>
+    </div>
+
+    <div class="clearfix<%= error_class(@post, :date) %>">
+      <label for="date">Date</label>
+      <div class="input">
+        <input id="date" name="post[published_at]" type="text" class="span8"
+               value="<%= @post.published_at %>" placeholder="now, this friday, tomorrow at 7pm" />
+        <span class="help-inline"><%= errors_for(@post, :date) %></span>
+      </div>
+    </div>
+
+    <div class="clearfix<%= error_class(@post, :body) %>">
+      <label for="body">
+        Body <a href="/admin/textile" class="white" target="x-textile"><span class="label notice">?</span></a>
+      </label>
+      <div class="input">
+        <textarea id="body" name="post[body]" class="xxlarge"
+                  placeholder="This is the main content of the page."
+                  cols="105" rows="5"><%= @post.body %></textarea>
+      </div>
+    </div>
+
+    <div class="actions">
+      <input name="save" value="Save" type="submit" class="btn primary" />
+      <% unless @post.new_record? %>
+        <input type="button" value="Update" name="update" onClick="confirmUpdate()" class="btn info">
+        <a href="<%= admin_post_path(@post) %>" class="btn danger delete_prompt"
+           rel="Are you sure you want to delete this post?">Delete</a>
+      <% end %>
+
+      <a href="/admin/posts" class="btn">Cancel</a>
+    </div>
+
+  </fieldset>
+
+</form>
+
+<script type="text/javascript">
+  function confirmUpdate() {
+    if (confirm('Update will change the timestamp, are you sure?')) {
+      document.getElementById("postform").submit();
+    }
+  }
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $(".xxlarge").autoGrow();
+  });
+</script>

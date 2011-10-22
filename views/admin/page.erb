@@ -1,0 +1,61 @@
+<h2>
+  <% if @page.new_record? %>
+    New Page
+  <% else %>
+    <a href="<%= page_path(@page,true) %>" target="x-preview"><%= @page.title %></a>
+  <% end %>
+</h2>
+
+<blockquote>
+  <% if @page.new_record? %>
+  <p>The url will default to a slug of the title (eg: About Me = /about_me).  Once saved, you can preview the page by clicking the title.</p>
+  <% else %>
+  <p>You may change the title and body of the page.  Click on the title to preview what it will look like.</p>
+  <% end %>
+</blockquote>
+
+
+<form id="pageform" action="<%= admin_page_path(@page) %>" method="post" name="page">
+<input type="hidden" name="_method" value="<%= form_method(@page) %>" />
+
+  <fieldset>
+
+    <div class="clearfix<%= error_class(@page, :title) %>">
+      <label for="title">Title</label>
+      <div class="input">
+        <input id="title" name="page[title]" type="text" class="span8"
+               value="<%= @page.title %>" placeholder="Post Title" />
+        <span class="help-inline"><%= errors_for(@page, :title) %></span>
+      </div>
+    </div>
+
+    <div class="clearfix <%= error_class(@page, :body) %>">
+      <label for="body">
+        Body <a href="/admin/textile" class="white" target="x-textile"><span class="label notice">?</span></a>
+      </label>
+      <div class="input">
+        <textarea id="body" name="page[body]" class="xxlarge"
+                  placeholder="This is the main content of the page."
+                  cols="105" rows="5"><%= @page.body %></textarea>
+        <span class="help-inline"><%= errors_for(@page, :body) %></span>
+      </div>
+    </div>
+
+    <div class="actions">
+      <input name="save" value="Save" type="submit" class="btn primary" />
+      <% unless @page.new_record? %>
+        <a href="<%= admin_page_path(@page) %>" class="btn danger delete_prompt"
+           rel="Are you sure you want to delete this page?">Delete</a>
+      <% end %>
+      <a href="/admin/pages" class="btn">Cancel</a>
+    </div>
+
+  </fieldset>
+
+</form>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $(".xxlarge").autoGrow();
+  });
+</script>

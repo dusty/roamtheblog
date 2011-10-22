@@ -1,0 +1,29 @@
+<h2>Designs
+  <span class="label notice">
+    <a href="/admin/designs/new">New</a>
+  </span>
+
+<blockquote><p>Set a design as active to be used for the main blog.  You can also copy a design to be used as the base for a new design..</p></blockquote>
+
+<table class="zebra-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Last Update</th>
+      <th>Status</th>
+      <th>&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @designs.each do |design| %>
+    <tr>
+      <td><a href="<%= admin_design_path(design) %>"><%= design.name %></a></td>
+      <td><%= design.description %></td>
+      <td><%= long_date(design.updated_at) %></td>
+      <td><%= admin_design_status(design) %></td>
+      <td><%= admin_design_copy_link(design) %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

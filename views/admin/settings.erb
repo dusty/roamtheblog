@@ -1,0 +1,120 @@
+<h2>Settings
+<a href="#" class="white" data-controls-modal="add-setting" data-backdrop="true" data-keyboard="true">
+  <span class="label notice">New</span>
+</a>
+</h2>
+
+</h2>
+<blockquote><p>Settings provide site-wide variables to use in the templates.  You may add any custom variables that will be prefixed with settings_XXXX.</p></blockquote>
+
+<form action="/admin/settings" method="post" name="settings">
+  <input type="hidden" name="_method" value="put" />
+  <fieldset>
+
+    <div class="clearfix<%= error_class(@site, :timezone) %>">
+      <label for="timezone">Time Zone</label>
+      <div class="input">
+        <select name="site[timezone]" class="span8" id='timezone'>
+          <%= timezone_options %>
+        </select>
+        <span class="help-inline"><%= errors_for(@site, :timezone) %></span>
+      </div>
+    </div>
+
+    <div class="clearfix<%= error_class(@site, :title) %>">
+      <label for="title">Title</label>
+      <div class="input">
+        <input id="title" name="site[title]" type="text"
+               value="<%= @site.title %>" placeholder="My Site Name" />
+        <span class="help-inline"><%= errors_for(@site, :title) %></span>
+      </div>
+    </div>
+
+    <div class="clearfix<%= error_class(@site, :domain) %>">
+      <label for="domain">Domain</label>
+      <div class="input">
+        <input id="domain" name="site[domain]" type="text"
+               value="<%= @site.domain %>" placeholder="mydomain.com" />
+        <span class="help-inline"><%= errors_for(@site, :domain) %></span>
+      </div>
+    </div>
+
+    <div class="clearfix<%= error_class(@site, :location) %>">
+      <label for="location">Location</label>
+      <div class="input">
+        <input id="domain" name="site[location]" type="text"
+               value="<%= @site.location %>" placeholder="Buenos Aires, Argentina" />
+        <span class="help-inline"><%= errors_for(@site, :location) %></span>
+      </div>
+    </div>
+
+    <div class="clearfix<%= error_class(@site, :cache) %>">
+      <label for="cache">Cache (in seconds)</label>
+      <div class="input">
+        <input id="cache" name="site[cache]" type="text"
+               value="<%= @site.cache %>" placeholder="300" />
+        <span class="help-inline"><%= errors_for(@site, :cache) %></span>
+      </div>
+    </div>
+
+    <% site.settings.each do |key, value| %>
+
+    <div class="clearfix<%= error_class(@site, :settings) %>">
+      <label for="<%= key %>"><%= key %></label>
+      <div class="input">
+        <input id="<%= key %>" name="site[settings][<%= key %>]" type="text" value="<%= value %>" />
+        <span class="help-inline">
+          <a href="/admin/settings/<%= key %>" class="delete_prompt"
+             rel="Delete this setting?"><span class="label important">X</span></a>
+          </span>
+        </span>
+      </div>
+    </div>
+
+    <% end %>
+
+    <div class="actions">
+      <input name="save" value="Save" type="submit" class="btn primary" />
+      <a href="/admin/settings" class="btn">Reset</a>
+    </div>
+
+
+  </fieldset>
+</form>
+
+<div id="add-setting" class="modal hide fade">
+  <div class="modal-header">
+    <a href="#" class="close">x</a>
+    <h2>New Setting</h2>
+  </div>
+  <div class="modal-body">
+    <form action="/admin/settings" method="post" name="setting">
+      <fieldset>
+
+        <div class="clearfix<%= error_class(@site, :settings) %>">
+          <label for="setting-name">Name</label>
+          <div class="input">
+            <input id="setting-name" name="setting[name]" type="text"
+                   value="" placeholder="name" />
+            <span class="help-inline"><%= errors_for(@site, :settings) %></span>
+          </div>
+        </div>
+
+        <div class="clearfix<%= error_class(@site, :settings) %>">
+          <label for="setting-value">Value</label>
+          <div class="input">
+            <input id="setting-value" name="setting[value]" type="text"
+                   value="" placeholder="value" />
+            <span class="help-inline"><%= errors_for(@site, :settings) %></span>
+          </div>
+        </div>
+
+        <div class="actions">
+          <input name="save" value="Save" type="submit" class="btn primary" />
+          <a href="/admin/settings" class="btn">Cancel</a>
+        </div>
+
+      </fieldset>
+    </form>
+  </div>
+</div>

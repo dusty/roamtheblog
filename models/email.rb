@@ -4,19 +4,16 @@ class Email
   key :recipients, Array
   key :subject, String
   key :message, String
-  key :sent_at, Time
-  key :error_msg, String
   timestamps!
 
-  ensure_index :sent_at
   ensure_index :recipients
 
   validates_presence_of :subject, :message
   validate :validate_recipients
 
-  def self.pending
-    where(:sent_at => {"$exists" => false})
-  end
+  after_create :deliver
+
+  scope :recent, sort(:created_at.desc)
 
   ## Sendgrid headers
   def headers
@@ -28,14 +25,6 @@ class Email
     }
   end
 
-  def delivered?
-    !sent_at.blank?
-  end
-
-  def deliver_once
-    deliver unless delivered?
-  end
-
   def deliver
     begin
       Pony.mail(
@@ -45,11 +34,16 @@ class Email
         :body => message,
         :headers => headers,
         :via => :smtp,
-        :via_options => SMTP_OPTS
+          :via_options => {
+            :address => ENV['SMTP_HOST'],
+            :user_name => ENV['SMTP_USER'],
+            :password => ENV['SMTP_PASS'],
+            :port => ENV['SMTP_PORT'],
+            :authentication => ENV['SMTP_AUTH'],
+            :domain => ENV['SMTP_DOMAIN']
+          }
       )
-      update_attributes(:sent_at => Time.now.utc)
     rescue StandardError => e
-      update_attributes(:error_msg => "#{e.class} : #{e.message}")
       puts "#{e.class} : #{e.message}\n#{e.backtrace}\n"
     end
   end
