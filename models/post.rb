@@ -94,7 +94,7 @@ class Post
   end
 
   def self.tags
-    collection.distinct(:tags, {:published_at => {'$lte' => Time.now.utc}})
+    collection.distinct(:tags, {:published_at => {'$lte' => Time.now.utc}}).sort
   end
 
   def html
