@@ -30,10 +30,14 @@
       $('ul.nav li').removeClass("active");
       $('ul.nav a[href="' + path + '"]').parent().addClass("active");
     }
+    function scrollPage() {
+      $('html, body').animate({ scrollTop: 0, 500);
+    }
+    }
     $(function(){
       activateNavbar();
       $('a.pjax').pjax('#main');
-      $('body').bind('pjax:end', function() { activateNavbar() })
+      $('body').bind('pjax:end', function() { activateNavbar(); scrollPage(); })
     })
   </script>
 
