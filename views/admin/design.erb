@@ -124,7 +124,7 @@
 
 
         <div class="actions">
-          <input name="submit" value="Submit" type="submit" class="btn primary" />
+          <input name="save" value="Save" type="submit" class="btn primary" />
           <a href="/admin/designs" class="btn pjax">Cancel</a>
           <% unless @design.new_record? %>
             <a href="<%= admin_design_path(@design) %>" class="btn error delete_prompt"
