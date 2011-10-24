@@ -1,0 +1,34 @@
+<article class="list">
+<h2>
+  {{search}}
+  {{#filtered?}}
+    <span class="label notice"><a href="/blog" class="pjax">All</a></span>
+  {{/filtered?}}
+</h2>
+
+{{#site_has_tags?}}
+<section class="tags">
+  <p>Filter posts by tag:
+  {{#site_tags}}
+    <a href="{{path}}" class="pjax">{{tag}}</a>{{^last?}},&nbsp;{{/last?}}
+  {{/site_tags}}
+  </p>
+</section>
+{{/site_has_tags?}}
+
+<section class="recent">
+
+  <table>
+    {{^posts}}
+    <tr><td>No matches for {{search}}</td></tr>
+    {{/posts}}
+    {{#posts}}
+    <tr>
+      <td class="time"><time>{{date}}</time></td>
+      <td><a href="{{path}}" class="pjax">{{title}}</a></td>
+    </tr>
+    {{/posts}}
+  </table>
+
+</section>
+</article>

@@ -1,6 +1,6 @@
 <h2>Pages
   <span class="label notice">
-    <a href="/admin/pages/new">New</a>
+    <a href="/admin/pages/new" class="pjax">New</a>
   </span>
 </h2>
 <blockquote><p>Click the title to edit, the url for a preview.  You may set one of the pages below to be the site homepage instead of the blog template.</p></blockquote>
@@ -17,7 +17,7 @@
   <tbody>
   <% @pages.each do |page| %>
     <tr>
-      <td><a href="<%= admin_page_path(page) %>"><%= page.title %></a></td>
+      <td><a href="<%= admin_page_path(page) %>" class="pjax"><%= page.title %></a></td>
       <td><a href="<%= page_path(page,true) %>" target="x-preview"><%= page.slug %></a></td>
       <td><%= short_date(page.updated_at) %></td>
       <td><%= page_home_link(page) %></td>

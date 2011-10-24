@@ -93,7 +93,7 @@ module Roam
         posts = Post.recent(5).all
         post  = posts.first
         posts.delete(post)
-        mustache(:home, {:posts => posts, :post => post})
+        mustache(:home, {:posts => posts, :post => post}, !pjax?)
       end
     end
 
@@ -105,30 +105,30 @@ module Roam
         mustache(:home, {:posts => posts, :post => post})
       else
         posts = Post.active(params[:tag]).all
-        mustache(:blog, {:posts => posts, :tag => params[:tag]})
+        mustache(:blog, {:posts => posts, :tag => params[:tag]}, !pjax?)
       end
     end
 
     get '/posts' do
       posts = Post.active(params[:tag]).all
-      mustache(:blog, {:posts => posts, :tag => params[:tag]})
+      mustache(:blog, {:posts => posts, :tag => params[:tag]}, !pjax?)
     end
 
     get '/posts/:id' do
       not_found unless post = Post.by_slug(params[:id])
       posts = Post.near(post,2)
-      mustache(:post, {:post => post, :posts => posts})
+      mustache(:post, {:post => post, :posts => posts}, !pjax?)
     end
 
     get '/blog/:id' do
       not_found unless post = Post.by_slug(params[:id])
       posts = Post.near(post,2)
-      mustache(:post, {:post => post, :posts => posts})
+      mustache(:post, {:post => post, :posts => posts}, !pjax?)
     end
 
     get '/:id' do
       not_found unless page = Page.by_slug(params[:id])
-      mustache(:page, {:page => page})
+      mustache(:page, {:page => page}, !pjax?)
     end
 
   end

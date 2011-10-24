@@ -122,15 +122,15 @@ module Roam
     end
 
     get '/templates' do
-      erb :templates
+      erb :templates, :layout => !pjax?
     end
 
     get '/textile' do
-      erb :textile
+      erb :textile, :layout => !pjax?
     end
 
     get '/settings' do
-      erb :settings
+      erb :settings, :layout => !pjax?
     end
 
     put '/settings' do
@@ -195,7 +195,7 @@ module Roam
     end
 
     get '/password' do
-      current_user ? redirect("/") : erb(:password)
+      current_user ? redirect("/") : erb(:password, :layout => !pjax?)
     end
 
     post '/password' do
@@ -219,14 +219,14 @@ module Roam
       @nodate  = Post.nodate.all
       @future  = Post.future.all
       @active  = Post.active.all
-      erb :posts
+      erb :posts, :layout => !pjax?
     end
 
     get '/posts/new' do
       @post = Post.new
       @method = "post"
       @action = "/admin/posts"
-      erb :post
+      erb :post, :layout => !pjax?
     end
 
     post '/posts' do
@@ -247,7 +247,7 @@ module Roam
       not_found unless @post = Post.by_slug(params[:id])
       @method = "put"
       @action = "/admin/posts/#{@post.slug}"
-      erb :post
+      erb :post, :layout => !pjax?
     end
 
     put '/posts/:id' do
@@ -282,7 +282,7 @@ module Roam
 
     get '/pages' do
       @pages = Page.recent.all
-      erb :pages
+      erb :pages, :layout => !pjax?
     end
 
     post '/pages' do
@@ -298,12 +298,12 @@ module Roam
 
     get '/pages/new' do
       @page = Page.new
-      erb :page
+      erb :page, :layout => !pjax?
     end
 
     get '/pages/:id' do
       not_found unless @page = Page.by_slug(params[:id])
-      erb :page
+      erb :page, :layout => !pjax?
     end
 
     put '/pages/:id' do
@@ -352,7 +352,7 @@ module Roam
 
     get '/designs' do
       @designs = Design.recent.all
-      erb :designs
+      erb :designs, :layout => !pjax?
     end
 
     post '/designs' do
@@ -375,12 +375,12 @@ module Roam
       else
         @design = Design.new
       end
-      erb :design
+      erb :design, :layout => !pjax?
     end
 
     get '/designs/:id' do
       not_found unless @design = Design.find(params[:id])
-      erb :design
+      erb :design, :layout => !pjax?
     end
 
     post '/designs/:id' do
@@ -418,7 +418,7 @@ module Roam
 
     get '/users' do
       @users = User.recent.all
-      erb :users
+      erb :users, :layout => !pjax?
     end
 
     post '/users' do
@@ -434,12 +434,12 @@ module Roam
 
     get '/users/new' do
       @user = User.new
-      erb :user
+      erb :user, :layout => !pjax?
     end
 
     get '/users/:id' do
       not_found unless @user = User.find(params[:id])
-      erb :user
+      erb :user, :layout => !pjax?
     end
 
     put '/users/:id' do

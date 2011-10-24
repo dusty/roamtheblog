@@ -1,21 +1,22 @@
 Simple Blog/CMS Software that runs http://roamthepla.net.
 
 Built With:
-  * Ruby
-  * Sinatra
-  * Mustache
-  * RedCloth
-  * MongoDB
-  * MongoMapper
-  * Twitter Bootstrap
+  * Ruby (https://github.com/ruby/ruby)
+  * Sinatra (https://github.com/sinatra/sinatra)
+  * Mustache (https://github.com/defunkt/mustache)
+  * RedCloth (https://github.com/jgarber/redcloth)
+  * MongoDB (https://github.com/mongodb/mongo)
+  * MongoMapper (https://github.com/jnunemaker/mongomapper)
+  * Twitter Bootstrap (https://github.com/twitter/bootstrap)
+  * jquery-pjax (https://github.com/defunkt/jquery-pjax)
 
-Clean default template setup for use with:
+Default template setup for use with:
   * Disqus
   * Google Analytics
   * Feedburner
   * Facebook
-  * YouTube
   * Twitter
+  * YouTube
   * SmugMug
 
 Markup

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{{page_title}}</title>
+  {{#setting_feedburner}}
+  <link rel="alternate" type="application/rss+xml" title="{{site_title}} RSS Feed" href="http://feeds.feedburner.com/{{setting_feedburner}}" />
+  {{/setting_feedburner}}
+  {{^setting_feedburner}}
+  <link rel="alternate" type="application/rss+xml" title="{{site_title}} RSS Feed" href="http://{{site_domain}}/index.xml" />
+  {{/setting_feedburner}}
+
+  <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.3.0/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="/style.css" />
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+  <script src="http://twitter.github.com/bootstrap/1.3.0/bootstrap-alerts.js"></script>
+  <script src="/jquery.pjax.js"></script>
+
+  <script type="text/javascript">
+    function activateNavbar() {
+      var path = location.pathname.replace (/^(\/.+?\/.+?)\/.+$/, '$1');
+      console.log("AT: " + path);
+      $('ul.nav li').removeClass("active");
+      $('ul.nav a[href="' + path + '"]').parent().addClass("active");
+    }
+    $(function(){
+      activateNavbar();
+      $('a.pjax').pjax('#main');
+      $('body').bind('pjax:end', function() { activateNavbar() })
+    })
+  </script>
+
+  {{#setting_analytics}}
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '{{setting_analytics}}']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+  {{/setting_analytics}}
+  {{#setting_disqus}}
+  <script type="text/javascript">
+    var disqus_shortname = '{{setting_disqus}}';
+    {{^production}}
+    var disqus_developer = 1;
+    {{/production}}
+    (function () {
+      var s = document.createElement('script');
+      s.type = 'text/javascript';
+      s.async = true;
+      s.src = 'http://{{setting_disqus}}.disqus.com/count.js';
+      (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+  </script>
+  {{/setting_disqus}}
+</head>
+
+<body>
+
+  <div class="topbar">
+    <div class="fill">
+      <div class="container-fluid">
+        <a class="brand pjax" href="/">
+          <img src="/images/world.png" alt="logo" />
+          {{site_domain}}
+        </a>
+        <ul class="nav">
+          <li><a href="/blog" class="pjax">What</a></li>
+          <li><a href="/map" class="pjax">Where</a></li>
+          <li><a href="/about" class="pjax">Why</a></li>
+          <li><a href="/motivation" class="pjax">How</a></li>
+          <li><a href="/cost" class="pjax">Cost</a></li>
+          <li><a href="http://media.roamthepla.net" target="x-pics">Pics</a></li>
+        </ul>
+        <ul class="nav secondary-nav">
+          <li>{{{site_map}}}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="message pull-right">
+      {{#setting_message}}
+      <div class="alert-message warning fade in" data-alert="alert">
+        <a class="close" href="#">x</a>
+        <p>{{{setting_message}}}</p>
+      </div>
+      {{/setting_message}}
+    </div>
+    <div id="main"><!-- start #main -->
+{{{yield}}}
+    </div><!-- end #main -->
+  </div>
+
+  <footer class="footer">
+    <div class="container-fluid">
+      <p class="pull-right">&copy; {{site_domain}}</p>
+      <p>
+        {{#setting_feedburner}}
+        <a href="http://feeds.feedburner.com/{{setting_feedburner}}"
+          rel="alternate" type="application/rss+xml"
+          target="x-feed"><img src="/images/rss.png" alt="rss" /> RSS</a>
+        {{/setting_feedburner}}
+
+        {{#setting_feedburner}}
+        <a href="http://feedburner.google.com/fb/a/mailverify?uri={{setting_feedburner}}&amp;loc=en_US"
+          target="x-email"><img src="/images/email.png" alt="email" /> Email</a>
+        {{/setting_feedburner}}
+
+        {{#setting_facebook}}
+        <a href="http://www.facebook.com/pages/{{setting_facebook}}"
+          target="x-facebook"><img src="/images/facebook.png" alt="facebook"> Facebook</a>
+        {{/setting_facebook}}
+
+        {{#setting_twitter}}
+        <a href="http://twitter.com/{{setting_twitter}}"
+          target="x-twitter"><img src="/images/twitter.png" alt="twitter"> Twitter</a>
+        {{/setting_twitter}}
+
+        {{#setting_youtube}}
+        <a href="http://www.youtube.com/user/{{setting_youtube}}"
+          target="x-youtube"><img src="/images/youtube.png" alt="youtube"> YouTube</a>
+        {{/setting_youtube}}
+
+        {{#setting_flickr}}
+        <a href="http://www.flickr.com/photos/{{setting_flickr}}"
+          target="x-flickr"><img src="/images/flickr.png" alt="flickr"> Flickr</a>
+        {{/setting_flickr}}
+
+        {{#setting_picasa}}
+        <a href="http://picasaweb.google.com/{{setting_picasa}}/"
+           target="x-picasa"><img src="/images/picasa.png" alt="picasa"> Picasa</a>
+        {{/setting_picasa}}
+
+        {{#setting_smugmug}}
+        <a href="http://{{setting_smugmug}}/"
+           target="x-smugmug"><img src="/images/smugmug.png" alt="smugmug"> SmugMug</a>
+        {{/setting_smugmug}}
+      </p>
+      <p style="text-align: center">powered by <a href="https://github.com/dusty/roamtheblog"
+                       target="x-github">roamtheblog</a> software</p>
+    </div>
+  </footer>
+
+</body>
+</html>

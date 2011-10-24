@@ -1,0 +1,83 @@
+<article class="post">
+  <header>
+    <h1>{{title}}</h1>
+    <blockquote>
+    <p>
+    <time>{{date}}</time>
+    &middot;
+    by {{author}}
+    {{#setting_disqus}}
+    &middot;
+    <a href="{{path}}#disqus_thread"
+       data-disqus-identifier="{{slug}}" class="pjax">Comments</a>
+    {{/setting_disqus}}
+    {{#has_tags?}}
+      &middot;
+      tags:
+      {{#tag_list}}
+        <a href="{{path}}" class="pjax">{{tag}}</a>{{^last?}},&nbsp;{{/last?}}
+      {{/tag_list}}
+    {{/has_tags?}}
+    </p>
+    </blockquote>
+  </header>
+
+  <section class="content">
+    {{{html}}}
+  </section>
+
+  {{#setting_disqus}}
+  <section class="comments">
+    <div id="disqus_thread"></div>
+    <noscript>
+      Please enable JavaScript to view the
+      <a href="http://disqus.com/?ref_noscript={{setting_disqus}}">comments powered by Disqus.</a>
+    </noscript>
+    <a href="http://disqus.com"
+      class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+  </section>
+  {{/setting_disqus}}
+
+</article>
+
+<section class="recent">
+  <header>
+    <h2>More Posts <span class="label notice"><a href="/blog" class="pjax">All</a></span></h2>
+  </header>
+
+  <table class="bordered">
+    {{#younger}}
+    <tr>
+      <td class="time"><time>{{date}}</time></td>
+      <td><a href="{{path}}" class="pjax">{{title}}</a></td>
+    </tr>
+    {{/younger}}
+    <tr>
+      <td class="time"><time>{{date}}</time></td>
+      <td>{{title}}</td>
+    </tr>
+    {{#older}}
+    <tr>
+      <td class="time"><time>{{date}}</time></td>
+      <td><a href="{{path}}" class="pjax">{{title}}</a></td>
+    </tr>
+    {{/older}}
+  </table>
+
+</section>
+
+{{#setting_disqus}}
+<script type="text/javascript">
+  var disqus_identifier = '{{slug}}';
+  {{^production}}
+  var disqus_developer = 1;
+  {{/production}}
+  (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = 'http://{{setting_disqus}}.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+{{/setting_disqus}}

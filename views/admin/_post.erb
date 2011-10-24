@@ -1,5 +1,5 @@
 <tr>
-  <td><a href="<%= admin_post_path(post) %>"><%= post.title %></a></td>
+  <td><a href="<%= admin_post_path(post) %>" class="pjax"><%= post.title %></a></td>
   <td><%= short_date(post.published_at) %></td>
   <td>
     <span class="label <%= post.active? ? "success" : "default" %>">

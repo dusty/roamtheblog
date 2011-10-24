@@ -7,14 +7,23 @@ module Roam
       set :methodoverride, true
       set :show_exceptions, false
       set :static, true
-      set :logging, Proc.new { ENV['RACK_ENV'] == "production" }
+      set :logging, true
       set :public_folder, 'public'
     end
 
     helpers do
 
-      def check_active(path)
-        "active" if request.path_info == path
+      def pjax?
+        env['HTTP_X_PJAX']
+      end
+
+      def title(str)
+        if pjax?
+          "<title>#{site.title} - #{str}</title>"
+        else
+          @title = str
+          nil
+        end
       end
 
       def error_class(model,attribute)

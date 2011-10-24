@@ -1,5 +1,9 @@
 body {
-  padding-top: 60px;
+  padding: 60px;
+}
+
+div.topbar div.container-fluid {
+  margin: 0 60px;
 }
 
 a.brand img {
