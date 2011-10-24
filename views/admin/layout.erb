@@ -33,11 +33,14 @@
       $('ul.nav li').removeClass("active");
       $('ul.nav a[href="' + path + '"]').parent().addClass("active");
     }
+    function scrollPage() {
+      $("html, body").animate({ scrollTop: 0 }, 0);
+    }
     $(function(){
       activateNavbar();
       $('ul.nav a').pjax('#main');
       $('a.pjax').pjax('#main');
-      $('body').bind('pjax:end', function() { activateNavbar() })
+      $('body').bind('pjax:end', function() { activateNavbar(); scrollPage(); })
     })
   </script>
 </head>
@@ -45,7 +48,7 @@
 
   <div class="topbar">
     <div class="fill">
-      <div class="container-fluid">
+      <div class="container">
         <a class="brand" target="x-preview" href="/">
           <img src="/images/world.png" alt="logo" />
           <%= site.domain %>
@@ -66,7 +69,7 @@
     </div>
   </div>
 
-  <div class="container-fluid">
+  <div class="container">
     <div class="message pull-right">
       <%= flash_messages %>
     </div>
@@ -77,7 +80,7 @@
   </div>
 
   <footer class="footer">
-    <div class="container-fluid">
+    <div class="container">
       <p class="pull-right">&copy; <%= site.domain %> <%= Time.now.year %></p>
       <p>powered by <a href="https://github.com/dusty/roamtheblog"
                        target="x-github">roamtheblog</a> software</p>
