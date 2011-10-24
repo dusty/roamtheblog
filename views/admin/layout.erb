@@ -27,6 +27,11 @@
   <script src="/jquery.pjax.js"></script>
   <script src="/admin.js"></script>
   <script type="text/javascript">
+    function confirmUpdate() {
+      if (confirm('Update will change the timestamp, are you sure?')) {
+        document.getElementById("postform").submit();
+      }
+    }
     function activateNavbar() {
       var path = location.pathname.replace (/^(\/.+?\/.+?)\/.+$/, '$1');
       console.log("AT: " + path);
@@ -36,11 +41,15 @@
     function scrollPage() {
       $("html, body").animate({ scrollTop: 0 }, 0);
     }
+    function growTextArea() {
+      $("textarea.xxlarge").autoGrow();
+    }
     $(function(){
       activateNavbar();
+      growTextArea();
       $('ul.nav a').pjax('#main');
       $('a.pjax').pjax('#main');
-      $('body').bind('pjax:end', function() { activateNavbar(); scrollPage(); })
+      $('body').bind('pjax:end', function() { activateNavbar(); scrollPage(); growTextArea(); })
     })
   </script>
 </head>
