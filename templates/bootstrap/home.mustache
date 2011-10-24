@@ -6,14 +6,8 @@
     <time>{{date}}</time>
     &middot;
     by {{author}}
-    {{#setting_disqus}}
-    &middot;
-    <a href="{{path}}#disqus_thread"
-       data-disqus-identifier="{{slug}}" class="pjax">Comments</a>
-    {{/setting_disqus}}
     {{#has_tags?}}
       &middot;
-      tags:
       {{#tag_list}}
         <a href="{{path}}" class="pjax">{{tag}}</a>{{^last?}},&nbsp;{{/last?}}
       {{/tag_list}}
@@ -33,8 +27,6 @@
       Please enable JavaScript to view the
       <a href="http://disqus.com/?ref_noscript={{setting_disqus}}">comments powered by Disqus.</a>
     </noscript>
-    <a href="http://disqus.com"
-      class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
   </section>
   {{/setting_disqus}}
 
