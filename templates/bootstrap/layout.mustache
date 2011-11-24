@@ -52,6 +52,8 @@
     })();
   </script>
   {{/setting_analytics}}
+
+  {{#active?}}
   {{#setting_disqus}}
   <script type="text/javascript">
     var disqus_shortname = '{{setting_disqus}}';
@@ -67,6 +69,7 @@
     }());
   </script>
   {{/setting_disqus}}
+  {{/active?}}
 </head>
 
 <body>
