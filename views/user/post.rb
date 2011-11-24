@@ -35,6 +35,10 @@ module Roam
           !@post.tags.empty?
         end
 
+        def active?
+          @post.active?
+        end
+
         def tag_list
           @post.tags.map do |tag|
             {
