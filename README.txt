@@ -347,11 +347,6 @@ FAQ
      on the New link to create a Page or Post, there are links to instructions
      on how to use the Textile markup language.
 
-  Q. How can I change the blue font color on the default template?
-  A. Find the color you like.  It needs to be in a format that CSS
-     understands.  Go to the Settings panel and change the primary_color
-     value to the new color you want.
-
   Q. How can I add a picture or video to my page or blog post?
   A. Roamtheblog is as simple as it can be and does not manage media.  I
      recommend using a site that specializes in that, such as SmugMug, Flickr,
