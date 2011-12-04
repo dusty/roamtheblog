@@ -29,6 +29,11 @@ class Design
 
   def self.create_default
     return false unless count == 0
+    design = copy_default
+    design.save && design
+  end
+
+  def self.copy_default
     design = new
     design.name = 'Bootstrap'
     design.description = 'Based on twitter bootstrap'
@@ -36,7 +41,7 @@ class Design
       attribute = File.basename(template, File.extname(template))
       design.send("#{attribute}=", File.read(template))
     end
-    design.save && design
+    design
   end
 
   def self.recent(limit=0)
