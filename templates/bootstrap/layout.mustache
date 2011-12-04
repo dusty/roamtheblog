@@ -25,7 +25,8 @@
 
   <script type="text/javascript">
     function activateNavbar() {
-      var path = location.pathname.replace (/^(\/.+?\/.+?)\/.+$/, '$1');
+      // var path = location.pathname.replace (/^(\/.+?\/.+?)\/.+$/, '$1');
+      var path = location.pathname.replace (/^(\/.+?)\/.+$/, '$1');
       console.log("AT: " + path);
       $('ul.nav li').removeClass("active");
       $('ul.nav a[href="' + path + '"]').parent().addClass("active");
