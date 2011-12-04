@@ -314,14 +314,10 @@ Default Template
   roamthepla.net.  Feel free to use it, or copy it and modify it as you
   wish.
 
-  There are several settings built in to the default template.  Just create
-  them in the Settings panel and add the value you want to active it.
-
-  Required
-    primary_color: sets the main text color of the page, used in Style.
-
-  Optional
-    logo: provide a link to a logo to include in the header of the page.
+  There are several settings built in to the default template that rely on
+  user submitted variables.  Just create them in the Settings panel and add
+  the value you want.  Once those settings are added, the features will be
+  activated in the layout.
 
   Enhancements
     feedburner: enable feedburner RSS feeds with your feedburner id.
@@ -333,6 +329,9 @@ Default Template
     twitter: link to your twitter page
     youtube: link to your youtube account
     flickr: link to your flickr account
+    picasa: link to your picasa account
+    smugmug: link to your smugmug account
+    500px: link to your 500px account
 
 FAQ
   Q. How do I make a Page as the homepage instead of the last blog post?
