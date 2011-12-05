@@ -31,6 +31,10 @@ module Roam
           @post
         end
 
+        def active?
+          @post.active?
+        end
+
         def has_tags?
           !@post.tags.empty?
         end
