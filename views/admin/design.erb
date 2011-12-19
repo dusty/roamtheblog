@@ -1,6 +1,6 @@
 <h2>
   <%= @design.new_record? ? "New Design" : @design.name %>
-  <a href="#" class="white pjax" data-controls-modal="template-help" data-backdrop="true" data-keyboard="true">
+  <a href="#" class="white" data-controls-modal="template-help" data-backdrop="true" data-keyboard="true">
     <span class="label notice">?</span>
   </a>
 </h2>
@@ -125,7 +125,7 @@
 
         <div class="actions">
           <input name="save" value="Save" type="submit" class="btn primary" />
-          <a href="/admin/designs" class="btn pjax">Cancel</a>
+          <a href="/admin/designs" class="btn">Cancel</a>
           <% unless @design.new_record? %>
             <a href="<%= admin_design_path(@design) %>" class="btn error delete_prompt"
                rel="Delete this design?">Delete</a>

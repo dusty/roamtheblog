@@ -2,7 +2,7 @@
 <h2>
   {{search}}
   {{#filtered?}}
-    <span class="label notice"><a href="/blog" class="pjax">All</a></span>
+    <span class="label notice"><a href="/blog">All</a></span>
   {{/filtered?}}
 </h2>
 
@@ -10,7 +10,7 @@
 <section class="tags">
   <blockquote><p>Filter posts by tag:
   {{#site_tags}}
-    <a href="{{path}}" class="pjax">{{tag}}</a>{{^last?}},&nbsp;{{/last?}}
+    <a href="{{path}}">{{tag}}</a>{{^last?}},&nbsp;{{/last?}}
   {{/site_tags}}
   </p></blockquote>
 </section>
@@ -25,7 +25,7 @@
     {{#posts}}
     <tr>
       <td class="time"><time>{{date}}</time></td>
-      <td><a href="{{path}}" class="pjax">{{title}}</a></td>
+      <td><a href="{{path}}">{{title}}</a></td>
     </tr>
     {{/posts}}
   </table>

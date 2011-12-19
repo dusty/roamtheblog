@@ -8,7 +8,6 @@ Built With:
   * MongoDB (https://github.com/mongodb/mongo)
   * MongoMapper (https://github.com/jnunemaker/mongomapper)
   * Twitter Bootstrap (https://github.com/twitter/bootstrap)
-  * jquery-pjax (https://github.com/defunkt/jquery-pjax)
 
 Default template setup for use with:
   * Disqus

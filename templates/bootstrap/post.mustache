@@ -9,7 +9,7 @@
     {{#has_tags?}}
       &middot;
       {{#tag_list}}
-        <a href="{{path}}" class="pjax">{{tag}}</a>{{^last?}},&nbsp;{{/last?}}
+        <a href="{{path}}">{{tag}}</a>{{^last?}},&nbsp;{{/last?}}
       {{/tag_list}}
     {{/has_tags?}}
     </p>
@@ -37,14 +37,14 @@
 {{#active?}}
 <section class="recent">
   <header>
-    <h2>More Posts <span class="label notice"><a href="/blog" class="pjax">All</a></span></h2>
+    <h2>More Posts <span class="label notice"><a href="/blog">All</a></span></h2>
   </header>
 
   <table class="bordered">
     {{#younger}}
     <tr>
       <td class="time"><time>{{date}}</time></td>
-      <td><a href="{{path}}" class="pjax">{{title}}</a></td>
+      <td><a href="{{path}}">{{title}}</a></td>
     </tr>
     {{/younger}}
     <tr>
@@ -54,7 +54,7 @@
     {{#older}}
     <tr>
       <td class="time"><time>{{date}}</time></td>
-      <td><a href="{{path}}" class="pjax">{{title}}</a></td>
+      <td><a href="{{path}}">{{title}}</a></td>
     </tr>
     {{/older}}
   </table>

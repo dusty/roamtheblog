@@ -13,17 +13,8 @@ module Roam
 
     helpers do
 
-      def pjax?
-        env['HTTP_X_PJAX']
-      end
-
       def title(str)
-        if pjax?
-          "<title>#{site.title} - #{str}</title>"
-        else
-          @title = str
-          nil
-        end
+        @title = str
       end
 
       def error_class(model,attribute)

@@ -22,7 +22,6 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
   <script src="http://twitter.github.com/bootstrap/1.4.0/bootstrap-alerts.js"></script>
-  <script src="/jquery.pjax.js"></script>
 
   <script type="text/javascript">
     function activateNavbar() {
@@ -32,13 +31,8 @@
       $('ul.nav li').removeClass("active");
       $('ul.nav a[href="' + path + '"]').parent().addClass("active");
     }
-    function scrollPage() {
-      $("html, body").animate({ scrollTop: 0 }, 0);
-    }
     $(function(){
       activateNavbar();
-      $('a.pjax').pjax('#main');
-      $('body').bind('pjax:end', function() { activateNavbar(); scrollPage(); })
     })
   </script>
 
@@ -79,16 +73,16 @@
   <div class="topbar">
     <div class="fill">
       <div class="container">
-        <a class="brand pjax" href="/">
+        <a class="brand" href="/">
           <img src="/images/world.png" alt="logo" />
           {{site_domain}}
         </a>
         <ul class="nav">
-          <li><a href="/blog" class="pjax">What</a></li>
-          <li><a href="/map" class="pjax">Where</a></li>
-          <li><a href="/about" class="pjax">Why</a></li>
-          <li><a href="/motivation" class="pjax">How</a></li>
-          <li><a href="/cost" class="pjax">Cost</a></li>
+          <li><a href="/blog">What</a></li>
+          <li><a href="/map">Where</a></li>
+          <li><a href="/about">Why</a></li>
+          <li><a href="/motivation">How</a></li>
+          <li><a href="/cost">Cost</a></li>
           <li><a href="http://media.roamthepla.net" target="x-pics">Pics</a></li>
         </ul>
         <ul class="nav secondary-nav">

@@ -24,7 +24,6 @@
   <script src="http://twitter.github.com/bootstrap/1.3.0/bootstrap-alerts.js"></script>
   <script src="http://twitter.github.com/bootstrap/1.3.0/bootstrap-modal.js"></script>
   <script src="/jquery.autogrowtextarea.js"></script>
-  <script src="/jquery.pjax.js"></script>
   <script src="/admin.js"></script>
   <script type="text/javascript">
     function confirmUpdate() {
@@ -38,18 +37,12 @@
       $('ul.nav li').removeClass("active");
       $('ul.nav a[href="' + path + '"]').parent().addClass("active");
     }
-    function scrollPage() {
-      $("html, body").animate({ scrollTop: 0 }, 0);
-    }
     function growTextArea() {
       $("textarea.xxlarge").autoGrow();
     }
     $(function(){
       activateNavbar();
       growTextArea();
-      $('ul.nav a').pjax('#main');
-      $('a.pjax').pjax('#main');
-      $('body').bind('pjax:end', function() { activateNavbar(); scrollPage(); growTextArea(); })
     })
   </script>
 </head>
