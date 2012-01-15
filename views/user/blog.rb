@@ -24,6 +24,7 @@ module Roam
             {
               :title => post.title,
               :date => get_long_date(post.published_at),
+              :datetime => get_datetime(post.published_at),
               :path => get_post_path(post)
             }
           end

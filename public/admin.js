@@ -11,7 +11,7 @@ $(document).ready(function(){
   });
 
   $('a.delete_prompt').live('click', function(event) {
-    if (confirm($(this).attr('rel') || "Are you sure?")) {
+    if (confirm($(this).attr('data-text') || "Are you sure?")) {
       $('<form method="post" action="' + this.href + '" />')
       .append('<input type="hidden" name="_method" value="delete" />')
       .appendTo('body')
@@ -31,7 +31,7 @@ $(document).ready(function(){
   });
 
   $('a.put_prompt').live('click', function(event) {
-    if (confirm($(this).attr('rel') || "Are you sure?")) {
+    if (confirm($(this).attr('data-text') || "Are you sure?")) {
       $('<form method="post" action="' + this.href + '" />')
       .append('<input type="hidden" name="_method" value="put" />')
       .appendTo('body')
@@ -51,7 +51,7 @@ $(document).ready(function(){
   });
 
   $('a.post_prompt').live('click', function(event) {
-    if (confirm($(this).attr('rel') || "Are you sure?")) {
+    if (confirm($(this).attr('data-text') || "Are you sure?")) {
       $('<form method="post" action="' + this.href + '" />')
       .append('<input type="hidden" name="_method" value="post" />')
       .appendTo('body')
@@ -63,7 +63,7 @@ $(document).ready(function(){
   });
 
   $('a.get_prompt').live('click', function(event) {
-    if (confirm($(this).attr('rel') || "Are you sure?")) {
+    if (confirm($(this).attr('data-text') || "Are you sure?")) {
       return true;
     } else {
       return false;

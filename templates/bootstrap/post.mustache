@@ -3,9 +3,11 @@
     <h1>{{title}}</h1>
     <blockquote>
     <p>
-    <time>{{date}}</time>
+    <time datetime={{datetime}}>{{date}}</time>
     &middot;
     by {{author}}
+    &middot;
+    <a href="{{path}}#comments">{{comments_count}} Comments</a>
     {{#has_tags?}}
       &middot;
       {{#tag_list}}
@@ -21,15 +23,87 @@
   </section>
 
   {{#active?}}
-  {{#setting_disqus}}
-  <section class="comments">
-    <div id="disqus_thread"></div>
-    <noscript>
-      Please enable JavaScript to view the
-      <a href="http://disqus.com/?ref_noscript={{setting_disqus}}">comments powered by Disqus.</a>
-    </noscript>
+  <section class="comments" id="comments">
+
+    <h3><a href="{{path}}#comments">{{comments_count}} Comments</a></h3>
+
+    <dl>
+    {{#comments}}
+      <dt>
+        {{date}} &middot; by
+        {{#url}}<a href="{{url}}" target='x-commenter'>{{name}}</a>{{/url}}
+        {{^url}}{{name}}{{/url}}
+      </dt>
+      <dd>{{comment}}</dd>
+    {{/comments}}
+    </dl>
+    {{^comments}}
+      <p>No Comments Yet.  Go ahead and add one.</p>
+    {{/comments}}
+
+    <br>
+    <h3>Add a New Comment</h3>
+    {{#comment_errors?}}
+      <h4>Whoops.  There may be problems.</h4>
+      <ul class="error">
+      {{#comment_errors}}
+        <li>{{message}}</li>
+      {{/comment_errors}}
+      </ul>
+    {{/comment_errors?}}
+
+    <form action="{{path}}#comments" method="post" name="comment" id="comments-form">
+      <input type="hidden" name="_method" value="put" />
+      <fieldset>
+
+        <div class="clearfix">
+          <label for="name">Name</label>
+          <div class="input">
+            <input id="name" name="comment[name]" type="text" class="span5"
+                   value="{{comment_name}}" placeholder="Your Name" />
+            <span class="help-inline">Who are you?</span>
+          </div>
+        </div>
+
+        <div class="clearfix">
+          <label for="email">Email</label>
+          <div class="input">
+            <input id="email" name="comment[email]" type="email" class="span5"
+                   value="{{comment_email}}" placeholder="youremail@yourdomain.com" />
+            <span class="help-inline">Private, will not be shown or shared.</span>
+          </div>
+        </div>
+
+        <div class="clearfix">
+          <label for="url">URL (optional)</label>
+          <div class="input">
+            <input id="url" name="comment[url]" type="url" class="span5"
+                   value="{{comment_url}}" placeholder="http://www.example.com" />
+            <span class="help-inline">Your website, but only if you want to share.</span>
+          </div>
+        </div>
+
+        <div class="clearfix" style="display: none;">
+          <input name="comments" type="text" />
+        </div>
+
+        <div class="clearfix">
+          <label for="comment">Comment</label>
+          <div class="input">
+            <textarea id="comment" name="comment[comment]" class="xxlarge"
+                      placeholder="This is where your comment goes."
+                      cols="90" rows="3">{{comment_comment}}</textarea>
+          </div>
+        </div>
+
+        <div class="actions">
+          <input name="save" value="Save" type="submit" class="btn primary" />
+        </div>
+
+      </fieldset>
+    </form>
+
   </section>
-  {{/setting_disqus}}
   {{/active?}}
 
 </article>
@@ -43,38 +117,20 @@
   <table class="bordered">
     {{#younger}}
     <tr>
-      <td class="time"><time>{{date}}</time></td>
+      <td class="time"><time datetime={{datetime}}>{{date}}</time></td>
       <td><a href="{{path}}">{{title}}</a></td>
     </tr>
     {{/younger}}
     <tr>
-      <td class="time"><time>{{date}}</time></td>
+      <td class="time"><time datetime={{datetime}}>{{date}}</time></td>
       <td>{{title}}</td>
     </tr>
     {{#older}}
     <tr>
-      <td class="time"><time>{{date}}</time></td>
+      <td class="time"><time datetime={{datetime}}>{{date}}</time></td>
       <td><a href="{{path}}">{{title}}</a></td>
     </tr>
     {{/older}}
   </table>
 </section>
-{{/active?}}
-
-{{#active?}}
-{{#setting_disqus}}
-<script type="text/javascript">
-  var disqus_identifier = '{{slug}}';
-  {{^production}}
-  var disqus_developer = 1;
-  {{/production}}
-  (function() {
-    var dsq = document.createElement('script');
-    dsq.type = 'text/javascript';
-    dsq.async = true;
-    dsq.src = 'http://{{setting_disqus}}.disqus.com/embed.js';
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-  })();
-</script>
-{{/setting_disqus}}
 {{/active?}}

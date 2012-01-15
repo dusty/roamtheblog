@@ -213,14 +213,8 @@ Routes
     If setup with a page as the homepage, this will show the Blog template listing all posts.
     Otherwise, it will show the Home template with the most recent blog post.
 
-  /posts
-    Shows the Blog template listing all posts.
-
   /blog/:postname (eg: /blog/20110101-my-blog-post)
     Shows the Post template with the post that has the same name.
-
-  /posts/:postname (eg: /posts/20110101-my-blog-post)
-    Same as above.  Shows the Post template with the post that has the same name.
 
   /:pagename  (eg: /about)
     Shows the Page template with the page that has the same name.
@@ -321,7 +315,6 @@ Default Template
   Enhancements
     feedburner: enable feedburner RSS feeds with your feedburner id.
     analytics: track page visits with your google analytics id.
-    disqus: use disqus for comments with your disqus id.
 
   Links (on bottom of pages)
     facebook: link to your facebook site/page

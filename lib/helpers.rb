@@ -39,6 +39,11 @@ module ViewHelpers
       date ? date.strftime("%B #{date.day.ordinal}, %Y") : ""
     end
 
+    def get_datetime(date)
+      date = parse_date(date)
+      date ? date.iso8601 : ""
+    end
+
     private
     def parse_date(date)
       return nil if date.blank?

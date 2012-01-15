@@ -21,22 +21,24 @@
   <li>site_location: location of the site or authors of the site</li>
   <li>site_map: link to a google map view based on the site_location</li>
   <li>site_has_tags?: boolean indicating if there are any tags</li>
-  <li>site_tags: an array of tags associated with this post</li>
+  <li>site_tags: an array of tags associated with this post
     <ul>
       <li>tag: name of tag</li>
       <li>path: path to a list of all posts with this tag</li>
     </ul>
+  </li>
 </ul>
 
 <h3>Blog Template Variables</h3>
 <ul>
   <li>filtered?: boolean indicating if the search is filtered?</li>
-  <li>posts: an array of posts ordered by date</li>
-  <ul>
-    <li>title: title of the post</li>
-    <li>date: date of the post</li>
-    <li>path: relative URL to the post</li>
-  </ul>
+  <li>posts: an array of posts ordered by date
+    <ul>
+     <li>title: title of the post</li>
+     <li>date: date of the post</li>
+     <li>path: relative URL to the post</li>
+    </ul>
+  </li>
 </ul>
 
 <h3>Page Template Variables</h3>
@@ -55,23 +57,26 @@
   <li>html: full HTML of the page</li>
   <li>date: date of the post</li>
   <li>has_tags?: boolean indicating if the post has tags</li>
-  <li>tag_list: an array of tags associated with this post</li>
+  <li>tag_list: an array of tags associated with this post
     <ul>
       <li>tag: name of tag</li>
       <li>path: path to a list of all posts with this tag</li>
     </ul>
-  <li>younger: an array of recent younger posts ordered by date</li>
+  </li>
+  <li>younger: an array of recent younger posts ordered by date
     <ul>
       <li>title: title of the post</li>
       <li>date: date of the post</li>
       <li>path: relative URL to the post</li>
     </ul>
-  <li>older: an array of recent older posts ordered by date</li>
+  </li>
+  <li>older: an array of recent older posts ordered by date
      <ul>
        <li>title: title of the post</li>
        <li>date: date of the post</li>
        <li>path: relative URL to the post</li>
      </ul>
+  </li>
 </ul>
 
 <h3>Home Template Variables</h3>
@@ -81,23 +86,25 @@
   <li>author: author of this post</li>
   <li>date: date of the post</li>
   <li>has_tags?: boolean indicating if the post has tags</li>
-  <li>tag_list: an array of tags associated with this post</li>
+  <li>tag_list: an array of tags associated with this post
     <ul>
       <li>tag: name of tag</li>
       <li>path: path to a list of all posts with this tag</li>
     </ul>
-  <li>posts: an array of recent posts ordered by date</li>
+  </li>
+  <li>posts: an array of recent posts ordered by date
     <ul>
       <li>title: title of the post</li>
       <li>date: date of the post</li>
       <li>path: relative URL to the post</li>
     </ul>
+  </li>
 </ul>
 
 <h3>Feed Template Variables</h3>
 <ul>
   <li>updated: date of last update to any article</li>
-  <li>posts: an array of posts ordered by date</li>
+  <li>posts: an array of posts ordered by date
     <ul>
       <li>title: title of the post</li>
       <li>path: full URL to the post</li>
@@ -107,4 +114,5 @@
       <li>summary: summary of the post</li>
       <li>html: full html of the post</li>
     </ul>
+  </li>
 </ul>

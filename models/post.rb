@@ -10,10 +10,13 @@ class Post
   key :location, String
   timestamps!
 
+  many :comments
+
   ensure_index [[:slug,1],[:published_at,1]], :unique => true
   ensure_index :tags
 
   validates_presence_of :title, :author, :body
+  validates_associated :comments
 
   before_save :generate_slug
 

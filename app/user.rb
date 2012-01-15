@@ -109,21 +109,26 @@ module Roam
       end
     end
 
-    get '/posts' do
-      posts = Post.active(params[:tag]).all
-      mustache(:blog, {:posts => posts, :tag => params[:tag]})
-    end
-
-    get '/posts/:id' do
-      not_found unless post = Post.by_slug(params[:id])
-      posts = Post.near(post,2)
-      mustache(:post, {:post => post, :posts => posts})
-    end
-
     get '/blog/:id' do
       not_found unless post = Post.by_slug(params[:id])
       posts = Post.near(post,2)
       mustache(:post, {:post => post, :posts => posts})
+    end
+
+    put '/blog/:id' do
+      not_found unless post = Post.by_slug(params[:id])
+      unless params[:comments].blank?
+        puts "Potential Bot Post"
+        redirect("/blog/#{params[:id]}")
+      end
+      comment = Comment.new(params[:comment])
+      comment.ip = request.ip
+      if comment.valid? && post.comments.push(comment) && post.save
+        redirect("/blog/#{params[:id]}#comments")
+      else
+        posts = Post.near(post,2)
+        mustache(:post, {:post => post, :posts => posts, :comment => comment})
+      end
     end
 
     get '/:id' do

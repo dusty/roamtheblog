@@ -22,6 +22,7 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
   <script src="http://twitter.github.com/bootstrap/1.4.0/bootstrap-alerts.js"></script>
+  <script src="/jquery.autogrowtextarea.js"></script>
 
   <script type="text/javascript">
     function activateNavbar() {
@@ -31,8 +32,12 @@
       $('ul.nav li').removeClass("active");
       $('ul.nav a[href="' + path + '"]').parent().addClass("active");
     }
+    function growTextArea() {
+      $("textarea.xxlarge").autoGrow();
+    }
     $(function(){
       activateNavbar();
+      growTextArea();
     })
   </script>
 
@@ -48,24 +53,6 @@
     })();
   </script>
   {{/setting_analytics}}
-
-  {{#active?}}
-  {{#setting_disqus}}
-  <script type="text/javascript">
-    var disqus_shortname = '{{setting_disqus}}';
-    {{^production}}
-    var disqus_developer = 1;
-    {{/production}}
-    (function () {
-      var s = document.createElement('script');
-      s.type = 'text/javascript';
-      s.async = true;
-      s.src = 'http://{{setting_disqus}}.disqus.com/count.js';
-      (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
-    }());
-  </script>
-  {{/setting_disqus}}
-  {{/active?}}
 </head>
 
 <body>

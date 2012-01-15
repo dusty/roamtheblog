@@ -81,7 +81,7 @@
       <% unless @post.new_record? %>
         <input type="button" value="Update" name="update" onClick="confirmUpdate()" class="btn info">
         <a href="<%= admin_post_path(@post) %>" class="btn danger delete_prompt"
-           rel="Are you sure you want to delete this post?">Delete</a>
+           data-text="Are you sure you want to delete this post?">Delete</a>
       <% end %>
 
       <a href="/admin/posts" class="btn">Cancel</a>

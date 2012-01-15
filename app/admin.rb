@@ -78,7 +78,7 @@ module Roam
           <<-EOD
 <span class="label">
   <a href="#{admin_design_path(design)}" class="post_prompt"
-     rel="Make this design active?">Set Active</a>
+     data-text="Make this design active?">Set Active</a>
 </span>
           EOD
         end
@@ -88,7 +88,7 @@ module Roam
         <<-EOD
 <span class="label notice">
   <a href="/admin/designs/new?copy=#{design.id}" class="get_prompt"
-     rel="Copy the #{design.name} design?">Copy</a>
+     data-text="Copy the #{design.name} design?">Copy</a>
 </span>
         EOD
       end
@@ -98,14 +98,14 @@ module Roam
           <<-EOD
 <span class="label success">
     <a href="/admin/home/#{page.slug}" class="delete_prompt"
-       rel="Are you sure you want to unset this page?">Unset</a>
+       data-text="Are you sure you want to unset this page?">Unset</a>
 </span>
           EOD
         else
           <<-EOD
 <span class="label">
     <a href="/admin/home/#{page.slug}" class="put_prompt"
-       rel="Are you sure you want to set this page?">Set</a>
+       data-text="Are you sure you want to set this page?">Set</a>
 </span>
           EOD
         end

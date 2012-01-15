@@ -72,6 +72,11 @@ module Roam
         date ? date.strftime("%B #{date.day.ordinal}, %Y") : ""
       end
 
+      def iso_date(date)
+        date = parse_date(date)
+        date ? date.iso8601 : ""
+      end
+
       def parse_date(date)
         return nil if date.blank?
         date = Chronic.parse(date) if date.is_a?(String)

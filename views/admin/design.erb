@@ -5,139 +5,133 @@
   </a>
 </h2>
 
-  </header>
-  <section class="content">
+<form action="<%= admin_design_path(@design) %>" method="post" name="design">
+  <input type="hidden" name="_method" value="<%= form_method(@design) %>" />
 
-    <form action="<%= admin_design_path(@design) %>" method="post" name="design">
-    <input type="hidden" name="_method" value="<%= form_method(@design) %>" />
+  <fieldset>
 
-      <fieldset>
+    <div class="clearfix<%= error_class(@design, :name) %>">
+      <label for="name">Name</label>
+      <div class="input">
+        <input id="name" name="design[name]" type="text"
+        value="<%= @design.name %>" placeholder="My Design Name" />
+        <span class="help-inline"><%= errors_for(@design, :name) %></span>
+      </div>
+    </div>
 
-        <div class="clearfix<%= error_class(@design, :name) %>">
-          <label for="name">Name</label>
-          <div class="input">
-            <input id="name" name="design[name]" type="text"
-                   value="<%= @design.name %>" placeholder="My Design Name" />
-            <span class="help-inline"><%= errors_for(@design, :name) %></span>
-          </div>
-        </div>
+    <div class="clearfix<%= error_class(@design, :description) %>">
+      <label for="name">Description</label>
+      <div class="input">
+        <input id="design" name="design[description]" type="text"
+        value="<%= @design.description %>" class="span10"
+        placeholder="This is a wonderful design that I love." />
+        <span class="help-inline"><%= errors_for(@design, :description) %></span>
+      </div>
+    </div>
 
-        <div class="clearfix<%= error_class(@design, :description) %>">
-          <label for="name">Description</label>
-          <div class="input">
-            <input id="name" name="design[description]" type="text"
-                   value="<%= @design.description %>" class="span10"
-                   placeholder="This is a wonderful design that I love." />
-            <span class="help-inline"><%= errors_for(@design, :description) %></span>
-          </div>
-        </div>
+    <div class="clearfix<%= error_class(@design, :layout) %>">
+      <label for="layout">Layout</label>
+      <div class="input">
+        <textarea id="layout" name="design[layout]" class="xxlarge"
+          placeholder="This is the main layout of the site."
+          cols="105" rows="5"><%= escape_html(@design.layout) %></textarea>
+      </div>
+    </div>
 
-        <div class="clearfix<%= error_class(@design, :layout) %>">
-          <label for="layout">Layout</label>
-          <div class="input">
-            <textarea id="layout" name="design[layout]" class="xxlarge"
-                      placeholder="This is the main layout of the site."
-                      cols="105" rows="5"><%= @design.layout %></textarea>
-          </div>
-        </div>
+    <div class="clearfix<%= error_class(@design, :blog) %>">
+      <label for="blog">Blog</label>
+      <div class="input">
+        <textarea id="blog" name="design[blog]" class="xxlarge"
+          placeholder="This is the blog listing page."
+          cols="105" rows="5"><%= escape_html(@design.blog) %></textarea>
+      </div>
+    </div>
 
-        <div class="clearfix<%= error_class(@design, :blog) %>">
-          <label for="blog">Blog</label>
-          <div class="input">
-            <textarea id="blog" name="design[blog]" class="xxlarge"
-                      placeholder="This is the blog listing page."
-                      cols="105" rows="5"><%= @design.blog %></textarea>
-          </div>
-        </div>
+    <div class="clearfix<%= error_class(@design, :page) %>">
+      <label for="page">Page</label>
+      <div class="input">
+        <textarea id="page" name="design[page]" class="xxlarge"
+          placeholder="This is the Page template."
+          cols="105" rows="5"><%= escape_html(@design.page) %></textarea>
+      </div>
+    </div>
 
-        <div class="clearfix<%= error_class(@design, :page) %>">
-          <label for="page">Page</label>
-          <div class="input">
-            <textarea id="page" name="design[page]" class="xxlarge"
-                      placeholder="This is the Page template."
-                      cols="105" rows="5"><%= @design.page %></textarea>
-          </div>
-        </div>
+    <div class="clearfix<%= error_class(@design, :post) %>">
+      <label for="post">Post</label>
+      <div class="input">
+        <textarea id="post" name="design[post]" class="xxlarge"
+          placeholder="This is the Post template."
+          cols="105" rows="5"><%= escape_html(@design.post) %></textarea>
+      </div>
+    </div>
 
-        <div class="clearfix<%= error_class(@design, :post) %>">
-          <label for="post">Post</label>
-          <div class="input">
-            <textarea id="post" name="design[post]" class="xxlarge"
-                      placeholder="This is the Post template."
-                      cols="105" rows="5"><%= @design.post %></textarea>
-          </div>
-        </div>
+    <div class="clearfix<%= error_class(@design, :home) %>">
+      <label for="home">Home</label>
+      <div class="input">
+        <textarea id="home" name="design[home]" class="xxlarge"
+          placeholder="This is the Home template."
+          cols="105" rows="5"><%= escape_html(@design.home) %></textarea>
+      </div>
+    </div>
 
-        <div class="clearfix<%= error_class(@design, :home) %>">
-          <label for="home">Home</label>
-          <div class="input">
-            <textarea id="home" name="design[home]" class="xxlarge"
-                      placeholder="This is the Home template."
-                      cols="105" rows="5"><%= @design.home %></textarea>
-          </div>
-        </div>
+    <div class="clearfix<%= error_class(@design, :feed) %>">
+      <label for="feed">Feed</label>
+      <div class="input">
+        <textarea id="feed" name="design[feed]" class="xxlarge"
+          placeholder="This is the RSS Feed template."
+          cols="105" rows="5"><%= escape_html(@design.feed) %></textarea>
+      </div>
+    </div>
 
-        <div class="clearfix<%= error_class(@design, :feed) %>">
-          <label for="feed">Feed</label>
-          <div class="input">
-            <textarea id="feed" name="design[feed]" class="xxlarge"
-                      placeholder="This is the RSS Feed template."
-                      cols="105" rows="5"><%= @design.feed %></textarea>
-          </div>
-        </div>
+    <div class="clearfix<%= error_class(@design, :missing) %>">
+      <label for="missing">Missing</label>
+      <div class="input">
+        <textarea id="missing" name="design[missing]" class="xxlarge"
+          placeholder="This is the Page Not Found template."
+          cols="105" rows="5"><%= escape_html(@design.missing) %></textarea>
+      </div>
+    </div>
 
-        <div class="clearfix<%= error_class(@design, :missing) %>">
-          <label for="missing">Missing</label>
-          <div class="input">
-            <textarea id="missing" name="design[missing]" class="xxlarge"
-                      placeholder="This is the Page Not Found template."
-                      cols="105" rows="5"><%= @design.missing %></textarea>
-          </div>
-        </div>
+    <div class="clearfix<%= error_class(@design, :error) %>">
+      <label for="error">Error</label>
+      <div class="input">
+        <textarea id="error" name="design[error]" class="xxlarge"
+          placeholder="This is the Error template."
+          cols="105" rows="5"><%= escape_html(@design.error) %></textarea>
+      </div>
+    </div>
 
-        <div class="clearfix<%= error_class(@design, :error) %>">
-          <label for="error">Error</label>
-          <div class="input">
-            <textarea id="error" name="design[error]" class="xxlarge"
-                      placeholder="This is the Error template."
-                      cols="105" rows="5"><%= @design.error %></textarea>
-          </div>
-        </div>
+    <div class="clearfix<%= error_class(@design, :style) %>">
+      <label for="style">CSS Stylesheet</label>
+      <div class="input">
+        <textarea id="style" name="design[style]" class="xxlarge"
+          placeholder="This is the CSS Stylesheet template."
+          cols="105" rows="5"><%= escape_html(@design.style) %></textarea>
+      </div>
+    </div>
 
-        <div class="clearfix<%= error_class(@design, :style) %>">
-          <label for="style">CSS Stylesheet</label>
-          <div class="input">
-            <textarea id="style" name="design[style]" class="xxlarge"
-                      placeholder="This is the CSS Stylesheet template."
-                      cols="105" rows="5"><%= @design.style %></textarea>
-          </div>
-        </div>
-
-        <div class="clearfix<%= error_class(@design, :script) %>">
-          <label for="script">CSS Stylesheet</label>
-          <div class="input">
-            <textarea id="script" name="design[script]" class="xxlarge"
-                      placeholder="This is the Javascript template."
-                      cols="105" rows="5"><%= @design.script %></textarea>
-          </div>
-        </div>
+    <div class="clearfix<%= error_class(@design, :script) %>">
+      <label for="script">Custom Javascript</label>
+      <div class="input">
+        <textarea id="script" name="design[script]" class="xxlarge"
+          placeholder="This is the Javascript template."
+          cols="105" rows="5"><%= escape_html(@design.script) %></textarea>
+      </div>
+    </div>
 
 
-        <div class="actions">
-          <input name="save" value="Save" type="submit" class="btn primary" />
-          <a href="/admin/designs" class="btn">Cancel</a>
-          <% unless @design.new_record? %>
-            <a href="<%= admin_design_path(@design) %>" class="btn error delete_prompt"
-               rel="Delete this design?">Delete</a>
-          <% end %>
-        </div>
+    <div class="actions">
+      <input name="save" value="Save" type="submit" class="btn primary" />
+      <a href="/admin/designs" class="btn">Cancel</a>
+      <% unless @design.new_record? %>
+        <a href="<%= admin_design_path(@design) %>" class="btn error delete_prompt"
+          data-text="Delete this design?">Delete</a>
+      <% end %>
+    </div>
 
-      </fieldset>
+  </fieldset>
 
-    </form>
-
-  </section>
-</article>
+</form>
 
 <div id="template-help" class="modal hide fade" style="height:500px; overflow:scroll;">
   <div class="modal-header">

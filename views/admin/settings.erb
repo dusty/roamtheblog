@@ -1,12 +1,9 @@
-<%= title 'Settings' %>
-
 <h2>Settings
 <a href="#" class="white" data-controls-modal="add-setting" data-backdrop="true" data-keyboard="true">
   <span class="label notice">New</span>
 </a>
 </h2>
 
-</h2>
 <blockquote><p>Settings provide site-wide variables to use in the templates.  You may add any custom variables that will be prefixed with settings_XXXX.</p></blockquote>
 
 <form action="/admin/settings" method="post" name="settings">
@@ -44,7 +41,7 @@
     <div class="clearfix<%= error_class(@site, :location) %>">
       <label for="location">Location</label>
       <div class="input">
-        <input id="domain" name="site[location]" type="text"
+        <input id="location" name="site[location]" type="text"
                value="<%= @site.location %>" placeholder="Buenos Aires, Argentina" />
         <span class="help-inline"><%= errors_for(@site, :location) %></span>
       </div>
@@ -67,8 +64,7 @@
         <input id="<%= key %>" name="site[settings][<%= key %>]" type="text" value="<%= value %>" />
         <span class="help-inline">
           <a href="/admin/settings/<%= key %>" class="delete_prompt"
-             rel="Delete this setting?"><span class="label important">X</span></a>
-          </span>
+             data-text="Delete this setting?"><span class="label important">X</span></a>
         </span>
       </div>
     </div>

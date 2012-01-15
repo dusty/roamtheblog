@@ -27,12 +27,20 @@ module Roam
           get_long_date(@post.published_at)
         end
 
+        def datetime
+          get_datetime(@post.published_at)
+        end
+
         def post
           @post
         end
 
         def active?
           @post.active?
+        end
+
+        def comments_count
+          @post.comments.count
         end
 
         def has_tags?
@@ -55,6 +63,7 @@ module Roam
             {
               :title => post.title,
               :date => get_long_date(post.published_at),
+              :datetime => get_datetime(post.published_at),
               :path => get_post_path(post)
             }
           end

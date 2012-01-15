@@ -3,9 +3,11 @@
     <h1><a href="{{path}}">{{title}}</a></h1>
     <blockquote>
     <p>
-    <time>{{date}}</time>
+    <time datetime={{datetime}}>{{date}}</time>
     &middot;
     by {{author}}
+    &middot;
+    <a href="{{path}}#comments">{{comments_count}} Comments</a>
     {{#has_tags?}}
       &middot;
       {{#tag_list}}
@@ -20,11 +22,7 @@
     {{{html}}}
   </section>
 
-  {{#active?}}
-  {{#setting_disqus}}
-  <h3><a href="{{path}}#disqus_thread" data-disqus-identifier="{{slug}}">Comments</a></h3>
-  {{/setting_disqus}}
-  {{/active?}}
+  <h3><a href="{{path}}#comments">{{comments_count}} Comments</a></h3>
 
 </article>
 
@@ -35,33 +33,15 @@
 
   <table>
     <tr>
-      <td class="time"><time>{{date}}</time></td>
+      <td class="time"><time datetime={{datetime}}>{{date}}</time></td>
       <td>{{title}}</td>
     </tr>
     {{#posts}}
     <tr>
-      <td class="time"><time>{{date}}</time></td>
+      <td class="time"><time datetime={{datetime}}>{{date}}</time></td>
       <td><a href="{{path}}">{{title}}</a></td>
     </tr>
     {{/posts}}
   </table>
 
 </section>
-
-{{#active?}}
-{{#setting_disqus}}
-<script type="text/javascript">
-  var disqus_identifier = '{{slug}}';
-  {{^production}}
-  var disqus_developer = 1;
-  {{/production}}
-  (function() {
-    var dsq = document.createElement('script');
-    dsq.type = 'text/javascript';
-    dsq.async = true;
-    dsq.src = 'http://{{setting_disqus}}.disqus.com/count.js';
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-  })();
-</script>
-{{/setting_disqus}}
-{{/active?}}

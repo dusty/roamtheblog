@@ -2,6 +2,7 @@
   <span class="label notice">
     <a href="/admin/users/new">New</a>
   </span>
+</h2>
 
 <blockquote><p>Users are able to add, edit, and delete posts, pages and other users.</p></blockquote>
 
@@ -16,7 +17,7 @@
   <tbody>
   <% @users.each do |user| %>
     <tr>
-      <td><a href="<%= admin_user_path(user) %>"><%= user.login %></td>
+      <td><a href="<%= admin_user_path(user) %>"><%= user.login %></a></td>
       <td><%= user.name %></td>
       <td><%= short_date(user.login_at) %></td>
     </tr>
