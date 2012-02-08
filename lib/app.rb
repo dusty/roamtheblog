@@ -9,6 +9,7 @@ module Roam
       set :static, true
       set :logging, true
       set :public_folder, 'public'
+      set :static_cache_control, [:public, :max_age => 600]
     end
 
     helpers do
