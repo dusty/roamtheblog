@@ -65,11 +65,7 @@ MongoDB
   If you want to make changes, you may set the following environmental
   variables to override whichever settings you need to.
 
-  MONGO_HOST: hostname or IP address of the server
-  MONGO_PORT: port to connect to
-  MONGO_DB:   database name
-  MONGO_USER: username to login with
-  MONGO_PASS: password to login with
+  MONGOLAB_URI='mongodb://USERNAME:PASSWORD@HOST:PORT/DATABASE'
 
 Rakefile
   The rakefile contains some handy commands to manage your app from the command-line
@@ -95,8 +91,8 @@ Running on Heroku:
 
   # git clone https://github.com/dusty/roamtheblog.git
   # cd roamtheblog
-  # heroku create YOURAPPNAME --stack bamboo-mri-1.9.2
-  # heroku config:add MONGO_HOST=xx MONGO_PORT=xx MONGO_DB=xx MONGO_USER=xx MONGO_PASS=xx
+  # heroku create YOURAPPNAME
+  # heroku addons:add mongolab:starter
   # git push heroku master
 
   You can now see the blog at http://YOURAPPNAME.heroku.com
@@ -109,7 +105,7 @@ Running on your server:
   # git clone https://github.com/dusty/roamtheblog.git
   # cd roamtheblog
   # bundle install --path tmp/
-  # MONGO_HOST=xxxx MONGO_PORT=xx MONGO_DB=xx MONGO_USER=xx MONGO_PASS=xx rake start
+  # MONGOLAB_URI='mongodb://USERNAME:PASSWORD@HOST:PORT/DATABASE' rake start
 
 Admin Panel
 

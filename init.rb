@@ -12,11 +12,10 @@ require "bundler/setup"
 Dir["./lib/**/*.rb"].sort.each {|req| require req}
 
 ## Connect to MongoDB
-MongoMapper.connection = Mongo::Connection.new(ENV['MONGO_HOST'],ENV['MONGO_PORT'])
-MongoMapper.database = ENV['MONGO_DB'] || 'roamtheblog'
-if (ENV['MONGO_USER'] && ENV['MONGO_PASS'])
-  MongoMapper.database.authenticate(ENV['MONGO_USER'], ENV['MONGO_PASS'])
-end
+uri = URI.parse(ENV['MONGOLAB_URI'] || 'mongodb://localhost/roamtheblog')
+db  = uri.path.gsub(/^\//,'')
+MongoMapper.connection = Mongo::Connection.from_uri(uri.to_s)
+MongoMapper.database = db
 
 ## Setup Email options
 SMTP_OPTS = {
