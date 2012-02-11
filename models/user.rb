@@ -67,7 +67,7 @@ class User
     return false unless count == 0
     user = new(:login => 'admin', :name => 'admin')
     user.password, user.password_confirmation = 'admin', 'admin'
-    user.save && user
+    user.save(:validate => false) && user
   end
 
   def record_login
