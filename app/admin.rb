@@ -2,8 +2,6 @@ module Roam
   class AdminApp < BaseApp
 
     configure do
-      use Rack::Session::Cookie, :secret => 'H1. Th1s 1s @ dirty s3cr3t j0y!'
-      use Rack::Flash
       set :views, "views/admin"
     end
 

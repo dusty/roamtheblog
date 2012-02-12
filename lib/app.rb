@@ -10,6 +10,9 @@ module Roam
       set :logging, true
       set :public_folder, 'public'
       set :static_cache_control, [:public, :max_age => 600]
+
+      use Rack::Session::Cookie, :secret => 'H1. Th1s 1s @ dirty s3cr3t j0y!'
+      use Rack::Flash
     end
 
     helpers do
