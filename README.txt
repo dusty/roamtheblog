@@ -354,17 +354,6 @@ FAQ
      the URL in the location bar of your browser.  This will give you a direct
      URL to the image, instead of a URL to the flickr page.
 
-  Q. How do I reset my password?
-  A. Ask another admin to do it for you using the admin panel.  If you are
-     the only admin and you've forgotten your password, then you can change
-     the data stored in the database.
-       # cd /the/path/to/your/app
-       # heroku console
-       # u = User.by_login('yourlogin')
-       # u.password = 'yournewpass'
-       # u.password_confirmation = 'yournewpass'
-       # u.save
-
   Q. Why did you write this?
   A. My wife and I are traveling around and blogging about it for our
      friends and family.  We were frustrated with Wordpress and didn't know
@@ -373,7 +362,3 @@ FAQ
 
   Q. Why did you release it as open source?
   A. This is for someone that wants to learn about Ruby, Sinatra, or MongoDB.
-
-  Q. What if I don't understand these instructions?
-  A. Give it a shot.  Send me an email if you are have problems and I might be
-     able to offer some advice.

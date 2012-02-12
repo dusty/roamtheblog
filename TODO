@@ -1,11 +1,12 @@
 Bugs
 - Something is wrong when you save a design using Chrome
 
-Initial
-- password recovery
+Documentation
+- Document SMTP setup for sendgrid or local
+- Document comments system
 
 Future
 - location per post
 - search
 - design upload
-- asset hosting?
+- asset hosting
