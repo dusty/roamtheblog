@@ -15,6 +15,7 @@ class User
   ensure_index :login, :unique => true
 
   validates_presence_of :name
+  validates_presence_of :login
   validates_uniqueness_of :login
 
   validates_format_of :email, :with => Validator.email

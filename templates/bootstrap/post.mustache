@@ -3,7 +3,7 @@
     <h1>{{title}}</h1>
     <blockquote>
     <p>
-    <time datetime={{datetime}}>{{date}}</time>
+    <time datetime="{{datetime}}">{{date}}</time>
     &middot;
     by {{author}}
     &middot;
@@ -111,23 +111,23 @@
 {{#active?}}
 <section class="recent">
   <header>
-    <h2>More Posts <span class="label notice"><a href="/blog">All</a></span></h2>
+    <h2>More Posts <span class="label notice"><a href="/posts">All</a></span></h2>
   </header>
 
   <table class="bordered">
     {{#younger}}
     <tr>
-      <td class="time"><time datetime={{datetime}}>{{date}}</time></td>
+      <td class="time"><time datetime="{{datetime}}">{{date}}</time></td>
       <td><a href="{{path}}">{{title}}</a></td>
     </tr>
     {{/younger}}
     <tr>
-      <td class="time"><time datetime={{datetime}}>{{date}}</time></td>
+      <td class="time"><time datetime="{{datetime}}">{{date}}</time></td>
       <td>{{title}}</td>
     </tr>
     {{#older}}
     <tr>
-      <td class="time"><time datetime={{datetime}}>{{date}}</time></td>
+      <td class="time"><time datetime="{{datetime}}">{{date}}</time></td>
       <td><a href="{{path}}">{{title}}</a></td>
     </tr>
     {{/older}}

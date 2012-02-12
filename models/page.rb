@@ -10,6 +10,7 @@ class Page
 
   validates_presence_of :title, :body
 
+  before_validation :normalize_slug
   before_save :generate_slug
 
   def self.by_slug(slug)
@@ -25,6 +26,10 @@ class Page
   end
 
   protected
+
+  def normalize_slug
+    self.slug = slug.gsub(/^\//, '').slugize unless slug.empty?
+  end
 
   def generate_slug
     (self.slug = title.slugize) if slug.empty?

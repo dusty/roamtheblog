@@ -29,6 +29,16 @@
       </div>
     </div>
 
+    <div class="clearfix<%= error_class(@page, :slug) %>">
+      <label for="slug">URL</label>
+      <div class="input">
+        <input id="slug" name="page[slug]" type="text" class="span8"
+               value="<%= @page.slug %>" placeholder="/welcome" />
+        <span class="help-inline"><%= errors_for(@page, :slug) %></span>
+      </div>
+    </div>
+
+
     <div class="clearfix <%= error_class(@page, :body) %>">
       <label for="body">
         Body <a href="/admin/textile" class="white" target="x-textile"><span class="label notice">?</span></a>

@@ -19,6 +19,10 @@ module Roam
           @page_title ? "#{site_title} - #{@page_title}" : site_title
         end
 
+        def current_user
+          @current_user
+        end
+
         ##
         # Site variables
         #

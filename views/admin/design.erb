@@ -22,7 +22,7 @@
     <div class="clearfix<%= error_class(@design, :description) %>">
       <label for="name">Description</label>
       <div class="input">
-        <input id="design" name="design[description]" type="text"
+        <input id="description" name="design[description]" type="text"
         value="<%= @design.description %>" class="span10"
         placeholder="This is a wonderful design that I love." />
         <span class="help-inline"><%= errors_for(@design, :description) %></span>

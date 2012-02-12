@@ -1,5 +1,5 @@
 module Roam
-  class App < Sinatra::Base
+  class BaseApp < Sinatra::Base
 
     configure do
       set :raise_errors, false

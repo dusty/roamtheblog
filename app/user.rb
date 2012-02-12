@@ -1,5 +1,5 @@
 module Roam
-  class UserApp < App
+  class UserApp < BaseApp
 
     # Require mustache views
     Dir["views/user/*.rb"].sort.each {|req| require req}
@@ -46,7 +46,7 @@ module Roam
       #   mustache(:page, :page => page)
       #     User::Views::Page.new(:site => site, :page => page).render
       def mustache(template, args={}, layout=true)
-        args = args.update(:site => site, :site_tags => tags)
+        args = args.update(:site => site, :site_tags => tags, :current_user => current_user)
         layout_class = UserApp::Views::Layout
         layout_class.template = design.layout
         view_class = UserApp::Views.const_get(template.to_s.classify)
@@ -107,6 +107,11 @@ module Roam
         posts = Post.active(params[:tag]).all
         mustache(:blog, {:posts => posts, :tag => params[:tag]})
       end
+    end
+
+    get '/posts' do
+      posts = Post.active(params[:tag]).all
+      mustache(:blog, {:posts => posts, :tag => params[:tag]})
     end
 
     get '/blog/:id' do
