@@ -22,19 +22,6 @@ module Roam
     end
 
     helpers do
-      def login_required
-        case request.path_info
-        when /^\/session/, /\/password/, /\/activation/
-          return true
-        else
-          redirect '/admin/session' unless current_user
-        end
-      end
-
-      def current_user
-        @current_user ||= User.find(session[:user]) if session[:user]
-      end
-
       def timezone_options
         us = ActiveSupport::TimeZone.us_zones
         nus = (ActiveSupport::TimeZone.all - ActiveSupport::TimeZone.us_zones)

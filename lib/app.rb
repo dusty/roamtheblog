@@ -14,6 +14,19 @@ module Roam
 
     helpers do
 
+      def login_required
+        case request.path_info
+        when /^\/session/, /\/password/, /\/activation/
+          return true
+        else
+          redirect '/admin/session' unless current_user
+        end
+      end
+
+      def current_user
+        @current_user ||= User.find(session[:user]) if session[:user]
+      end
+
       def title(str)
         @title = str
       end
