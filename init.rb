@@ -5,7 +5,7 @@ require "bundler/setup"
 # Include required gems
 %w{
   mongo_mapper rack-flash sinatra/base mustache/sinatra RedCloth chronic html_truncator tzinfo
-  active_support/inflector
+  active_support/inflector pony
 }.each {|req| require req }
 
 # Require custom libraries
