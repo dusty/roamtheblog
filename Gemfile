@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 gem 'sinatra'
 gem 'mustache'
-gem 'rack-flash'
+gem 'rack-flash3'
 gem 'bson_ext'
 gem 'mongo_mapper'
 gem 'RedCloth'

@@ -32,16 +32,7 @@ class Email
         :to => recipients.first,
         :subject => "[#{site.title}] #{subject}",
         :body => message,
-        :headers => headers,
-        :via => :smtp,
-          :via_options => {
-            :address => ENV['SMTP_HOST'],
-            :user_name => ENV['SMTP_USER'],
-            :password => ENV['SMTP_PASS'],
-            :port => ENV['SMTP_PORT'],
-            :authentication => ENV['SMTP_AUTH'],
-            :domain => ENV['SMTP_DOMAIN']
-          }
+        :headers => headers
       )
     rescue StandardError => e
       puts "#{e.class} : #{e.message}\n#{e.backtrace}\n"

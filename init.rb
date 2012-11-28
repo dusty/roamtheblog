@@ -12,19 +12,22 @@ require "bundler/setup"
 Dir["./lib/**/*.rb"].sort.each {|req| require req}
 
 ## Connect to MongoDB
-uri = URI.parse(ENV['MONGOLAB_URI'] || 'mongodb://localhost/roamtheblog')
-db  = uri.path.gsub(/^\//,'')
-MongoMapper.connection = Mongo::Connection.from_uri(uri.to_s)
-MongoMapper.database = db
+MongoMapper.setup(
+  {'production' => {'uri' => ENV['MONGOLAB_URI'] || 'mongodb://localhost:27017/roamtheblog'}}, 'production'
+)
 
-## Setup Email options
-SMTP_OPTS = {
-  :address => ENV['SMTP_HOST'],
-  :user_name => ENV['SMTP_USER'],
-  :password => ENV['SMTP_PASS'],
-  :port => ENV['SMTP_PORT'],
-  :authentication => ENV['SMTP_AUTH'],
-  :domain => ENV['SMTP_DOMAIN'] || 'localhost.localdomain'
+## Setup Pony
+Pony.options = {
+  :via => :smtp,
+  :via_options => {
+    :address => 'smtp.sendgrid.net',
+    :port => '587',
+    :domain => ENV['SENDGRID_DOMAIN'] || 'localhost.localdomain',
+    :user_name => ENV['SENDGRID_USERNAME'],
+    :password => ENV['SENDGRID_PASSWORD'],
+    :authentication => :plain,
+    :enable_starttls_auto => true
+  }
 }
 
 # Require sinatra apps
