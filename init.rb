@@ -9,7 +9,7 @@ require "bundler/setup"
 }.each {|req| require req }
 
 # Require custom libraries
-Dir["./lib/**/*.rb"].sort.each {|req| require req}
+Dir["./lib/*.rb"].sort.each {|req| require req}
 
 ## Connect to MongoDB
 MongoMapper.setup(

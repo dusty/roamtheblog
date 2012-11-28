@@ -37,7 +37,7 @@ class Design
     design = new
     design.name = 'Bootstrap'
     design.description = 'Based on twitter bootstrap'
-    Dir["templates/bootstrap/*.mustache"].each do |template|
+    Dir["./templates/bootstrap/*.mustache"].each do |template|
       attribute = File.basename(template, File.extname(template))
       design.send("#{attribute}=", File.read(template))
     end

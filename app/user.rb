@@ -2,7 +2,7 @@ module Roam
   class UserApp < BaseApp
 
     # Require mustache views
-    Dir["views/user/*.rb"].sort.each {|req| require req}
+    Dir["./views/user/*.rb"].sort.each {|req| require req}
 
     not_found do
       mustache(:missing, {})
