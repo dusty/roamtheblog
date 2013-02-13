@@ -1,16 +1,7 @@
 body {
-  padding-top: 60px;
   color: #232323;
   background: #f5f5f5;
   background: url('http://subtlepatterns.com/patterns/fabric_1.png');
-}
-
-div.container {
-  width: 990px;
-}
-
-div.navbar div.container {
-  width: 990px;
 }
 
 a.brand img {
@@ -72,13 +63,26 @@ article span.left img {
   margin-right: 10px;
 }
 
-
 a {
   color: #00438A;
 }
 
+div.container {
+  max-width: 990px;
+}
+
+div.navbar div.container {
+  max-width: 990px;
+}
+
 div#main {
-  font-family: 'PT Serif', serif;
+  background-color: #fff;
+  margin-bottom:30px;
+  padding:25px;
+  -webkit-border-radius:6px;
+  -moz-border-radius:6px;
+  border-radius:6px;
+  border: 1px solid #ccc;
 }
 
 div#main h1 { font-size: 30px; line-height: 1.25em; font-family: 'PT Sans', sans-serif; }
@@ -99,15 +103,7 @@ div#main ul li {
   font-size: 16px;
 }
 
-div#main {
-  background-color: #fff;
-  margin-bottom:30px;
-  padding:25px;
-  -webkit-border-radius:6px;
-  -moz-border-radius:6px;
-  border-radius:6px;
-  border: 1px solid #ccc;
-}
+
 
 div#main img {
   border: 2px solid #999;
@@ -119,7 +115,7 @@ div#main table, div#main table tr, div#main table tr td, div#main table th {
 }
 
 div#main table {
-  width: 900px;
+  max-width: 900px;
 }
 
 section.comments {

@@ -29,8 +29,6 @@
   <link rel="apple-touch-icon-precomposed" href="/images/ico/apple-touch-icon-57-precomposed.png">
   <link rel="shortcut icon" href="/images/ico/favicon.png">
 
-  <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic|PT+Serif:400,700,400italic,700italic' />
-
   {{#setting_analytics}}
   <script type="text/javascript">
     var _gaq = _gaq || [];
@@ -86,9 +84,9 @@
     </div>
     {{/setting_message}}
 
-    <div id="main"><!-- start #main -->
-{{{yield}}}
-    </div><!-- end #main -->
+    <div id="main">
+    {{{yield}}}
+    </div>
   </div>
 
   <footer class="footer">
@@ -99,7 +97,9 @@
   </footer>
 
   <!-- javascript -->
-  <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/js/bootstrap.min.js"></script>
+
   <script src="/jquery.autogrowtextarea.js"></script>
   <script src="/turbolinks.js.js"></script>
   <script src="/jquery.turbolinks.js"></script>
