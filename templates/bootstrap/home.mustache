@@ -22,7 +22,7 @@
 
   {{#active?}}
   {{#setting_disqus}}
-  <h3><a href="{{path}}#disqus_thread" data-disqus-identifier="{{slug}}">Comments</a></h3>
+  <h3><a href="{{path}}#disqus_thread" data-disqus-identifier="{{slug}}" data-no-turbolink="true">Comments</a></h3>
   {{/setting_disqus}}
   {{/active?}}
 
@@ -47,22 +47,3 @@
   </table>
 
 </section>
-
-{{#active?}}
-{{#setting_disqus}}
-<script type="text/javascript">
-  var disqus_shortname = '{{setting_disqus}}';
-  var disqus_identifier = '{{slug}}';
-  {{^production}}
-  var disqus_developer = 1;
-  {{/production}}
-  (function() {
-    var dsq = document.createElement('script');
-    dsq.type = 'text/javascript';
-    dsq.async = true;
-    dsq.src = 'http://{{setting_disqus}}.disqus.com/count.js';
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-  })();
-</script>
-{{/setting_disqus}}
-{{/active?}}
