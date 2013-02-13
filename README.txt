@@ -31,6 +31,7 @@ Requirements
   If you are going to deploy to Heroku, you must also install the heroku toolkit.
   Please see heroku.com for more instructions.
 
+
 Optimizations
   Roamtheblog is optimized to run behind a cache by setting a Cache-Control header
   to 300 seconds by default.  You can adjust that number as you wish in the
@@ -74,6 +75,7 @@ Running Locally:
   # git clone https://github.com/dusty/roamtheblog.git
   # cd roamtheblog
   # bundle install --path tmp/
+  # rake setup
   # rake run
 
   You can now see the blog at http://localhost:3000
@@ -87,6 +89,7 @@ Running on Heroku:
   # heroku create YOURAPPNAME
   # heroku addons:add mongolab:starter
   # git push heroku master
+  # heroku run rake setup
 
   You can now see the blog at http://YOURAPPNAME.heroku.com
 
@@ -98,6 +101,7 @@ Running on your server:
   # git clone https://github.com/dusty/roamtheblog.git
   # cd roamtheblog
   # bundle install --path tmp/
+  # rake setup
   # MONGOLAB_URI='mongodb://USERNAME:PASSWORD@HOST:PORT/DATABASE' rake start
 
 Admin Panel
@@ -199,8 +203,11 @@ Routes
     Otherwise, it will show the Home template with the most recent blog post.
 
   /blog
-    If setup with a page as the homepage, this will show the Blog template listing all posts.
-    Otherwise, it will show the Home template with the most recent blog post.
+    If setup with a page as the homepage, this will show the Home template most recent blog post.
+    Otherwise, it will slist all the blog posts
+
+  /posts
+    For when you have a page as the homepage, this will list all the blog posts
 
   /blog/:postname (eg: /blog/20110101-my-blog-post)
     Shows the Post template with the post that has the same name.
