@@ -12,11 +12,6 @@ Built With:
 Default template setup for use with:
   * Disqus
   * Google Analytics
-  * Feedburner
-  * Facebook
-  * Twitter
-  * YouTube
-  * SmugMug
 
 Markup
   Roamtheblog makes it easy to create a website and/or blog by using the
@@ -33,21 +28,19 @@ Requirements
   that will be running your blog.  If you don't want to run your own, I
   recommend using Heroku (heroku.com).
 
-  If you are going to deploy to Heroku, you must also install the heroku rubygem.
+  If you are going to deploy to Heroku, you must also install the heroku toolkit.
   Please see heroku.com for more instructions.
 
 Optimizations
-  Roamtheblog is optimized to run on Heroku by setting a Cache-Control header
+  Roamtheblog is optimized to run behind a cache by setting a Cache-Control header
   to 300 seconds by default.  You can adjust that number as you wish in the
   Settings panel.
 
-  Heroku or any other host that runs a cache such as Varnish in front of your
+  Any host that runs a cache such as Varnish in front of your
   app, will honor this setting and cache pages for this long. This means your
   app is only hit once every 5 minutes for each page.  The rest of the
   requests are served by the cache server.
 
-  This will speed up the site and help to keep your Heroku account from
-  being overwhelmed by limiting the number of requests that your app serves.
 
 MongoDB
   If you are running this locally or on your own server, you will need to have
@@ -309,17 +302,8 @@ Default Template
   activated in the layout.
 
   Enhancements
-    feedburner: enable feedburner RSS feeds with your feedburner id.
     analytics: track page visits with your google analytics id.
-
-  Links (on bottom of pages)
-    facebook: link to your facebook site/page
-    twitter: link to your twitter page
-    youtube: link to your youtube account
-    flickr: link to your flickr account
-    picasa: link to your picasa account
-    smugmug: link to your smugmug account
-    500px: link to your 500px account
+    disqus: enable comments using disqus
 
 FAQ
   Q. How do I make a Page as the homepage instead of the last blog post?
@@ -355,7 +339,7 @@ FAQ
      URL to the image, instead of a URL to the flickr page.
 
   Q. Why did you write this?
-  A. My wife and I are traveling around and blogging about it for our
+  A. My wife and were traveling around and blogging about it for our
      friends and family.  We were frustrated with Wordpress and didn't know
      of any simple alternatives that were easy to use for non-geeks (my wife).
      So I wrote this myself while we were traveling.

@@ -10,13 +10,10 @@ class Post
   key :location, String
   timestamps!
 
-  many :comments
-
   ensure_index [[:slug,1],[:published_at,1]], :unique => true
   ensure_index :tags
 
   validates_presence_of :title, :author, :body
-  validates_associated :comments
 
   before_save :generate_slug
 
@@ -98,6 +95,16 @@ class Post
 
   def self.tags
     collection.distinct(:tags, {:published_at => {'$lte' => Time.now.utc}}).sort
+  end
+
+  def self.create_default
+    return false unless count == 0
+    new(
+      :title => 'Example Post',
+      :body => 'This is an example post.',
+      :author => 'robot',
+      :published_at => Time.now
+    ).save
   end
 
   def html

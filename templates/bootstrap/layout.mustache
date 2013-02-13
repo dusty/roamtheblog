@@ -3,12 +3,9 @@
 <head>
   <meta charset="utf-8">
   <title>{{page_title}}</title>
-  {{#setting_feedburner}}
-  <link rel="alternate" type="application/rss+xml" title="{{site_title}} RSS Feed" href="http://feeds.feedburner.com/{{setting_feedburner}}" />
-  {{/setting_feedburner}}
-  {{^setting_feedburner}}
   <link rel="alternate" type="application/rss+xml" title="{{site_title}} RSS Feed" href="http://{{site_domain}}/index.xml" />
-  {{/setting_feedburner}}
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="{{site_title}}">
 
   <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
   <!--[if lt IE 9]>
@@ -16,29 +13,93 @@
   <![endif]-->
 
   <!-- Stylesheets -->
-  <link rel="stylesheet" type='text/css' href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css" />
-  <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic|PT+Serif:400,700,400italic,700italic' />
+  <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css" rel="stylesheet">
+  <style>
+    body {
+      padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+    }
+  </style>
+  <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-responsive.min.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="/style.css" />
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
-  <script src="http://twitter.github.com/bootstrap/1.4.0/bootstrap-alerts.js"></script>
+    <!-- Fav and touch icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/ico/apple-touch-icon-144-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/ico/apple-touch-icon-114-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/ico/apple-touch-icon-72-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" href="/images/ico/apple-touch-icon-57-precomposed.png">
+  <link rel="shortcut icon" href="/images/ico/favicon.png">
+
+  <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic|PT+Serif:400,700,400italic,700italic' />
+
+</head>
+
+<body>
+
+  <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="/">
+            <img src="/images/world-dark.png" alt="logo" />
+            {{site_domain}}
+          </a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li><a href="/blog">What</a></li>
+              <li><a href="/map">Where</a></li>
+              <li><a href="/about">Why</a></li>
+              <li><a href="/motivation">How</a></li>
+              <li><a href="/cost">Cost</a></li>
+              <li><a href="http://media.roamthepla.net" target="x-pics">Pics</a></li>
+            </ul>
+            <ul class="nav secondary-nav">
+              <li>{{{site_map}}}</li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+  <div class="container">
+
+    {{#setting_message}}
+    <div class="alert #{css_class}">
+      <a class="close" data-dismiss="alert" href="#">&times;</a>
+      <p>{{{setting_message}}}</p>
+    </div>
+    {{/setting_message}}
+
+    <div id="main"><!-- start #main -->
+{{{yield}}}
+    </div><!-- end #main -->
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <p class="pull-right">&copy; {{site_domain}}</p>
+      <p>Powered by <a href="https://github.com/dusty/roamtheblog" target="x-github">roamtheblog</a> software</p>
+    </div>
+  </footer>
+
+  <!-- javascript -->
+  <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
   <script src="/jquery.autogrowtextarea.js"></script>
+  <script src="/turbolinks.js.js"></script>
+  <script src="/jquery.turbolinks.js"></script>
+  <script src="/application.js"></script>
 
   <script type="text/javascript">
-    function activateNavbar() {
+    (function(){
       // var path = location.pathname.replace (/^(\/.+?\/.+?)\/.+$/, '$1');
       var path = location.pathname.replace (/^(\/.+?)\/.+$/, '$1');
       console.log("AT: " + path);
       $('ul.nav li').removeClass("active");
       $('ul.nav a[href="' + path + '"]').parent().addClass("active");
-    }
-    function growTextArea() {
-      $("textarea.xxlarge").autoGrow();
-    }
-    $(function(){
-      activateNavbar();
-      growTextArea();
-    })
+    })();
   </script>
 
   {{#setting_analytics}}
@@ -53,100 +114,7 @@
     })();
   </script>
   {{/setting_analytics}}
-</head>
 
-<body>
-
-  <div class="topbar">
-    <div class="fill">
-      <div class="container">
-        <a class="brand" href="/">
-          <img src="/images/world.png" alt="logo" />
-          {{site_domain}}
-        </a>
-        <ul class="nav">
-          <li><a href="/blog">What</a></li>
-          <li><a href="/map">Where</a></li>
-          <li><a href="/about">Why</a></li>
-          <li><a href="/motivation">How</a></li>
-          <li><a href="/cost">Cost</a></li>
-          <li><a href="http://media.roamthepla.net" target="x-pics">Pics</a></li>
-        </ul>
-        <ul class="nav secondary-nav">
-          <li>{{{site_map}}}</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <div class="container">
-    <div class="message pull-right">
-      {{#setting_message}}
-      <div class="alert-message warning fade in" data-alert="alert">
-        <a class="close" href="#">x</a>
-        <p>{{{setting_message}}}</p>
-      </div>
-      {{/setting_message}}
-    </div>
-    <div id="main"><!-- start #main -->
-{{{yield}}}
-    </div><!-- end #main -->
-  </div>
-
-  <footer class="footer">
-    <div class="container">
-      <p class="pull-right">&copy; {{site_domain}}</p>
-      <p class="links">
-        {{#setting_feedburner}}
-        <a href="http://feeds.feedburner.com/{{setting_feedburner}}"
-          rel="alternate" type="application/rss+xml"
-          target="x-feed"><img src="/images/rss.png" alt="rss" /> RSS</a>
-        {{/setting_feedburner}}
-
-        {{#setting_feedburner}}
-        <a href="http://feedburner.google.com/fb/a/mailverify?uri={{setting_feedburner}}&amp;loc=en_US"
-          target="x-email"><img src="/images/email.png" alt="email" /> Email</a>
-        {{/setting_feedburner}}
-
-        {{#setting_facebook}}
-        <a href="http://www.facebook.com/pages/{{setting_facebook}}"
-          target="x-facebook"><img src="/images/facebook.png" alt="facebook"> Facebook</a>
-        {{/setting_facebook}}
-
-        {{#setting_twitter}}
-        <a href="http://twitter.com/{{setting_twitter}}"
-          target="x-twitter"><img src="/images/twitter.png" alt="twitter"> Twitter</a>
-        {{/setting_twitter}}
-
-        {{#setting_youtube}}
-        <a href="http://www.youtube.com/user/{{setting_youtube}}"
-          target="x-youtube"><img src="/images/youtube.png" alt="youtube"> YouTube</a>
-        {{/setting_youtube}}
-
-        {{#setting_flickr}}
-        <a href="http://www.flickr.com/photos/{{setting_flickr}}"
-          target="x-flickr"><img src="/images/flickr.png" alt="flickr"> Flickr</a>
-        {{/setting_flickr}}
-
-        {{#setting_picasa}}
-        <a href="http://picasaweb.google.com/{{setting_picasa}}/"
-           target="x-picasa"><img src="/images/picasa.png" alt="picasa"> Picasa</a>
-        {{/setting_picasa}}
-
-        {{#setting_smugmug}}
-        <a href="http://{{setting_smugmug}}/"
-           target="x-smugmug"><img src="/images/smugmug.png" alt="smugmug"> SmugMug</a>
-        {{/setting_smugmug}}
-
-        {{#setting_500px}}
-        <a href="http://{{setting_500px}}/"
-           target="x-500px"><img src="/images/500px.png" alt="500px"> 500px</a>
-        {{/setting_500px}}
-      </p>
-      <p style="text-align: center">powered by <a href="https://github.com/dusty/roamtheblog"
-                       target="x-github">roamtheblog</a> software</p>
-    </div>
-  </footer>
 
 </body>
 </html>

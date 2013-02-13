@@ -1,11 +1,15 @@
 body {
   padding-top: 60px;
   color: #232323;
-  /* background: #f5f5f5; */
-  background: url('http://subtlepatterns.com/patterns/old_wall.png');
+  background: #f5f5f5;
+  background: url('http://subtlepatterns.com/patterns/fabric_1.png');
 }
 
 div.container {
+  width: 990px;
+}
+
+div.navbar div.container {
   width: 990px;
 }
 
@@ -25,10 +29,6 @@ a.brand img {
 .xtiny {
   font-size: 60%;
   font-weight: normal;
-}
-
-div.message {
-  width: 350px;
 }
 
 span.label {
@@ -72,13 +72,6 @@ article span.left img {
   margin-right: 10px;
 }
 
-footer p.links a {
-  margin-left: 1em;
-}
-
-footer p.links a img {
-  vertical-align: text-bottom;
-}
 
 a {
   color: #00438A;
@@ -136,31 +129,44 @@ section.comments {
   padding-top: 25px;
 }
 
-section.comments dl dt {
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  font-size: 1.1em;
-  padding: 10px;
-  background: rgb(238,238,238);
-  color: #888;
-}
-
-section.comments dl dd {
-  font-size: 1.2em;
-  color: #777;
-  margin: 1em 0 2em 1em;
-}
-
-section.comments div.actions {
-  border-radius: 3px;
-  border: none;
-  border: 1px solid #ddd;
-}
-
 section.recent td.time {
   width: 200px;
 }
 
 section.recent td {
   font-size: 125%;
+}
+
+.footer {
+  text-align: center;
+  padding: 30px 0;
+  margin-top: 70px;
+  border-top: 1px solid #e5e5e5;
+  background-color: #f5f5f5;
+}
+.footer p {
+  margin-bottom: 0;
+  color: #777;
+}
+.footer-links {
+  margin: 10px 0;
+}
+.footer-links li {
+  display: inline;
+  padding: 0 2px;
+}
+.footer-links li:first-child {
+  padding-left: 0;
+}
+
+span.label a {
+  color: #fff;
+}
+
+div.alert {
+  width: 400px;
+  padding-left: 15px;
+  position: fixed;
+  top: 60px;
+  right: 5px
 }

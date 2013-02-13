@@ -122,17 +122,11 @@ module Roam
 
     put '/blog/:id' do
       not_found unless post = Post.by_slug(params[:id])
-      unless params[:comments].blank?
-        puts "Potential Bot Post"
+      if post.save
         redirect("/blog/#{params[:id]}")
-      end
-      comment = Comment.new(params[:comment])
-      comment.ip = request.ip
-      if comment.valid? && post.comments.push(comment) && post.save
-        redirect("/blog/#{params[:id]}#comments")
       else
         posts = Post.near(post,2)
-        mustache(:post, {:post => post, :posts => posts, :comment => comment})
+        mustache(:post, {:post => post, :posts => posts})
       end
     end
 

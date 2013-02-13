@@ -80,50 +80,6 @@ module Roam
           end
         end
 
-        def comments
-          @post.comments.map do |comment|
-            {
-              :name => comment.name,
-              :comment => comment.comment,
-              :date => get_long_date(comment.created_at),
-              :datetime => get_datetime(comment.created_at),
-              :url => comment.url
-            }
-          end
-        end
-
-        def comments_count
-          @post.comments.count
-        end
-
-        def comment_name
-          @comment.name if @comment
-        end
-
-        def comment_email
-          @comment.email if @comment
-        end
-
-        def comment_comment
-          @comment.comment if @comment
-        end
-
-        def comment_url
-          @comment.url if @comment
-        end
-
-        def comment_errors?
-          !comment_errors.blank?
-        end
-
-        def comment_errors
-          @comment.errors.full_messages.map do |error|
-            {
-              :message => error
-            }
-          end if @comment
-        end
-
       end
     end
   end

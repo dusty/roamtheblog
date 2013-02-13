@@ -3,15 +3,13 @@
     <h1><a href="{{path}}">{{title}}</a></h1>
     <blockquote>
     <p>
-    <time datetime="{{datetime}}">{{date}}</time>
-    &middot;
+    <time>{{date}}</time>
+    ·
     by {{author}}
-    &middot;
-    <a href="{{path}}#comments">{{comments_count}} Comments</a>
     {{#has_tags?}}
-      &middot;
+      ·
       {{#tag_list}}
-        <a href="{{path}}">{{tag}}</a>{{^last?}},&nbsp;{{/last?}}
+        <a href="{{path}}">{{tag}}</a>{{^last?}}, {{/last?}}
       {{/tag_list}}
     {{/has_tags?}}
     </p>
@@ -22,26 +20,49 @@
     {{{html}}}
   </section>
 
-  <h3><a href="{{path}}#comments">{{comments_count}} Comments</a></h3>
+  {{#active?}}
+  {{#setting_disqus}}
+  <h3><a href="{{path}}#disqus_thread" data-disqus-identifier="{{slug}}">Comments</a></h3>
+  {{/setting_disqus}}
+  {{/active?}}
 
 </article>
 
 <section class="recent">
   <header>
-    <h2>More Posts <span class="label notice"><a href="/posts">All</a></span></h2>
+    <h2>More Posts <span class="label notice"><a href="/blog">All</a></span></h2>
   </header>
 
   <table>
     <tr>
-      <td class="time"><time datetime="{{datetime}}">{{date}}</time></td>
+      <td class="time"><time>{{date}}</time></td>
       <td>{{title}}</td>
     </tr>
     {{#posts}}
     <tr>
-      <td class="time"><time datetime="{{datetime}}">{{date}}</time></td>
+      <td class="time"><time>{{date}}</time></td>
       <td><a href="{{path}}">{{title}}</a></td>
     </tr>
     {{/posts}}
   </table>
 
 </section>
+
+{{#active?}}
+{{#setting_disqus}}
+<script type="text/javascript">
+  var disqus_shortname = '{{setting_disqus}}';
+  var disqus_identifier = '{{slug}}';
+  {{^production}}
+  var disqus_developer = 1;
+  {{/production}}
+  (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = 'http://{{setting_disqus}}.disqus.com/count.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+{{/setting_disqus}}
+{{/active?}}

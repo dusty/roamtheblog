@@ -39,10 +39,6 @@ module Roam
           @post.active?
         end
 
-        def comments_count
-          @post.comments.count
-        end
-
         def has_tags?
           !@post.tags.empty?
         end

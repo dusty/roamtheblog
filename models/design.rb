@@ -13,6 +13,7 @@ class Design
   key :script, String
   key :error, String
   key :missing, String
+
   timestamps!
 
   validates_presence_of :name, :layout, :blog, :feed, :home, :page, :post
@@ -29,15 +30,15 @@ class Design
 
   def self.create_default
     return false unless count == 0
-    design = copy_default
+    design = load_template
     design.save && design
   end
 
-  def self.copy_default
+  def self.load_template(name='bootstrap')
     design = new
     design.name = 'Bootstrap'
     design.description = 'Based on twitter bootstrap'
-    Dir["./templates/bootstrap/*.mustache"].each do |template|
+    Dir["./templates/#{name}/*.mustache"].each do |template|
       attribute = File.basename(template, File.extname(template))
       design.send("#{attribute}=", File.read(template))
     end
