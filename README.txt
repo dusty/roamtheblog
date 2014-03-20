@@ -86,8 +86,9 @@ Running on Heroku:
 
   # git clone https://github.com/dusty/roamtheblog.git
   # cd roamtheblog
-  # heroku create YOURAPPNAME
-  # heroku addons:add mongolab:starter
+  # heroku apps:create YOURAPPNAME
+  # heroku addons:add mongolab
+  # heroku addons:add sendgrid
   # git push heroku master
   # heroku run rake setup
 
@@ -224,7 +225,7 @@ Variables
   http://mustache.github.com/mustache.5.html
 
   Site-Wide:
-    setting_xxxx: variables added in the Settings panel, prefixed by _setting
+    setting_xxxx: variables added in the Settings panel, prefixed by setting_
     site_domain: domain of the site (eg: mydomain.com)
     site_title: title of site
     site_location: location of the site or authors of the site
