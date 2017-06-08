@@ -1,5 +1,4 @@
-$: << File.join(File.dirname(__FILE__))
-require 'init'
+require './app'
 
 run Rack::URLMap.new(
   '/'      => Roam::UserApp.new,

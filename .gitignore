@@ -1,6 +1,4 @@
-.DS_Store
-log/*
-tmp/*
-.bundle/*
-vendor/*
-!vendor/cache
+.env
+.bundle
+.dockerignore
+now.json
